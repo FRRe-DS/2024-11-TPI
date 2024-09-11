@@ -44,7 +44,7 @@ function Navbar() {
             {/* Sidebar y Overlay para pantallas móviles */}
             <Sidebar isOpen={isOpen} toggleSidebar={toggleSidebar} />
         </div>
-    );
-}
+        );
+        }
 
 export default Navbar;

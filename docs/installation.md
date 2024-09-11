@@ -36,6 +36,7 @@ Para más detalles, consulta [Pre Condiciones](docs/preconditions.md).
     ```bash
     npm install react@latest react-dom@latest
     yarn add react@latest react-dom@latest
+   yarn add -D @types/react @types/react-dom
     ```
 
 4. **Instalar Tailwind CSS y Herramientas Relacionadas:**
