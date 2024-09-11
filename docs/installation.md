@@ -37,6 +37,8 @@ Para más detalles, consulta [Pre Condiciones](docs/preconditions.md).
     npm install react@latest react-dom@latest
     yarn add react@latest react-dom@latest
    yarn add -D @types/react @types/react-dom
+   yarn add axios
+
     ```
 
 4. **Instalar Tailwind CSS y Herramientas Relacionadas:**

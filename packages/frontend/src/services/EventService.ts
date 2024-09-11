@@ -1,36 +1,47 @@
-// Importa la librería axios para hacer peticiones HTTP
 import axios from 'axios';
 
-// Define la URL base para las peticiones al backend
-const API_URL = 'http://localhost:3000/api/events'; // Reemplaza con tu URL real
+const API_URL = 'http://localhost:3000/eventos';
 
-/**
- * Obtiene una lista de eventos desde el backend.
- * @returns Una promesa que resuelve con la lista de eventos.
- */
-export const fetchEvents = async () => {
+// Obtener todos los eventos
+export const getEventos = async () => {
     try {
-        // Realiza una solicitud GET a la API para obtener eventos
         const response = await axios.get(API_URL);
-        return response.data; // Devuelve los datos de la respuesta
+        return response.data; // Los datos de los eventos que devuelve el backend
     } catch (error) {
-        console.error('Error al obtener eventos:', error); // Manejo de errores
-        throw error; // Lanza el error para que pueda ser manejado por el componente
+        console.error('Error al obtener los eventos:', error);
+        throw error;
     }
 };
 
-/**
- * Obtiene un evento específico por ID.
- * @param id - El ID del evento a obtener.
- * @returns Una promesa que resuelve con el evento solicitado.
- */
-export const fetchEventById = async (id: string) => {
+// Crear un nuevo evento
+export const createEvento = async (eventoData: any) => {
     try {
-        // Realiza una solicitud GET a la API para obtener un evento específico
-        const response = await axios.get(`${API_URL}/${id}`);
-        return response.data; // Devuelve los datos del evento
+        const response = await axios.post(API_URL, eventoData);
+        return response.data; // El nuevo evento creado
     } catch (error) {
-        console.error('Error al obtener el evento:', error); // Manejo de errores
-        throw error; // Lanza el error para que pueda ser manejado por el componente
+        console.error('Error al crear el evento:', error);
+        throw error;
+    }
+};
+
+// Actualizar un evento existente
+export const updateEvento = async (id: string, eventoData: any) => {
+    try {
+        const response = await axios.put(`${API_URL}/${id}`, eventoData);
+        return response.data; // El evento actualizado
+    } catch (error) {
+        console.error('Error al actualizar el evento:', error);
+        throw error;
+    }
+};
+
+// Eliminar un evento
+export const deleteEvento = async (id: string) => {
+    try {
+        const response = await axios.delete(`${API_URL}/${id}`);
+        return response.data; // Confirmación de la eliminación
+    } catch (error) {
+        console.error('Error al eliminar el evento:', error);
+        throw error;
     }
 };
