@@ -1,5 +1,5 @@
-import { useState } from 'react';
-import { login, logout, getUser } from '../services/AuthService'; // Importa las funciones del servicio
+import { login, logout, getUser } from '../services/AuthService';
+import {useState} from "react"; // Importa las funciones del servicio
 
 // Define el tipo de usuario
 interface User {
