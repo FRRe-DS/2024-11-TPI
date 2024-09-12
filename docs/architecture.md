@@ -25,7 +25,7 @@ El backend está organizado en:
 - **src/models/**: Modelos para la base de datos.
 - **index.js**: Punto de entrada del servidor.
 
-Para más detalles, consulta la [Documentación de API](docs/postman.md).
+Para más detalles, consulta la [Documentación de API](postman.md).
 
-Puedes consultar la documentación en [Documentos](docs/docs.md)
+Puedes consultar la documentación en [Documentos](docs.md)
 
