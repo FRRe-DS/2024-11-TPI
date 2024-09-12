@@ -22,4 +22,4 @@ Puedes consultar la documentación de la API en [Documentación de API](postman.
 
 Puedes consultar la documentación en [Documentos](docs.md)
 
-Puedes consultar el proposito de los archivos en [Propositos](iam.md)
+Puedes consultar el proposito de los archivos en [Propositos](docs/iam.md)
