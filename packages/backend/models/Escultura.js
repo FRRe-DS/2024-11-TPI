@@ -1,28 +1,20 @@
 const { DataTypes } = require('sequelize');
 const sequelize = require('../config/database');
 
-const Evento = sequelize.define('Evento', {
+const Escultura = sequelize.define('Escultura', {
     nombre: {
-        type: DataTypes.STRING,
-        allowNull: false,
-    },
-    fecha: {
-        type: DataTypes.DATE,
-        allowNull: false,
-    },
-    lugar: {
         type: DataTypes.STRING,
         allowNull: false,
     },
     descripcion: {
         type: DataTypes.TEXT,
     },
+    fechaCreacion: {
+        type: DataTypes.DATE,
+    },
     tematica: {
         type: DataTypes.STRING,
     },
-}, {
-    timestamps: true,
-    tableName: 'eventos',
 });
 
-module.exports = Evento;
+module.exports = Escultura;
