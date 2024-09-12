@@ -63,7 +63,7 @@ Para más detalles, consulta [Pre Condiciones](docs/preconditions.md).
     yarn install
     ```
 
-## Configuración del Entorno
+## Configuración del Entorno(Esto esta ya hecho)
 
 1. **Configurar Tailwind CSS:**
 
