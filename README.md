@@ -9,7 +9,7 @@ Bienvenido al proyecto Bienal del Chaco 2024. Aquí encontrarás toda la informa
 - [Arquitectura del Proyecto](docs/architecture.md)
 - [Uso](docs/usage.md)
 - [Documentación de API](docs/postman.md)
-- [Pre Condición](docs/preconditions.md)
+- [Pre Condición](docs/precondicion.md)
 - [Instalación](docs/installation.md)
 - [Guia de Git](docs/github_guide.md) 
 - [Resolución de Problemas](docs/troublesshooting.md)

@@ -4,7 +4,7 @@ Sigue estos pasos para configurar el proyecto en tu entorno local.
 
 ## Requisitos Previos 
 
-Para más detalles, consulta [Pre Condiciones](docs/preconditions.md).
+Para más detalles, consulta [Pre Condiciones](preconditions.md).
 
 ## Clonar el Repositorio
 
