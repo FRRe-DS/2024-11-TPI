@@ -18,7 +18,5 @@
     "mysql2": "^3.11.0",
     "sequelize": "^6.37.3"
   },
-  "dependencies": {
-    "express": "^5.0.0"
-  }
+  "dependencies": {}
 }

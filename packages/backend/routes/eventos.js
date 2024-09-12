@@ -40,10 +40,10 @@ router.get('/:id', async (req, res) => {
 router.put('/:id', async (req, res) => {
     try {
         const eventoActualizado = await Evento.update(req.body, { where: { id: req.params.id } });
-        if (!eventoActualizado) {
+        if (!eventoActualizado[0]) {
             return res.status(404).json({ error: 'Evento no encontrado' });
         }
-        res.json(eventoActualizado);
+        res.json({ message: 'Evento actualizado' });
     } catch (err) {
         res.status(400).json({ error: err.message });
     }
