@@ -4,6 +4,7 @@ import Footer from '../components/layout/Footer';
 import Hero from "../components/layout/Hero";
 import Navbar from "../components/layout/Navbar.tsx";
 import { getEventos, createEvento, updateEvento, deleteEvento } from '../services/EventService';
+import CreateActivity from "./CreateActivity.tsx";
 
 const Activities: React.FC = () => {
     const [eventos, setEventos] = useState<any[]>([]);
@@ -68,6 +69,7 @@ const Activities: React.FC = () => {
             <Navbar />
             <Hero />
             <Header />
+            <CreateActivity />
             <main className="p-4">
                 <h1 className="text-2xl font-bold mb-4">Eventos</h1>
                 <button onClick={handleCreate} className="bg-blue-500 text-white py-2 px-4 rounded mb-4">Crear Evento</button>

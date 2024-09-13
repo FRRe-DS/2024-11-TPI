@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { fetchEvents } from '../services/EventService'; // Importa la función del servicio
+import { getEventos } from '../services/EventService'; // Importa la función del servicio
 
 /**
  * Hook personalizado para manejar la lógica de obtención de eventos.
@@ -16,7 +16,7 @@ const useEvents = () => {
     useEffect(() => {
         const loadEvents = async () => {
             try {
-                const fetchedEvents = await fetchEvents(); // Llama al servicio para obtener eventos
+                const fetchedEvents = await getEventos(); // Llama al servicio para obtener eventos
                 setEvents(fetchedEvents); // Actualiza el estado con eventos
             } catch (err) {
                 setError('Error al cargar eventos'); // Maneja errores

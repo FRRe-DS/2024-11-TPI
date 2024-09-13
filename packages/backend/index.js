@@ -5,6 +5,8 @@ const eventosRouter = require('./routes/eventos');
 const escultoresRouter = require('./routes/escultores');
 const esculturasRouter = require('./routes/esculturas');
 const imagenesRouter = require('./routes/imagenes');
+const authRoutes = require('./routes/authRoutes');
+const userRoutes = require('./routes/userRoutes');
 
 const app = express();
 const PORT = 3000;
@@ -18,6 +20,8 @@ app.use('/eventos', eventosRouter);
 app.use('/escultores', escultoresRouter);
 app.use('/esculturas', esculturasRouter);
 app.use('/imagenes', imagenesRouter);
+app.use('/api/auth', authRoutes);
+app.use('/api/user', userRoutes);
 
 // Iniciar el servidor y la conexión con la base de datos
 sequelize.sync({ alter: true }).then(() => {
@@ -31,3 +35,11 @@ sequelize.sync({ alter: true }).then(() => {
 }).catch(err => {
     console.error('Error al conectar con la base de datos:', err);
 });
+
+sequelize.sync({ alter: true }) // Usa alter: true para actualizar la tabla sin eliminarla
+    .then(() => {
+        console.log('Base de datos sincronizada correctamente');
+    })
+    .catch(err => {
+        console.error('Error al sincronizar la base de datos:', err);
+    });
