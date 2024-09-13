@@ -40,6 +40,8 @@ Para más detalles, consulta [Pre Condiciones](precondicion.md).
    yarn add axios
 
     ```
+   
+
 
 4. **Instalar Tailwind CSS y Herramientas Relacionadas:**
 
@@ -61,6 +63,25 @@ Para más detalles, consulta [Pre Condiciones](precondicion.md).
 
     ```bash
     yarn install
+    ```
+
+7. **Navega al Directorio del Backend:**
+
+   Abre una nueva terminal en la raiz e ingresa:
+
+    ```bash
+    cd packages/backend
+    ```
+
+8. **Instalar Dependencias de backend:**
+
+    ```bash
+   yarn add nodemon --dev
+   yarn add bcryptjs
+   yarn add mongoose
+   yarn add jsonwebtoken
+   
+   yarn install
     ```
 
 ## Configuración del Entorno(Esto esta ya hecho)
