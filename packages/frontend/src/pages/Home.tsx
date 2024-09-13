@@ -3,6 +3,7 @@ import Header from '../components/layout/Header';
 import Footer from '../components/layout/Footer';
 import Hero from "../components/layout/Hero";
 import Navbar from "../components/layout/Navbar.tsx";
+import CreateActivity from "./CreateActivity.tsx";
 
 const Home: React.FC = () => {
     return (
@@ -10,6 +11,7 @@ const Home: React.FC = () => {
             <Navbar />
             <Hero />
             <Header />
+            <CreateActivity />
             <Footer />
         </div>
     );

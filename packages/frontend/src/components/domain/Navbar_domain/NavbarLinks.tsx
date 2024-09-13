@@ -19,7 +19,7 @@ const NavbarLinks = () => {
             </div>
             <ul className="menu menu-sm dropdown-content bg-base-100 rounded-box z-[1] mt-3 w-52 p-2 shadow">
                 <li><Link to="/" className="hover:underline">Home</Link></li>
-                <li><Link to="/Activities" className="hover:underline">Activities</Link></li>
+                <li><Link to="/Events" className="hover:underline">Events</Link></li>
                 <li><Link to="/Patron" className="hover:underline">Patron</Link></li>
                 <li><Link to="/Editions" className="hover:underline">Other Editions</Link></li>
                 <li><Link to="/LAE" className="hover:underline">LAE</Link></li>

@@ -55,6 +55,7 @@ Para más detalles, consulta [Pre Condiciones](precondicion.md).
 
     ```bash
     yarn add @fortawesome/fontawesome-free
+   
     ```
 
 6. **Instalar Dependencias Adicionales:**

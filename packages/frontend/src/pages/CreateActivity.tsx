@@ -1,8 +1,11 @@
-// src/pages/CreateActivity.tsx
 import React, { useState } from 'react';
 import { createEvento } from '../services/EventService';
 
-const CreateActivity: React.FC = () => {
+interface CreateActivityProps {
+    onEventCreated: () => void;
+}
+
+const CreateActivity: React.FC<CreateActivityProps> = ({ onEventCreated }) => {
     const [title, setTitle] = useState('');
     const [date, setDate] = useState('');
     const [place, setPlace] = useState('');
@@ -15,6 +18,12 @@ const CreateActivity: React.FC = () => {
         try {
             await createEvento(newEvent);
             alert('Evento creado con éxito');
+            setTitle('');
+            setDate('');
+            setPlace('');
+            setDescription('');
+            setTheme('');
+            onEventCreated(); // Trigger event list refresh
         } catch (error) {
             console.error('Error al crear el evento:', error);
         }
@@ -22,7 +31,7 @@ const CreateActivity: React.FC = () => {
 
     return (
         <div>
-            <h1>Crear Nuevo Evento</h1>
+            <h2>Crear Nuevo Evento</h2>
             <form onSubmit={handleSubmit}>
                 <input value={title} onChange={(e) => setTitle(e.target.value)} placeholder="Título" required />
                 <input value={date} onChange={(e) => setDate(e.target.value)} type="date" required />

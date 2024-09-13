@@ -1,10 +1,13 @@
 import AppRouter from './router';
+import { EventProvider } from './context/EventContext';
 
 function App() {
     return (
-        <div className="App min-h-screen flex flex-col">
-            <AppRouter />
-        </div>
+        <EventProvider>
+            <div className="App min-h-screen flex flex-col">
+                <AppRouter />
+            </div>
+        </EventProvider>
     );
 }
 

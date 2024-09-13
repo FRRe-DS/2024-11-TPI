@@ -19,8 +19,8 @@ function Sidebar({ isOpen, toggleSidebar }: SidebarProps) {
 
                 <div className="flex flex-col items-center mt-12">
                     <Link to="/" className="text-white text-xl mb-4 hover:underline" onClick={toggleSidebar}>Home</Link>
-                    <Link to="/Activities" className="text-white text-xl mb-4 hover:underline"
-                          onClick={toggleSidebar}>Activities</Link>
+                    <Link to="/Events" className="text-white text-xl mb-4 hover:underline"
+                          onClick={toggleSidebar}>Events</Link>
                     <Link to="/Patron" className="text-white text-xl mb-4 hover:underline"
                           onClick={toggleSidebar}>Patron</Link>
                     <Link to="/Editions" className="text-white text-xl mb-4 hover:underline"
