@@ -10,7 +10,7 @@ src/: Contiene el código fuente de la aplicación.
 - hooks/: Hooks personalizados.
 - pages/: Vistas completas.
 - Home.tsx: Página de inicio.
-- Activities.tsx: Página que muestra actividades.
+- Events.tsx: Página que muestra actividades.
 - CreateActivity.tsx: Página para crear nuevas actividades.
 - services/: Servicios para interactuar con la API (por ejemplo, EventService.ts).
 - styles/: Estilos globales y específicos.

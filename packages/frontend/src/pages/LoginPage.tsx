@@ -16,7 +16,7 @@ const Login: React.FC = () => {
         try {
             await login(username, password);
             alert('Inicio de sesión exitoso');
-            navigate('/'); // Redirige al home después de login exitoso
+            navigate('/AdminEvents'); // Redirige al home después de login exitoso
         } catch (error) {
             console.error('Error al iniciar sesión:', error);
             setError('Error al iniciar sesión. Por favor, revisa tus credenciales.');
