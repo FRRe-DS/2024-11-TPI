@@ -8,7 +8,7 @@ import LoginPage from './pages/LoginPage';  // Página de login
 import AdminPage from './pages/AdminPage';  // Página de administración
 import VotingPage from './pages/VotingPage'; // Página de votación para usuarios normales
 import ForbiddenPage from './pages/ForbiddenPage'; // Página de acceso prohibido
-import ProtectedRoute from './components/ProtectedRoute';
+import ProtectedRoute from './ProtectedRoute.tsx';
 import AdminEvents from "./pages/AdminEvents.tsx"; // Ruta protegida
 
 function AppRouter() {
@@ -22,6 +22,7 @@ function AppRouter() {
                 <Route path="/lae" element={<LAE />} />
                 <Route path="/login" element={<LoginPage />} />
                 <Route path="/adminevents" element={<AdminEvents />} />
+                <Route path="/adminpage" element={<AdminPage />} />
                 <Route path="/forbidden" element={<ForbiddenPage />} />
                 <Route
                     path="/admin"

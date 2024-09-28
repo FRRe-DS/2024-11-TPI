@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 import { Navigate } from 'react-router-dom';
-import { getUser } from '../services/AuthService'; // Servicio para obtener el usuario autenticado
+import { getUser } from './services/AuthService.ts'; // Servicio para obtener el usuario autenticado
 
 const ProtectedRoute = ({ children, requiredRole }: { children: JSX.Element, requiredRole: string }) => {
     const [user, setUser] = useState<any>(null); // Estado para almacenar los datos del usuario
