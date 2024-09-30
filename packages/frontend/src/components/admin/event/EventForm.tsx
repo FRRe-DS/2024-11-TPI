@@ -1,7 +1,7 @@
-import React, { useState, useEffect } from 'react';
-import { getEventos, createEvento, deleteEvento } from '../../services/EventService.ts';
+import React, {useEffect, useState} from 'react';
+import { getEventos, createEvento, deleteEvento } from '../../../services/EventService.ts';
 
-const CreateActivity: React.FC = () => {
+const EventForm: React.FC = () => {
     const [eventos, setEventos] = useState<any[]>([]);
     const [title, setTitle] = useState('');
     const [date, setDate] = useState('');
@@ -102,4 +102,4 @@ const CreateActivity: React.FC = () => {
     );
 };
 
-export default CreateActivity;
+export default EventForm;

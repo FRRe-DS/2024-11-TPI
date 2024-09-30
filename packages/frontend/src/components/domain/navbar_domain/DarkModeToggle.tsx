@@ -1,4 +1,4 @@
-// src/domain/Navbar_domain/DarkModeToggle.tsx
+// src/domain/navbar_domain/DarkModeToggle.tsx
 import React from 'react';
 
 interface DarkModeToggleProps {

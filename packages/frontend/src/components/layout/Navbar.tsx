@@ -1,9 +1,9 @@
 import { useState } from 'react';
 import Sidebar from './Sidebar';
-import NavbarLogo from '../domain/Navbar_domain/NavbarLogo';
-import NavbarLinks from '../domain/Navbar_domain/NavbarLinks';
-import NavbarSearch from '../domain/Navbar_domain/NavbarSearch';
-import DarkModeToggle from '../domain/Navbar_domain/DarkModeToggle';
+import NavbarLogo from '../domain/navbar_domain/NavbarLogo';
+import NavbarLinks from '../domain/navbar_domain/NavbarLinks';
+import NavbarSearch from '../domain/navbar_domain/NavbarSearch';
+import DarkModeToggle from '../domain/navbar_domain/DarkModeToggle';
 
 function Navbar() {
     const [isOpen, setIsOpen] = useState(false);
@@ -20,7 +20,7 @@ function Navbar() {
 
     return (
         <div>
-            {/* Navbar_domain para pantallas grandes */}
+            {/* navbar_domain para pantallas grandes */}
             <nav className="hidden md:flex justify-between items-center p-4 bg-gray-800 text-white">
                 <NavbarLinks />
                 <NavbarLogo />
@@ -28,7 +28,7 @@ function Navbar() {
                 <DarkModeToggle toggleDarkMode={toggleDarkMode} />
             </nav>
 
-            {/* Navbar_domain para pantallas móviles */}
+            {/* navbar_domain para pantallas móviles */}
             <nav className="md:hidden bg-gray-800">
                 <div className="flex justify-between items-center p-4">
                     <NavbarLogo />
