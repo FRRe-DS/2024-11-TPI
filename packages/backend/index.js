@@ -1,3 +1,4 @@
+// index.js
 const express = require('express');
 const cors = require('cors');
 const sequelize = require('./config/database');
@@ -7,6 +8,7 @@ const esculturasRouter = require('./routes/esculturas');
 const imagenesRouter = require('./routes/imagenes');
 const authRoutes = require('./routes/authRoutes');
 const userRoutes = require('./routes/userRoutes');
+const sponsorRoutes = require('./routes/sponsorRoutes'); // Importar las rutas de patrocinadores
 
 const app = express();
 const PORT = 3000;
@@ -22,6 +24,7 @@ app.use('/esculturas', esculturasRouter);
 app.use('/imagenes', imagenesRouter);
 app.use('/api/auth', authRoutes);
 app.use('/api/user', userRoutes);
+app.use('/api/sponsors', sponsorRoutes); // Agregar ruta para patrocinadores
 
 // Iniciar el servidor y la conexión con la base de datos
 sequelize.sync({ alter: true }).then(() => {
@@ -31,6 +34,7 @@ sequelize.sync({ alter: true }).then(() => {
         console.log(`Ruta de escultores: http://localhost:${PORT}/escultores`);
         console.log(`Ruta de esculturas: http://localhost:${PORT}/esculturas`);
         console.log(`Ruta de imágenes: http://localhost:${PORT}/imagenes`);
+        console.log(`Ruta de patrocinadores: http://localhost:${PORT}/api/sponsors`); // Ruta de patrocinadores
     });
 }).catch(err => {
     console.error('Error al conectar con la base de datos:', err);
