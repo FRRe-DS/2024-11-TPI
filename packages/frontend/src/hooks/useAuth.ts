@@ -9,12 +9,6 @@ interface User {
     // Otros campos que sean relevantes para tu usuario
 }
 
-/**
- * Hook personalizado para manejar la lógica de autenticación del usuario.
- * Utiliza estado para manejar el estado del usuario y funciones de login y logout.
- *
- * @returns {Object} - Un objeto con el estado de autenticación y funciones de login/logout.
- */
 const useAuth = () => {
     const [user, setUser] = useState<User | null>(null); // Estado para almacenar el usuario autenticado
     const [error, setError] = useState<string | null>(null); // Estado para manejar errores

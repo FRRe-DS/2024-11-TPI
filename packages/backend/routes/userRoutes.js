@@ -1,15 +1,16 @@
+// routes/userRoutes.js
 const express = require('express');
 const authenticate = require('../middlewares/authMiddleware');
-const User = require('../models/User');
+const User = require('../models/user'); // Asegúrate de que este modelo esté definido correctamente
+
 const router = express.Router();
 
-// Ruta protegida que solo puede acceder el usuario autenticado
-router.get('/profile', authenticate, async (req, res) => {
+router.get('/', authenticate, async (req, res) => {
     try {
-        const user = await User.findByPk(req.user.userId);
+        const user = await User.findByPk(req.user.id);
         if (!user) return res.status(404).json({ message: 'Usuario no encontrado' });
 
-        res.json(user);
+        res.json({ id: user.id, username: user.username, role: user.role });
     } catch (error) {
         res.status(500).json({ error: error.message });
     }

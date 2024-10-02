@@ -4,6 +4,7 @@ import NavbarLogo from '../domain/navbar_domain/NavbarLogo';
 import NavbarLinks from '../domain/navbar_domain/NavbarLinks';
 import NavbarSearch from '../domain/navbar_domain/NavbarSearch';
 import DarkModeToggle from '../domain/navbar_domain/DarkModeToggle';
+import UserRoleIndicator from "../domain/navbar_domain/UserRoleIndicator.tsx";
 
 function Navbar() {
     const [isOpen, setIsOpen] = useState(false);
@@ -24,6 +25,7 @@ function Navbar() {
             <nav className="hidden md:flex justify-between items-center p-4 bg-gray-800 text-white">
                 <NavbarLinks />
                 <NavbarLogo />
+                <UserRoleIndicator />
                 <NavbarSearch />
                 <DarkModeToggle toggleDarkMode={toggleDarkMode} />
             </nav>

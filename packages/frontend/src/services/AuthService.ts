@@ -30,11 +30,7 @@ export const login = async (username: string, password: string) => {
 
         return user; // Retorna los datos del usuario autenticado
     } catch (error) {
-        if (axios.isAxiosError(error)) {
-            console.error('Error al autenticar al usuario:', error.message);
-        } else {
-            console.error('Error inesperado:', error);
-        }
+        console.error('Error al autenticar al usuario:', error);
         return null; // Devolvemos null en caso de error
     }
 };
@@ -53,21 +49,12 @@ export const getUser = async () => {
             throw new Error('No hay token de autenticación');
         }
 
-        const response = await axios.get(`${API_URL}/user`, {
+        const response = await axios.get(`http://localhost:3000/api/user`, { // Actualiza aquí
             headers: { Authorization: `Bearer ${token}` }, // Envía el token en la cabecera
         });
         return response.data; // Devuelve los datos del usuario actual
     } catch (error) {
-        if (axios.isAxiosError(error)) {
-            if (error.response && error.response.status === 401) {
-                tokenService.removeToken();
-                localStorage.removeItem('role'); // Limpiar el rol también
-                throw new Error('Token inválido o expirado. Por favor, inicia sesión nuevamente.');
-            }
-            console.error('Error al obtener los datos del usuario:', error.message);
-        } else {
-            console.error('Error inesperado al obtener los datos del usuario:', error);
-        }
+        console.error('Error al obtener los datos del usuario:', error);
         return null; // Devolvemos null en lugar de lanzar el error
     }
 };
