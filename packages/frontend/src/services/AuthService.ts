@@ -19,6 +19,8 @@ export const getRole = () => {
     return localStorage.getItem('role');
 };
 
+
+
 // Función para autenticar al usuario (login)
 export const login = async (username: string, password: string) => {
     try {

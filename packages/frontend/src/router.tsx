@@ -9,8 +9,6 @@ import AdminPage from './components/admin/page/AdminPage.tsx';  // Página de ad
 import VotingPage from './pages/VotingPage'; // Página de votación para usuarios normales
 import ProtectedRoute from './ProtectedRoute.tsx';
 import ForbiddenPage from './pages/ForbiddenPage.tsx';
-//import EventList from "./components/admin/event/EventList.tsx";
-//import SponsorList from "./components/admin/sponsor/SponsorList.tsx";
 
 function AppRouter() {
     return (
@@ -24,7 +22,6 @@ function AppRouter() {
                 <Route path="/votingpage" element={<VotingPage />} />
                 <Route path="/login" element={<LoginPage />} />
                 <Route path="/forbiddenpage" element={<ForbiddenPage />} />
-                <Route path="/adminpage" element={<AdminPage />} />
                 <Route
                     path="/adminpage"
                     element={

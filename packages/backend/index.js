@@ -13,7 +13,7 @@ const sponsorRoutes = require('./routes/sponsorRoutes');
 
 const app = express();
 const PORT = 3000;
-require('dotenv').config(); // Cargar variables de entorno
+require('dotenv').config();
 
 // Middlewares
 app.use(cors());
@@ -25,7 +25,7 @@ app.use('/escultores', escultoresRouter);
 app.use('/esculturas', esculturasRouter);
 app.use('/imagenes', imagenesRouter);
 app.use('/api/auth', authRoutes);
-app.use('/api/user', userRoutes);
+app.use('/api/user', userRoutes); // Asegúrate de que esta línea esté aquí
 app.use('/api/sponsors', sponsorRoutes);
 
 // Iniciar el servidor y la conexión con la base de datos
@@ -33,11 +33,6 @@ sequelize.sync({ alter: true })
     .then(() => {
         app.listen(PORT, () => {
             console.log(`Servidor backend corriendo en http://localhost:${PORT}`);
-            console.log(`Ruta de eventos: http://localhost:${PORT}/eventos`);
-            console.log(`Ruta de escultores: http://localhost:${PORT}/escultores`);
-            console.log(`Ruta de esculturas: http://localhost:${PORT}/esculturas`);
-            console.log(`Ruta de imágenes: http://localhost:${PORT}/imagenes`);
-            console.log(`Ruta de patrocinadores: http://localhost:${PORT}/api/sponsors`);
         });
     })
     .catch(err => {
