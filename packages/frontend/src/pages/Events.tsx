@@ -1,23 +1,17 @@
 import React from 'react';
-import { useEventContext } from '../context/EventContext';
+import Navbar from "../components/layout/Navbar.tsx";
+import Header from "../components/layout/Header.tsx";
+import Footer from "../components/layout/Footer.tsx";
 
-// Define una interfaz para el tipo de Evento
-interface Evento {
-    id: string;
-    name: string;
-}
+
+
 
 const Events: React.FC = () => {
-    const { eventos } = useEventContext();
-
     return (
-        <div>
-            <h1>Eventos Públicos</h1>
-            <ul>
-                {eventos.map((evento: Evento) => (
-                    <li key={evento.id}>{evento.name}</li>
-                ))}
-            </ul>
+        <div className="flex flex-col min-h-screen">
+            <Navbar />
+            <Header />
+            <Footer />
         </div>
     );
 };

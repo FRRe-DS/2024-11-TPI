@@ -6,7 +6,6 @@ import Menu from "../admin_components/Menu.tsx";
 import Header from "../../layout/Header.tsx";
 import EventManagement from "./EventManagement.tsx";
 
-
 const AdminPage: React.FC = () => {
     const [selectedOption, setSelectedOption] = useState<'events' | 'sponsors'>('events');
 
