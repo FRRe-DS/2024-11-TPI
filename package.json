@@ -1,5 +1,5 @@
 {
-  "name": "root",
+  "name": "zaira",
   "private": true,
   "workspaces": [
     "packages/frontend",
@@ -17,5 +17,9 @@
     "dev:frontend": "yarn workspace frontend run dev",
     "dev:backend": "yarn workspace backend run dev",
     "dev": "concurrently \"yarn dev:frontend\" \"yarn dev:backend\""
-  }
+  },
+  "version": "1.0.0",
+  "main": "index.js",
+  "repository": "https://github.com/FRRe-DS/2024-11-TPI.git",
+  "license": "MIT"
 }

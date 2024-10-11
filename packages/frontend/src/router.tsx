@@ -8,7 +8,6 @@ import LoginPage from './pages/LoginPage';  // Página de login
 import AdminPage from './components/admin/page/AdminPage.tsx';  // Página de administración
 import VotingPage from './pages/VotingPage'; // Página de votación para usuarios normales
 import ProtectedRoute from './ProtectedRoute.tsx';
-import ForbiddenPage from './pages/ForbiddenPage.tsx';
 
 function AppRouter() {
     return (
@@ -21,7 +20,6 @@ function AppRouter() {
                 <Route path="/lae" element={<LAE />} />
                 <Route path="/votingpage" element={<VotingPage />} />
                 <Route path="/login" element={<LoginPage />} />
-                <Route path="/forbiddenpage" element={<ForbiddenPage />} />
                 <Route
                     path="/adminpage"
                     element={

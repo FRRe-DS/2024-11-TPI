@@ -25,7 +25,6 @@ const NavbarLinks = () => {
                 <li><Link to="/LAE" className="hover:underline">LAE</Link></li>
                 <li><Link to="/VotingPage" className="hover:underline">Voting Page</Link></li>
                 <li><Link to="/EventList" className="hover:underline">EventList</Link></li>
-                <li><Link to="/ForbiddenPage" className="hover:underline">ForbiddenPage</Link></li>
                 <li><Link to="/Login" className="hover:underline">Login</Link></li>
                 <li><Link to="/AdminPage" className="hover:underline">Admin Page</Link></li>
             </ul>
