@@ -1,40 +1,26 @@
-import React, {useEffect, useState} from 'react';
-import { getEventos, createEvento, deleteEvento } from '../../../services/EventService.ts';
+import React, { useState } from 'react';
 
-const EventForm: React.FC = () => {
-    const [eventos, setEventos] = useState<any[]>([]);
+interface EventFormProps {
+    onCreate: (newEvent: any) => void;
+}
+
+const EventForm: React.FC<EventFormProps> = ({ onCreate }) => {
     const [title, setTitle] = useState('');
     const [date, setDate] = useState('');
     const [place, setPlace] = useState('');
     const [description, setDescription] = useState('');
     const [theme, setTheme] = useState('');
 
-    useEffect(() => {
-        const fetchEventos = async () => {
-            const data = await getEventos();
-            setEventos(data);
-        };
-        fetchEventos();
-    }, []);
-
-    const handleCreateEvent = async (event: React.FormEvent) => {
+    const handleCreateEvent = (event: React.FormEvent) => {
         event.preventDefault();
         const newEvent = { title, date, place, description, theme };
-        try {
-            await createEvento(newEvent);
-            const updatedEventos = await getEventos();
-            setEventos(updatedEventos); // Refresca la lista de eventos
-            setTitle(''); setDate(''); setPlace(''); setDescription(''); setTheme(''); // Limpia el formulario
-            alert('Evento creado con éxito');
-        } catch (error) {
-            console.error('Error al crear el evento:', error);
-        }
-    };
-
-    const handleDeleteEvent = async (id: string) => {
-        await deleteEvento(id);
-        const updatedEventos = await getEventos();
-        setEventos(updatedEventos); // Refresca la lista de eventos
+        onCreate(newEvent); // Se envía el evento creado al componente padre
+        // Limpia el formulario
+        setTitle('');
+        setDate('');
+        setPlace('');
+        setDescription('');
+        setTheme('');
     };
 
     return (
@@ -84,20 +70,6 @@ const EventForm: React.FC = () => {
                     Crear Evento
                 </button>
             </form>
-
-            {/* Lista de eventos */}
-            <ul className="space-y-4">
-                {eventos.map((evento) => (
-                    <li key={evento.id} className="flex justify-between items-center p-4 bg-gray-100 rounded-md">
-                        <span>{evento.name}</span>
-                        <button
-                            onClick={() => handleDeleteEvent(evento.id)}
-                            className="bg-red-500 text-white py-1 px-3 rounded-md hover:bg-red-600">
-                            Eliminar
-                        </button>
-                    </li>
-                ))}
-            </ul>
         </div>
     );
 };
