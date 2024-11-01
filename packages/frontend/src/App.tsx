@@ -1,5 +1,5 @@
-import AppRouter from './router';
-import { EventProvider } from './context/EventContext';
+import AppRouter from './router/router.tsx';
+import { EventProvider } from './features/events/context/EventContext';
 
 function App() {
     return (

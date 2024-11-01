@@ -1,8 +1,7 @@
-// index.js
-
 const express = require('express');
 const cors = require('cors');
 const sequelize = require('./config/database');
+const path = require('path');
 const eventosRouter = require('./routes/eventos');
 const escultoresRouter = require('./routes/escultores');
 const esculturasRouter = require('./routes/esculturas');
@@ -18,6 +17,14 @@ require('dotenv').config();
 // Middlewares
 app.use(cors());
 app.use(express.json());
+
+// Sirve los archivos de frontend en producción
+if (process.env.NODE_ENV === 'production') {
+    app.use(express.static(path.join(__dirname, 'public')));
+    app.get('*', (req, res) => {
+        res.sendFile(path.join(__dirname, 'public', 'index.html'));
+    });
+}
 
 // Rutas
 app.use('/eventos', eventosRouter);

@@ -3,8 +3,8 @@ export default {
   // Activar el modo oscuro utilizando clases (útil para usarlo con un botón que cambie el tema)
   darkMode: 'class', // o 'media' si prefieres basarte en la preferencia del sistema
   content: [
-    "./index.html",
-    "./src/**/*.{js,ts,jsx,tsx}",  // Esto incluirá todos los archivos dentro de src que terminen en js, ts, jsx, o tsx
+    "./src/**/*.{js,ts,jsx,tsx}",
+    "./public/index.html",  // Esto incluirá todos los archivos dentro de src que terminen en js, ts, jsx, o tsx
   ],
   theme: {
     extend: {
