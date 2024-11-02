@@ -11,7 +11,7 @@ Este archivo establece la conexión con la base de datos MySQL para el proyecto 
 
 2. **Usuario y Contraseña**:
     - `'bienal'` como segundo y tercer argumento define el usuario y la contraseña para acceder a la base de datos.
-
+                                                                                
 3. **Host**:
     - `host: 'localhost'` indica que la base de datos se ejecuta en la misma máquina que el servidor, facilitando el acceso local.
 
