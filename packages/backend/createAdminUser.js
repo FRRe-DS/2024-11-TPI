@@ -1,4 +1,5 @@
 const User = require('./models/user');
+const bcrypt = require("bcrypt");
 
 const createAdminUser = async () => {
     try {
@@ -8,13 +9,17 @@ const createAdminUser = async () => {
             console.log('El usuario admin ya existe.');
             return;
         }
+        const hashedPassword = await bcrypt.hash('admin123', 10);
 
         // Crear el usuario admin
         const adminUser = await User.create({
             username: 'admin',
-            password: 'admin123', // Esta contraseña será encriptada
+            email: 'admin@gmail.com',
+            password: hashedPassword, // Esta contraseña será encriptada
             role: 'admin'
         });
+
+
 
         console.log('Usuario admin creado:', adminUser);
     } catch (error) {
