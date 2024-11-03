@@ -1,6 +1,8 @@
 import { login, logout, getUser } from '../utils/AuthService.ts';
 import {useState} from "react"; // Importa las funciones del servicio
 
+
+
 // Define el tipo de usuario
 interface User {
     id: number;
@@ -13,11 +15,15 @@ const useAuth = () => {
     const [user, setUser] = useState<User | null>(null); // Estado para almacenar el usuario autenticado
     const [error, setError] = useState<string | null>(null); // Estado para manejar errores
 
+
+
     // Función para manejar el login
     const handleLogin = async (username: string, password: string) => {
         try {
             const loggedInUser = await login(username, password); // Llama al servicio para autenticación
-            setUser(loggedInUser); // Actualiza el estado con el usuario autenticado
+            if (loggedInUser) {
+                setUser(loggedInUser); // Actualiza el estado con el usuario autenticado
+            }
         } catch (err) {
             setError('Error al iniciar sesión'); // Maneja errores
         }
@@ -42,6 +48,7 @@ const useAuth = () => {
             setError('Error al obtener usuario'); // Maneja errores
         }
     };
+
 
     return { user, error, handleLogin, handleLogout, fetchUser }; // Devuelve el estado del usuario y las funciones de autenticación
 };

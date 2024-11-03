@@ -12,10 +12,10 @@ const useUser = () => {
         const fetchUser = async () => {
             try {
                 const currentUser = await userService.getCurrentUser();
-                setUser(currentUser);
+                setUser(currentUser); // Aquí se establece el usuario actual
             } catch (error) {
                 console.error('Error fetching user:', error);
-                setUser(null);
+                setUser(null); // Asegúrate de manejar el error adecuadamente
             } finally {
                 setLoading(false);
             }
