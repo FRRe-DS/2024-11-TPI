@@ -2,23 +2,24 @@
 
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
-import useUser from '../../user/hooks/useUser'; // Importar el hook para obtener el usuario
+import useUser from '../../user/hooks/useUser';
+import {logout} from "../../auth/utils/AuthService.ts"; // Importar el hook para obtener el usuario
 
 interface UserLoggedInMenuProps {
     role: string; // Puede ser 'user' o 'admin'
 }
 
 const UserLoggedInMenu: React.FC<UserLoggedInMenuProps> = ({ role }) => {
-    const { user, loading, handleLogout } = useUser(); // Obtener el usuario y el estado de carga
+    const { user, loading } = useUser(); // Obtener el usuario y el estado de carga
     const [isOpen, setIsOpen] = useState(false);
 
     const toggleMenu = () => {
         setIsOpen((prev) => !prev);
     };
 
-    const logoutAndCloseMenu = () => {
-        handleLogout();
-        setIsOpen(false);
+    const handleLogoutClick = () => {
+        logout(); // Llama a la función de logout
+        window.location.reload(); // Recarga la página para actualizar el estado
     };
 
     console.log('User en UserLoggedInMenu:', user); // Verifica la estructura del usuario
@@ -50,7 +51,7 @@ const UserLoggedInMenu: React.FC<UserLoggedInMenuProps> = ({ role }) => {
                                     Votar
                                 </Link>
                                 <button
-                                    onClick={logoutAndCloseMenu}
+                                    onClick={handleLogoutClick}
                                     className="block w-full text-left px-4 py-2 text-gray-800 hover:bg-gray-100"
                                 >
                                     Cerrar sesión
