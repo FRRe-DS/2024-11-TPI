@@ -1,9 +1,4 @@
 import React from 'react';
-// Importa tus imágenes aquí
-// @ts-ignore
-import image2 from './Navbar/assets/images/logo-white.png';
-// @ts-ignore
-import image3 from './Navbar/assets/images/logo-black.png';
 
 const Header: React.FC = () => {
     return (

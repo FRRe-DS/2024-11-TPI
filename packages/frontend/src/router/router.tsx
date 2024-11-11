@@ -9,6 +9,7 @@ import VotingPage from '../features/voting/VotingPage.tsx';
 import ProtectedRoute from './ProtectedRoute.tsx';
 import Registerpage from '../features/auth/pages/registerpage.tsx' ;
 
+
 function AppRouter() {
     return (
         <Router>
