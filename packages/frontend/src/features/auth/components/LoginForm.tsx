@@ -66,9 +66,7 @@ const LoginForm: React.FC<LoginFormProps> = ({ onSubmit, loading, error }) => {
                         />
                         <span className="ml-2">Recuerdame</span>
                     </label>
-                    <a className="text-sm text-purple-200 hover:underline" href="#"
-                    >¿Olvidaste tu contraseña?</a
-                    >
+
                 </div>
                 <div>
                     <button
@@ -81,7 +79,7 @@ const LoginForm: React.FC<LoginFormProps> = ({ onSubmit, loading, error }) => {
                 </div>
                 <div className="text-center text-gray-300">
                     ¿No tienes una cuenta?
-                    <a className="text-purple-200 hover:underline" href="#"> Registrarse </a>
+                    <a className="text-purple-200 hover:underline" href="/registrarse"> Registrarse </a>
                 </div>
             </form>
         </div>
