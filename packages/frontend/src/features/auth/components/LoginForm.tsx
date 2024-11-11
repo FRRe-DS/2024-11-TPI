@@ -24,40 +24,64 @@ const LoginForm: React.FC<LoginFormProps> = ({ onSubmit, loading, error }) => {
     };
 
     return (
-        <div className="w-full max-w-md p-8 bg-white shadow-md rounded-lg">
-            <h2 className="text-2xl font-semibold mb-6 text-center">Iniciar sesión</h2>
-            <form onSubmit={handleSubmit} className="space-y-4">
-                <div>
-                    <label htmlFor="username" className="block text-sm font-medium text-gray-700">Usuario</label>
+        <div
+            className="max-w-md w-full bg-gradient-to-r from-purple-400 to-blue-600 rounded-md shadow-xl overflow-hidden p-8 space-y-8">
+            <h2 className="text-center text-4xl font-extrabold text-white">Bienvenido</h2>
+            <p className="text-center text-white">
+                Inicia sesión con tu cuenta
+            </p>
+            <form onSubmit={handleSubmit} className="space-y-6">
+                <div className="relative">
                     <input
                         id="username"
                         type="text"
                         placeholder="Nombre de usuario"
                         value={username}
                         onChange={(e) => setUsername(e.target.value)}
-                        className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm"
+                        className="peer h-10 w-full border-b-2 border-gray-300 text-white bg-transparent placeholder-transparent focus:outline-none focus:border-purple-300"
                     />
+                    <label htmlFor="username"
+                           className="absolute left-0 -top-3.5 text-gray-300 text-sm peer-focus:-top-3.5 peer-focus:text-purple-200 peer-focus:text-sm"
+                    >Usuario</label>
+
                 </div>
-                <div>
-                    <label htmlFor="password" className="block text-sm font-medium text-gray-700">Contraseña</label>
+                <div className="relative">
                     <input
                         id="password"
                         type="password"
                         placeholder="Contraseña"
                         value={password}
                         onChange={(e) => setPassword(e.target.value)}
-                        className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm"
+                        className="peer h-10 w-full border-b-2 border-gray-300 text-white bg-transparent placeholder-transparent focus:outline-none focus:border-purple-300"
                     />
+                    <label htmlFor="password"
+                           className="absolute left-0 -top-3.5 text-gray-300 text-sm peer-focus:-top-3.5 peer-focus:text-purple-200 peer-focus:text-sm">Contraseña</label>
                 </div>
-                {error && <p className="text-red-500 text-sm">{error}</p>}
+                {error && <p className="text-red-200 text-sm">{error}</p>}
+                <div className="flex items-center justify-between">
+                    <label className="flex items-center text-sm text-gray-200">
+                        <input
+                            className="form-checkbox h-4 w-4 text-purple-600 bg-gray-800 border-gray-300 rounded"
+                            type="checkbox"
+                        />
+                        <span className="ml-2">Recuerdame</span>
+                    </label>
+                    <a className="text-sm text-purple-200 hover:underline" href="#"
+                    >¿Olvidaste tu contraseña?</a
+                    >
+                </div>
                 <div>
                     <button
                         type="submit"
                         disabled={loading}
-                        className={`w-full ${loading ? 'bg-gray-400' : 'bg-blue-500'} text-white py-2 px-4 rounded-md hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500`}
+                        className={`w-full ${loading ? 'bg-gray-400' : 'bg-purple-400'} w-full py-2 px-4 bg-purple-400 hover:bg-purple-600 rounded-md shadow-lg text-white font-semibold transition duration-200`}
                     >
                         {loading ? 'Iniciando sesión...' : 'Iniciar sesión'}
                     </button>
+                </div>
+                <div className="text-center text-gray-300">
+                    ¿No tienes una cuenta?
+                    <a className="text-purple-200 hover:underline" href="#"> Registrarse </a>
                 </div>
             </form>
         </div>
