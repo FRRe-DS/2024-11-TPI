@@ -1,47 +1,48 @@
-// packages/frontend/src/services/SponsorService.ts
-import axios, { AxiosResponse } from 'axios';
+import axios from 'axios';
 
-const API_URL = '/api/sponsors';
+const API_URL = 'http://localhost:3000/sponsors';
 
-// Define una interfaz para los datos del patrocinador
-// packages/frontend/src/services/SponsorService.ts
-export interface SponsorData {
-    id?: string; // Haz que id sea opcional para crear patrocinadores
-    name: string;
-    logo?: string; // Logo puede ser opcional
-}
-
-
-// Define una interfaz para el patrocinador, si es diferente a SponsorData
-export interface Sponsor extends SponsorData {
-    // Aquí puedes agregar más propiedades si son necesarias
-}
-
-// Crear un nuevo patrocinador
-const createSponsor = (sponsorData: SponsorData): Promise<AxiosResponse<SponsorData>> => {
-    return axios.post(`${API_URL}`, sponsorData);
+// Obtener todos los sponsors
+export const getSponsors = async () => {
+    try {
+        const response = await axios.get(API_URL);
+        return response.data;
+    } catch (error) {
+        console.error('Error al obtener los sponsors:', error);
+        throw error;
+    }
 };
 
-// Obtener todos los patrocinadores
-const getSponsors = (): Promise<AxiosResponse<SponsorData[]>> => {
-    return axios.get(`${API_URL}`);
+// Crear un nuevo sponsor
+export const createSponsor = async (sponsorData: { name: string }) => {
+    try {
+        await axios.post(API_URL, sponsorData);
+        return 'Sponsor creado con éxito';
+    } catch (error) {
+        console.error('Error al crear el sponsor:', error);
+        throw error;
+    }
 };
 
-// Actualizar un patrocinador
-const updateSponsor = (id: string, sponsorData: SponsorData): Promise<AxiosResponse<SponsorData>> => {
-    return axios.put(`${API_URL}/${id}`, sponsorData);
+// Actualizar un sponsor existente
+export const updateSponsor = async (id: string, sponsorData: { nombre: string }) => {
+    try {
+        const response = await axios.put(`${API_URL}/${id}`, sponsorData);
+        return response.data;
+    } catch (error) {
+        console.error('Error al actualizar el sponsor:', error);
+        throw error;
+    }
 };
 
-// Eliminar un patrocinador
-const deleteSponsor = (id: string): Promise<AxiosResponse<void>> => {
-    return axios.delete(`${API_URL}/${id}`);
+// Eliminar un sponsor
+export const deleteSponsor = async (id: string) => {
+    try {
+        const response = await axios.delete(`${API_URL}/${id}`);
+        return response.data;
+    } catch (error) {
+        console.error('Error al eliminar el sponsor:', error);
+        throw error;
+    }
 };
 
-const SponsorService = {
-    createSponsor,
-    getSponsors,
-    updateSponsor,
-    deleteSponsor,
-};
-
-export default SponsorService;

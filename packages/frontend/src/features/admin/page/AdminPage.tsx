@@ -5,12 +5,15 @@ import Footer from '../../../layout/footer/Footer.tsx';
 import Menu from "../components/Menu.tsx";
 import Header from "../../../layout/Header.tsx";
 import EventManagement from "../components/EventManagement.tsx";
+import SculptureManagement from "../components/SculptureManagement.tsx";
+import SculptorManagement from "../components/SculptorManagement.tsx";
+import SponsorManagement from "../components/SponsorManagement.tsx";
 import useAuth from '../../auth/hooks/useAuth.ts';
 
 const AdminPage: React.FC = () => {
     const { fetchUser } = useAuth(); // Use the useAuth hook here
 
-    const [selectedOption, setSelectedOption] = useState<'events' | 'sponsors'>('events');
+    const [selectedOption, setSelectedOption] = useState<'events' | 'sponsors'|'sculptures'|'sculptors'>('events');
 
     useEffect(() => {
         fetchUser(); // Call the function when the component mounts
@@ -25,7 +28,9 @@ const AdminPage: React.FC = () => {
                 onSelect={setSelectedOption}
                 selectedSection={selectedOption}
             />
-
+            {selectedOption === 'sculptures' && <SculptureManagement />}
+            {selectedOption === 'sculptors' && <SculptorManagement />}
+            {selectedOption === 'sponsors' && <SponsorManagement />}
             {selectedOption === 'events' ? (
                 <EventManagement />
             ) : (

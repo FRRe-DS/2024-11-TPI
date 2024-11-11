@@ -21,8 +21,6 @@ const UserLoggedInMenu: React.FC<UserLoggedInMenuProps> = ({ role }) => {
         setIsOpen(false);
     };
 
-    console.log('User en UserLoggedInMenu:', user); // Verifica la estructura del usuario
-
     return (
         <div className="relative inline-block text-left">
             <button

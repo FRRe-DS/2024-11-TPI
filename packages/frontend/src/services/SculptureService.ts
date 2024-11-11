@@ -1,36 +1,36 @@
 import axios from 'axios';
 
-const API_URL = 'http://localhost:3000/escultores';
+const API_URL = 'http://localhost:3000/esculturas';
 
 // Obtener todos los escultores
-export const getEscultores = async () => {
+export const getEsculturas = async () => {
     try {
         const response = await axios.get(API_URL);
         return response.data;
     } catch (error) {
-        console.error('Error al obtener los escultores:', error);
+        console.error('Error al obtener las esculturas:', error);
         throw error;
     }
 };
 
 // Crear un nuevo escultor
-export const createEscultor = async (escultorData: any) => {
+export const createEscultura = async (esculturaData: any) => {
     try {
-        await axios.post(API_URL, escultorData);
-        return 'Escultor creado con éxito';
+        await axios.post(API_URL, esculturaData);
+        return 'Escultura creada con éxito';
     } catch (error) {
-        console.error('Error al crear el escultor:', error);
+        console.error('Error al crear el escultura:', error);
         throw error;
     }
 };
 
 // Actualizar un escultor existente
-export const updateEscultor = async (id: string, escultorData: any) => {
+export const updateEsculturas = async (id: string, esculturaData: any) => {
     try {
-        const response = await axios.put(`${API_URL}/${id}`, escultorData);
+        const response = await axios.put(`${API_URL}/${id}`, esculturaData);
         return response.data;
     } catch (error) {
-        console.error('Error al actualizar el escultor:', error);
+        console.error('Error al actualizar la escultura:', error);
         throw error;
     }
 };
