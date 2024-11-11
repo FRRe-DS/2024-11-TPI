@@ -10,7 +10,7 @@ const LoginPage: React.FC = () => {
         <div className="flex flex-col min-h-screen bg-gray-100">
             <Navbar />
             <UserRoleIndicator />
-            <main className="flex-grow flex items-center justify-center bg-gray-100 p-4">
+            <main className="flex-grow flex items-center justify-center bg-gray-100 p-7">
                 <Login />
             </main>
             <Footer />
