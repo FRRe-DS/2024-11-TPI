@@ -9,10 +9,10 @@ const Escultor = sequelize.define('Escultor', {
     biografia: {
         type: DataTypes.TEXT,
     },
-    fecha_nacimiento: {
+    fechaNacimiento: {
         type: DataTypes.DATE,
     },
-    fecha_fallecimiento: {
+    fechaFallecimiento: {
         type: DataTypes.DATE,
     },
 });

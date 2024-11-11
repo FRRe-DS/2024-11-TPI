@@ -3,6 +3,7 @@ import Header from '../layout/Header';
 import Footer from '../layout/footer/Footer.tsx';
 import Hero from "../layout/hero/Hero.tsx";
 import Navbar from "../layout/Navbar/Navbar.tsx";
+import Maps from '../layout/maps/Maps.tsx';
 
 
 const Home: React.FC = () => {
@@ -11,6 +12,7 @@ const Home: React.FC = () => {
             <Navbar />
             <Hero />
             <Header />
+            <Maps />
             <Footer />
         </div>
     );

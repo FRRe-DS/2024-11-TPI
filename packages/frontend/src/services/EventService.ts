@@ -16,8 +16,8 @@ export const getEventos = async () => {
 // Crear un nuevo evento
 export const createEvento = async (eventoData: any) => {
     try {
-        const response = await axios.post(API_URL, eventoData);
-        return response.data; // El nuevo evento creado
+        await axios.post(API_URL, eventoData);
+        return 'Evento creado con éxito'; // El nuevo evento creado
     } catch (error) {
         console.error('Error al crear el evento:', error);
         throw error;
@@ -45,3 +45,5 @@ export const deleteEvento = async (id: string) => {
         throw error;
     }
 };
+
+
