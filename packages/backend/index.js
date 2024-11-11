@@ -8,7 +8,7 @@ const esculturasRouter = require('./routes/esculturas');
 const imagenesRouter = require('./routes/imagenes');
 const authRoutes = require('./routes/authRoutes');
 const userRoutes = require('./routes/userRoutes');
-const sponsorRoutes = require('./routes/sponsorRoutes');
+const sponsorRoutes = require('./routes/sponsor');
 
 const app = express();
 const PORT = 3000;
@@ -33,7 +33,7 @@ app.use('/esculturas', esculturasRouter);
 app.use('/imagenes', imagenesRouter);
 app.use('/api/auth', authRoutes);
 app.use('/api/user', userRoutes); // Asegúrate de que esta línea esté aquí
-app.use('/api/sponsors', sponsorRoutes);
+app.use('/sponsors', sponsorRoutes);
 
 // Iniciar el servidor y la conexión con la base de datos
 sequelize.sync({ alter: true })

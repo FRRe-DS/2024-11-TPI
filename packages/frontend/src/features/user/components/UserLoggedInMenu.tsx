@@ -22,8 +22,6 @@ const UserLoggedInMenu: React.FC<UserLoggedInMenuProps> = ({ role }) => {
         window.location.reload(); // Recarga la página para actualizar el estado
     };
 
-    console.log('User en UserLoggedInMenu:', user); // Verifica la estructura del usuario
-
     return (
         <div className="relative inline-block text-left">
             <button
