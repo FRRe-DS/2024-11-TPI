@@ -35,6 +35,7 @@ const EventList: React.FC = () => {
                         nombre={evento.nombre}
                         fecha={evento.fecha}
                         descripcion={evento.descripcion}
+                        imagen={evento.imagen}
                     />
                 ))
             ) : (
@@ -42,6 +43,7 @@ const EventList: React.FC = () => {
                     nombre="Evento Genérico"
                     fecha="Fecha no disponible"
                     descripcion="Descripción no disponible"
+                    imagen="Cualquiera"
                 />
             )}
         </div>
