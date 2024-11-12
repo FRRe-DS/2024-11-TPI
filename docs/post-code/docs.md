@@ -26,7 +26,7 @@
    /shared: Componentes UI reutilizables y genéricos (Botones, Modales).
    /feature-specific: Componentes específicos de una funcionalidad.
    Ejemplos:
-   Button.tsx: Un botón reutilizable.
+   NavbarButton.tsx: Un botón reutilizable.
    UserProfile.tsx: Componente para mostrar el perfil del usuario.
    Navbar.tsx: Componente de navegación superior, si es usado en todas las páginas.
 5. hooks/
@@ -63,7 +63,7 @@ src/
 │       └── calculateAge.ts
 └── common/
 ├── components/
-│   └── Button.tsx
+│   └── NavbarButton.tsx
 ├── hooks/
 │   └── useFetch.ts
 ├── types/
