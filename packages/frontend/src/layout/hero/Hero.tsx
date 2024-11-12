@@ -1,12 +1,11 @@
 import React from 'react';
-// @ts-ignore
 import logo from "./assets/images/Titulo.png";
-// @ts-ignore
 import logo2 from "./assets/images/b24-slide-principal-nuevo-logo-gobierno.png";
 
 const Hero: React.FC = () => {
     return (
         <section className="relative w-full h-screen">
+
             {/* Background Video */}
             <div className="absolute inset-0 overflow-hidden">
                 <video

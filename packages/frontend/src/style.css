@@ -1,3 +1,9 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+button:hover .blob:nth-child(1) { background: #0061ff; }
+button:hover .blob:nth-child(2) { background: #ff1b6b; }
+button:hover .blob:nth-child(3) { background: #bf0fff; }
+button:hover .blob:nth-child(4) { background: #ff930f; }
+button:hover .blob { transform: scale(1.3); }
