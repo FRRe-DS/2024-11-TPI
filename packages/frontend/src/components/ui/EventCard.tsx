@@ -4,18 +4,20 @@ interface EventCardProps {
     nombre: string; // Título del evento
     fecha: string; // Fecha del evento
     descripcion: string; // Descripción del evento
+    imagen: string;
 }
 
 /**
  * Componente específico del dominio para mostrar un evento.
  * Encapsula la lógica y presentación de un evento, siguiendo SRP.
  */
-const EventCard: React.FC<EventCardProps> = ({ nombre, fecha, descripcion }) => {
+const EventCard: React.FC<EventCardProps> = ({ nombre, fecha, descripcion, imagen }) => {
     return (
         <div className="event-card"> {/* Clase CSS para estilo */}
             <h2>{nombre}</h2> {/* Título del evento */}
             <p>{fecha}</p> {/* Fecha del evento */}
             <p>{descripcion}</p> {/* Descripción del evento */}
+            {imagen && <img src={imagen} alt="Imagen del evento" />}
         </div>
     );
 };

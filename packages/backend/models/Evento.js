@@ -25,6 +25,9 @@ const Evento = sequelize.define('Evento',{
     tematica: {
         type: DataTypes.STRING,
     },
+    imagen: {
+        type: DataTypes.STRING,
+    },
 }, {
     timestamps: true,
     tableName: 'eventos',

@@ -8,13 +8,14 @@ const EventForm = () => {
     const [lugar, setPlace] = useState('');
     const [descripcion, setDescription] = useState('');
     const [tematica, setTheme] = useState('');
+    const [imagen, setImage] = useState('');
     const [error, setError] = useState('');
     const navigate = useNavigate();
 
     const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
 
-        const newEvent = {nombre, fecha, lugar, descripcion, tematica };
+        const newEvent = {nombre, fecha, lugar, descripcion, tematica, imagen};
         try {
             console.log('Enviando datos:', newEvent);
             const response = await createEvento(newEvent);
@@ -92,6 +93,15 @@ const EventForm = () => {
                 placeholder="Temática"
                 value={tematica}
                 onChange={(e) => setTheme(e.target.value)}
+                autoComplete="off"
+                className="block w-full p-3 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+                required
+            />
+            <input
+                type="text"
+                placeholder="Imagen"
+                value={imagen}
+                onChange={(e) => setImage(e.target.value)}
                 autoComplete="off"
                 className="block w-full p-3 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
                 required

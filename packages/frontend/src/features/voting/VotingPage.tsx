@@ -45,7 +45,7 @@ const EventDetail: React.FC = () => {
 
     return (
         <div>
-            <h2>{event.title}</h2>
+            <h1>{event.title}</h1>
             <p>{event.description}</p>
         </div>
     );
