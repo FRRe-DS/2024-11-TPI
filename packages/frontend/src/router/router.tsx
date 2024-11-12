@@ -32,7 +32,8 @@ function AppRouter() {
                         </ProtectedRoute>
                     }
                 />
-
+                <Route path="/events" element={<VotingPage />} />
+                <Route path="/events/:id" element={<VotingPage />} />
             </Routes>
         </Router>
     );
