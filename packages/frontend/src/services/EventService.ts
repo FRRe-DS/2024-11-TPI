@@ -12,6 +12,18 @@ export const getEventos = async () => {
         throw error;
     }
 };
+// Cambia la URL del API para incluir el ID en la ruta
+export const getEvento = async (id: string) => {
+    try {
+        // Realiza una solicitud GET a /eventos/{id}
+        const response = await axios.get(`${API_URL}/${id}`);
+        return response.data; // Devuelve los datos del evento específico
+    } catch (error) {
+        console.error('Error al obtener el evento:', error);
+        throw error;
+    }
+};
+
 
 // Crear un nuevo evento
 export const createEvento = async (eventoData: any) => {
