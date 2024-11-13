@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
-import { createEvento } from '../../services/EventService';
+import { createEvento } from '../../../services/EventService.ts';
 
 const EventForm = () => {
     const [nombre, setTitle] = useState('');
@@ -10,7 +9,6 @@ const EventForm = () => {
     const [tematica, setTheme] = useState('');
     const [imagen, setImage] = useState('');
     const [error, setError] = useState('');
-    const navigate = useNavigate();
 
     const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
@@ -28,7 +26,6 @@ const EventForm = () => {
                 setPlace('');
                 setDescription('');
                 setTheme('');
-                navigate('/'); // Redirige al usuario a la página principal después de crear el evento
             } else {
                 setError('No se pudo crear el evento. Inténtalo de nuevo.');
             }

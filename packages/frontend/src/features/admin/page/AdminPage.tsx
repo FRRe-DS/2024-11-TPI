@@ -1,43 +1,42 @@
-import React, {useEffect, useState} from 'react';
-import Navbar from '../../../layout/Navbar/Navbar.tsx';
-import Footer from '../../../layout/footer/Footer.tsx';
-//import SponsorManagement from './SponsorManagement.tsx';
+import Footer from "../../../layout/footer/Footer.tsx";
+import { useEffect, useState } from "react";
+import Navbar from "../../../layout/Navbar/Navbar.tsx";
 import Menu from "../components/Menu.tsx";
-import Header from "../../../layout/Header.tsx";
 import EventManagement from "../components/EventManagement.tsx";
-import SculptureManagement from "../components/SculptureManagement.tsx";
 import SculptorManagement from "../components/SculptorManagement.tsx";
-import SponsorManagement from "../components/SponsorManagement.tsx";
-import useAuth from '../../auth/hooks/useAuth.ts';
+import useAuth from "../../auth/hooks/useAuth.ts";
+import SculptureManagement from "../components/SculptureManagement.tsx";
 
 const AdminPage: React.FC = () => {
-    const { fetchUser } = useAuth(); // Use the useAuth hook here
-
-    const [selectedOption, setSelectedOption] = useState<'events' | 'sponsors'|'sculptures'|'sculptors'>('events');
+    const { fetchUser } = useAuth();
+    const [selectedOption, setSelectedOption] = useState<'events' | 'sculptures' | 'sculptors'>('events');
 
     useEffect(() => {
-        fetchUser(); // Call the function when the component mounts
-    }, [fetchUser]); // Add fetchUser to the dependencies array
+        fetchUser();
+    }, [fetchUser]);
 
     return (
-        <div>
-            <Navbar />
-            <h1 className="text-2xl font-bold text-center my-4">Admin Page</h1>
+        <div className="relative min-h-screen">
+            <div className="relative min-h-screen">
+                {/* Video de fondo */}
+                <div className="absolute inset-0 overflow-hidden -z-10">
+                    <video
+                        src="https://www.bienaldelchaco.org/2024/wp-content/uploads/2024/05/B24-web-slide-institucional-nuevo-c.mp4"
+                        autoPlay
+                        loop
+                        muted
+                        className="w-full h-full object-cover"
+                    />
+                </div>
 
-            <Menu
-                onSelect={setSelectedOption}
-                selectedSection={selectedOption}
-            />
-            {selectedOption === 'sculptures' && <SculptureManagement />}
-            {selectedOption === 'sculptors' && <SculptorManagement />}
-            {selectedOption === 'sponsors' && <SponsorManagement />}
-            {selectedOption === 'events' ? (
-                <EventManagement />
-            ) : (
-                <Header />
-            )}
+                <Navbar/>
+                <Menu onSelect={setSelectedOption} selectedSection={selectedOption}/>
+                {selectedOption === 'events' && <EventManagement/>}
+                {selectedOption === 'sculptures' && <SculptureManagement/>}
+                {selectedOption === 'sculptors' && <SculptorManagement/>}
 
-            <Footer />
+            </div>
+            <Footer/>
         </div>
     );
 };

@@ -36,7 +36,7 @@ export const updateEsculturas = async (id: string, esculturaData: any) => {
 };
 
 // Eliminar un escultor
-export const deleteEscultor = async (id: string) => {
+export const deleteEsculture = async (id: string) => {
     try {
         const response = await axios.delete(`${API_URL}/${id}`);
         return response.data;
