@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { createEscultor } from '../../services/SculptorService';  // Cambia a tu servicio adecuado
+import { createEscultor } from '../../../services/SculptorService.ts';  // Cambia a tu servicio adecuado
 
 const SculptorForm = () => {
     const [nombre, setNombre] = useState('');

@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
-import EventCard from '../../components/ui/EventCard.tsx';
-import { getEventos } from '../../services/EventService.ts';
+import EventCard from '../../../components/ui/EventCard.tsx';
+import { getEventos } from '../../../services/EventService.ts';
 
 
 const EventList: React.FC = () => {
