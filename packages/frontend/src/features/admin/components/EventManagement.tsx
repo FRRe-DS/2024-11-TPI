@@ -1,7 +1,7 @@
 import React from 'react';
-import EventList from "../../events/components/EventList.tsx";
 import CreateEvent from "../../events/components/EventForm.tsx";
 import DeleteEvent from "../../events/components/EventDelete.tsx";
+import EventListAdmin from "./EventListAdmin.tsx";
 
 type ButtonProps = {
     label: string;
@@ -26,7 +26,7 @@ const EventManagement: React.FC = () => {
             case 'create':
                 return <CreateEvent />;
             case 'list':
-                return <EventList />;
+                return <EventListAdmin />;
             case 'delete':
                 return <DeleteEvent />;
             default:

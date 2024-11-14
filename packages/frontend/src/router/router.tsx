@@ -11,13 +11,17 @@ import Registerpage from '../features/auth/pages/registerpage.tsx';
 import EventDetail from '../features/events/components/EventDetail.tsx';
 import VotingEventList from '../features/voting/VotingEventList';
 import VotacionQRCodeWrapper from '../features/voting/VotacionQRCodeWrapper';
+import Sculptures from "../features/sculptures/Sculptures.tsx";
+import Sculptors from "../features/sculptors/Sculptors.tsx";
 
 function AppRouter() {
     return (
         <Router>
             <Routes>
                 <Route path="/" element={<Home />} />
-                <Route path="/events" element={<Events />} /> {/* Este debe ser el listado de eventos */}
+                <Route path="/eventos" element={<Events />} />
+                <Route path="/esculturas" element={<Sculptures />} />
+                <Route path="/escultores" element={<Sculptors />} />
                 <Route path="/patron" element={<Patron />} />
                 <Route path="/editions" element={<Editions />} />
                 <Route path="/login" element={<LoginPage />} />

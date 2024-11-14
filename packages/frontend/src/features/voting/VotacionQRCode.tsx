@@ -15,6 +15,4 @@ const VotacionQRCode: React.FC<VotacionQRCodeProps> = ({ eventoId }) => {
     );
 };
 
-
-
 export default VotacionQRCode;

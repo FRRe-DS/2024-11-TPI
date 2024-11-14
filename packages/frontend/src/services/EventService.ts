@@ -12,7 +12,8 @@ export const getEventos = async () => {
         throw error;
     }
 };
-// Cambia la URL del API para incluir el ID en la ruta
+
+// Obtener un evento por ID
 export const getEvento = async (id: string) => {
     try {
         // Realiza una solicitud GET a /eventos/{id}
@@ -23,7 +24,6 @@ export const getEvento = async (id: string) => {
         throw error;
     }
 };
-
 
 // Crear un nuevo evento
 export const createEvento = async (eventoData: any) => {
@@ -39,7 +39,7 @@ export const createEvento = async (eventoData: any) => {
 // Actualizar un evento existente
 export const updateEvento = async (id: string, eventoData: any) => {
     try {
-        const response = await axios.put(`${API_URL}/${id}`, eventoData);
+        const response = await axios.put(`${API_URL}/${id}`, eventoData); // Usar template literals correctamente
         return response.data; // El evento actualizado
     } catch (error) {
         console.error('Error al actualizar el evento:', error);
@@ -57,34 +57,26 @@ export const deleteEvento = async (id: string) => {
         throw error;
     }
 };
-// services/EventService.ts
+
+// Obtener un evento por ID desde otro endpoint (quizás para una ruta diferente)
 export const getEventoById = async (id: string | undefined) => {
     try {
-        const response = await fetch(`/api/events/${id}`);
+        const response = await fetch(`/api/events/${id}`); // URL ajustada
 
-        // Verificar si la respuesta no es exitosa
         if (!response.ok) {
-            // Si el código de estado no es 2xx (OK), arrojar un error con el código de estado
             throw new Error(`Error: ${response.status} - No se pudo obtener el evento`);
         }
 
-        // Verificar el tipo de contenido de la respuesta (esperamos JSON)
         const contentType = response.headers.get('Content-Type');
         if (!contentType || !contentType.includes('application/json')) {
-            // Si no es un JSON válido, capturamos la respuesta para diagnóstico
             const text = await response.text();
             console.error("Respuesta no es un JSON válido. Contenido recibido:", text);
             throw new Error('Respuesta no es un JSON válido');
         }
 
-        // Si todo es correcto, parseamos la respuesta como JSON
-        return await response.json();
+        return await response.json(); // Parsear como JSON si la respuesta es válida
     } catch (error) {
         console.error('Error al obtener el evento:', error);
-        throw error;  // Volver a lanzar el error para que el componente que llama esta función lo maneje
+        throw error;
     }
 };
-
-
-
-
