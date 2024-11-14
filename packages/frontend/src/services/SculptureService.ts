@@ -13,6 +13,25 @@ export const getEsculturas = async () => {
     }
 };
 
+export const getEsculturasbyEvent = async (eventoID: any) => {
+    try {
+        // Verificar si el eventoID está definido antes de hacer la solicitud
+        if (!eventoID) {
+            throw new Error('Evento ID no proporcionado');
+        }
+
+        // Realizamos la solicitud con el eventoID
+        const response = await axios.get(`${API_URL}/${eventoID}`);
+
+        // Retornamos la data de la respuesta
+        return response.data;
+    } catch (error: any) {
+        console.error('Error al obtener las esculturas:', error.message || error);
+        throw error;  // Lanzar error para ser manejado en el lugar que llama a esta función
+    }
+};
+
+
 // Crear un nuevo escultor
 export const createEscultura = async (esculturaData: any) => {
     try {

@@ -15,6 +15,9 @@ const Escultura = sequelize.define('Escultura', {
     tematica: {
         type: DataTypes.STRING,
     },
+    eventoID: {
+        type: DataTypes.INTEGER,
+    }
 });
 
 module.exports = Escultura;

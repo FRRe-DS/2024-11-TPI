@@ -23,6 +23,29 @@ router.get('/', async (req, res) => {
     }
 });
 
+router.get('/:eventoID', async (req, res) => {
+    try {
+        const { eventoID } = req.params; // Obtener el eventoID de la URL
+
+        // Buscar esculturas asociadas a este eventoID
+        const esculturas = await Escultura.findAll({
+            where: { eventoID }
+        });
+
+        // Verificamos si se encontraron esculturas
+        if (!esculturas || esculturas.length === 0) {
+            return res.status(404).json({ message: 'No se encontraron esculturas para este evento' });
+        }
+
+        res.json(esculturas);
+    } catch (err) {
+        console.error('Error al obtener esculturas:', err); // Para ver el error exacto en los logs
+        res.status(500).json({ error: 'Hubo un error al obtener las esculturas.' });
+    }
+});
+
+
+
 // Obtener una escultura por ID
 router.get('/:id', async (req, res) => {
     try {

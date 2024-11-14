@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
-import { getEsculturas } from '../../../services/SculptureService.ts';
+import {getEsculturasbyEvent} from '../../../services/SculptureService.ts';
+import SculptureCard from "../../../components/ui/SculptureCard.tsx";
 
 const SculptureList: React.FC = () => {
     const [esculturas, setEsculturas] = useState<any[]>([]);
@@ -7,7 +8,8 @@ const SculptureList: React.FC = () => {
     useEffect(() => {
         const fetchEsculturas = async () => {
             try {
-                const data = await getEsculturas();
+                let id= 1;
+                const data = await getEsculturasbyEvent(id);
                 setEsculturas(data);
             } catch (error) {
                 console.error('Error al obtener las esculturas:', error);
@@ -17,14 +19,21 @@ const SculptureList: React.FC = () => {
     }, []);
 
     return (
-        <div>
-            <h2 className="text-xl font-bold mb-4">Lista de Esculturas</h2>
-            {esculturas.map((escultura, id) => (
-                <div key={id} className="bg-gray-100 p-4 mb-2 rounded">
-                    <h3 className="font-bold">{escultura.nombre}</h3>
-                    <p>{escultura.descripcion}</p>
-                </div>
-            ))}
+        <div className="flex flex-wrap gap-4 justify-center">
+            {esculturas.length > 0 ? (
+                esculturas.map((escultura: any) => (
+                    <SculptureCard
+                        key={escultura.id}
+                        nombre={escultura.nombre}
+                        descripcion={escultura.descripcion}
+                        fechaCreacion={escultura.fechaCreacion}
+                        tematica={escultura.tematica}
+                        id={escultura.id}
+                    />
+                ))
+            ) : (
+                <p>No hay esculturas en este evento</p>
+            )}
         </div>
     );
 };
