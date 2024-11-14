@@ -11,7 +11,7 @@ const Voto = sequelize.define('Voto', {
     },
     eventoId: {
         type: DataTypes.INTEGER,
-        allowNull: false,
+        //allowNull: false,
         references: {
             model: Evento,   // Asociar el voto con el evento
             key: 'id'
@@ -19,7 +19,15 @@ const Voto = sequelize.define('Voto', {
     },
     usuarioId: {
         type: DataTypes.INTEGER,
-        allowNull: false,
+        //allowNull: false,
+        references: {
+            model: User,     // Asociar el voto con el usuario
+            key: 'id'
+        }
+    },
+    EsculturaId: {
+        type: DataTypes.INTEGER,
+        //allowNull: false,
         references: {
             model: User,     // Asociar el voto con el usuario
             key: 'id'
@@ -27,15 +35,15 @@ const Voto = sequelize.define('Voto', {
     },
     voto: {
         type: DataTypes.ENUM('Sí', 'No'),  // O lo que sea relevante en tu votación
-        allowNull: false
+        //allowNull: false
     },
     fechaInicio: {
         type: DataTypes.DATE,
-        allowNull: false,
+        //allowNull: false,
     },
     fechaFin: {
         type: DataTypes.DATE,
-        allowNull: false,
+        //allowNull: false,
     },
 }, {
     timestamps: true,  // Para tener un registro de cuándo se votó

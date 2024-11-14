@@ -12,7 +12,7 @@ interface EventCardProps {
 
 const EventCard: React.FC<EventCardProps> = ({ nombre, descripcion, imagen, fecha, tematica, id }) => {
     // Corrección en la interpolación de la URL
-    const baseURL = `${window.location.origin}/votacion/${id}`;
+    const baseURL = `${window.location.origin}/events/${id}`;
 
     return (
         <div className="w-full max-w-3xl mx-auto rounded-lg overflow-hidden shadow-xl relative group bg-white">

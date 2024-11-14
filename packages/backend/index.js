@@ -36,7 +36,7 @@ app.use('/imagenes', imagenesRouter);
 app.use('/api/auth', authRoutes);
 app.use('/api/user', userRoutes); // Asegúrate de que esta línea esté aquí
 app.use('/sponsors', sponsorRoutes);
-app.use('/votaciones', votacionesRouter);
+app.use('/votar', votacionesRouter);
 app.use('/api/eventos', eventosRoutes);
 
 // Iniciar el servidor y la conexión con la base de datos

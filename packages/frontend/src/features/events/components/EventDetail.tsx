@@ -44,7 +44,7 @@ const EventDetail: React.FC = () => {
                 <p className="text-lg mt-2 text-gray-600">Temática: {evento.tematica}</p>
                 <img src={evento.imagen} alt={evento.nombre} className="mt-6 w-full h-auto"/>
             </div>
-            <SculptureList/>
+            <SculptureList eventoId={evento.id}/>
             <Footer />
         </div>
     );

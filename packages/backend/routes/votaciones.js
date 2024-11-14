@@ -6,8 +6,9 @@ const User = require('../models/User');
 const verifyToken = require('../middlewares/authMiddleware'); // Verificación del token
 
 // Ruta para registrar un voto
-router.post('/votar/:eventoId', verifyToken, async (req, res) => {
+router.post('/:eventoId/:esculturaId', verifyToken, async (req, res) => {
     const { eventoId } = req.params;   // Evento en el que se va a votar
+    const {esculturaId} = req.params;
     const { voto } = req.body;         // Voto del usuario: 'Sí' o 'No'
     const usuarioId = req.user.id;     // El ID del usuario decodificado del token
 
@@ -34,7 +35,7 @@ router.post('/votar/:eventoId', verifyToken, async (req, res) => {
         }
 
         // Registrar el voto
-        await Voto.create({ eventoId, usuarioId, voto });
+        await Voto.create({ eventoId,esculturaId, usuarioId, voto });
         res.status(200).send('Voto registrado correctamente');
     } catch (error) {
         console.error(error);
