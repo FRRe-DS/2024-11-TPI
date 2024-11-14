@@ -1,63 +1,73 @@
-import Navbar from "../../layout/Navbar/Navbar.tsx";
-import React, { useState } from 'react';
-import { useParams, useNavigate } from 'react-router-dom';
+import React, { useState, useEffect } from 'react';
+import { useParams } from 'react-router-dom';
+import axios from 'axios';
 
-interface Event {
-    id: number;
-    title: string;
-    description: string;
-}
+// Función que valida si la fecha está dentro del rango
+const verificarFechaDeVotacion = (fechaInicio: string, fechaFin: string): boolean => {
+    const ahora = new Date();
+    const inicio = new Date(fechaInicio);
+    const fin = new Date(fechaFin);
 
-const eventsData: Event[] = [
-    { id: 1, title: 'Evento 1', description: 'Descripción del Evento 1' },
-    { id: 2, title: 'Evento 2', description: 'Descripción del Evento 2' },
-    { id: 3, title: 'Evento 3', description: 'Descripción del Evento 3' },
-];
-
-// Componente para listar eventos
-const EventsList: React.FC = () => {
-    const navigate = useNavigate();
-    const [expandedId, setExpandedId] = useState<number | null>(null);
-
-    const handleClick = (id: number) => {
-        setExpandedId(id === expandedId ? null : id); // Expande o contrae el elemento seleccionado
-        navigate(`/events/${id}`); // Cambia la URL sin recargar la página
-    };
-
-    return (
-        <div>
-            {eventsData.map((event) => (
-                <div key={event.id}>
-                    <h2 onClick={() => handleClick(event.id)}>{event.title}</h2>
-                    {expandedId === event.id && <p>{event.description}</p>}
-                </div>
-            ))}
-        </div>
-    );
-};
-
-// Componente para mostrar el evento expandido según el URL
-const EventDetail: React.FC = () => {
-    const { id } = useParams<{ id: string }>();
-    const event = eventsData.find((event) => event.id === Number(id));
-
-    if (!event) return <p>Evento no encontrado</p>;
-
-    return (
-        <div>
-            <h1>{event.title}</h1>
-            <p>{event.description}</p>
-        </div>
-    );
+    return ahora >= inicio && ahora <= fin;
 };
 
 const VotingPage: React.FC = () => {
-    const { id } = useParams<{ id: string }>();
+    const { eventoId } = useParams<{ eventoId: string }>();
+    const [evento, setEvento] = useState<any>(null);
+    const [isExpired, setIsExpired] = useState(false);
+    const [voto, setVoto] = useState('');
+    const [mensaje, setMensaje] = useState('');
+
+    useEffect(() => {
+        const fetchEvento = async () => {
+            try {
+                const response = await axios.get(`/api/eventos/${eventoId}`);
+                const eventoData = response.data;
+
+                const fechaInicio = eventoData.fechaInicio;
+                const fechaFin = eventoData.fechaFin;
+
+                if (!verificarFechaDeVotacion(fechaInicio, fechaFin)) {
+                    setIsExpired(true);
+                } else {
+                    setEvento(eventoData);
+                }
+            } catch (error) {
+                console.error('Error al obtener el evento:', error);
+            }
+        };
+
+        fetchEvento();
+    }, [eventoId]);
+
+    const handleVotacion = async () => {
+        if (!voto) {
+            setMensaje('Por favor, elige tu voto.');
+            return;
+        }
+
+        try {
+            const response = await axios.post(`/api/votacion/${eventoId}`, { voto });
+            setMensaje(response.data);
+        } catch (error) {
+            setMensaje('Hubo un error al registrar el voto');
+        }
+    };
+
+    if (isExpired) {
+        return <div>La votación ha expirado.</div>;
+    }
 
     return (
         <div>
-            <Navbar />
-            {id ? <EventDetail /> : <EventsList />}
+            <h1>Votación para el Evento: {evento?.nombre}</h1>
+            <p>{evento?.descripcion}</p>
+            <div>
+                <button onClick={() => setVoto('Si')}>Votar Sí</button>
+                <button onClick={() => setVoto('No')}>Votar No</button>
+            </div>
+            <button onClick={handleVotacion}>Enviar Voto</button>
+            {mensaje && <p>{mensaje}</p>}
         </div>
     );
 };

@@ -9,6 +9,7 @@ const imagenesRouter = require('./routes/imagenes');
 const authRoutes = require('./routes/authRoutes');
 const userRoutes = require('./routes/userRoutes');
 const sponsorRoutes = require('./routes/sponsor');
+const votacionesRouter = require('./routes/votaciones');
 
 const app = express();
 const PORT = 3000;
@@ -34,6 +35,7 @@ app.use('/imagenes', imagenesRouter);
 app.use('/api/auth', authRoutes);
 app.use('/api/user', userRoutes); // Asegúrate de que esta línea esté aquí
 app.use('/sponsors', sponsorRoutes);
+app.use('/votaciones', votacionesRouter);
 
 // Iniciar el servidor y la conexión con la base de datos
 sequelize.sync({ alter: true })

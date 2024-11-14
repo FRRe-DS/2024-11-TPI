@@ -5,9 +5,11 @@
     "packages/frontend",
     "packages/backend"
   ],
-  "dependencies": {},
+  "dependencies": {
+    "qrcode.react": "^4.1.0"
+  },
   "devDependencies": {
-    "concurrently": "^9.0.0",
+    "concurrently": "^9.1.0",
     "lerna": "^8.1.8"
   },
   "scripts": {

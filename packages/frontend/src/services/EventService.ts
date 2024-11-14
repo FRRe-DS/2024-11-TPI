@@ -57,5 +57,34 @@ export const deleteEvento = async (id: string) => {
         throw error;
     }
 };
+// services/EventService.ts
+export const getEventoById = async (id: string | undefined) => {
+    try {
+        const response = await fetch(`/api/events/${id}`);
+
+        // Verificar si la respuesta no es exitosa
+        if (!response.ok) {
+            // Si el código de estado no es 2xx (OK), arrojar un error con el código de estado
+            throw new Error(`Error: ${response.status} - No se pudo obtener el evento`);
+        }
+
+        // Verificar el tipo de contenido de la respuesta (esperamos JSON)
+        const contentType = response.headers.get('Content-Type');
+        if (!contentType || !contentType.includes('application/json')) {
+            // Si no es un JSON válido, capturamos la respuesta para diagnóstico
+            const text = await response.text();
+            console.error("Respuesta no es un JSON válido. Contenido recibido:", text);
+            throw new Error('Respuesta no es un JSON válido');
+        }
+
+        // Si todo es correcto, parseamos la respuesta como JSON
+        return await response.json();
+    } catch (error) {
+        console.error('Error al obtener el evento:', error);
+        throw error;  // Volver a lanzar el error para que el componente que llama esta función lo maneje
+    }
+};
+
+
 
 

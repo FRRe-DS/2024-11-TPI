@@ -1,54 +1,43 @@
 import React, { useState, useEffect } from 'react';
-import EventCard from '../../../components/ui/EventCard.tsx';
+import EventCard from '../../../components/ui/EventCard.tsx'; // Importa el componente EventCard
 import { getEventos } from '../../../services/EventService.ts';
 
-
 const EventList: React.FC = () => {
-    const [eventos, setEventos] = useState<any[]>([]); // Estado para los eventos
+    const [eventos, setEventos] = useState<any[]>([]); // Estado para almacenar los eventos
 
     useEffect(() => {
         const fetchEventos = async () => {
             try {
-                const data = await getEventos();
-                setEventos(data); // Si los eventos se cargan, los guardamos en el estado
+                const data = await getEventos(); // Llama al servicio para obtener la lista de eventos
+                setEventos(data); // Si los eventos se cargan correctamente, los guardamos en el estado
             } catch (error) {
-                // Evento genérico en caso de error
-                setEventos([
-                    {
-                        title: "Evento Genérico",
-                        date: "Fecha no disponible",
-                        description: "Descripción no disponible",
-                    },
-                ]);
+                console.error('Error al cargar los eventos:', error);
+                // Aquí podrías mostrar un mensaje de error o eventos por defecto
             }
         };
 
-        fetchEventos(); // Llamamos a la función para cargar los eventos
+        fetchEventos(); // Llama a la función para cargar los eventos cuando se monta el componente
     }, []);
 
     return (
-        <div>
+        <div className="flex flex-wrap gap-4 justify-center">
             {eventos.length > 0 ? (
-                eventos.map((evento, id) => (
+                eventos.map((evento: any) => (
                     <EventCard
-                        key={id}
+                        key={evento.id}
                         nombre={evento.nombre}
-                        fecha={evento.fecha}
                         descripcion={evento.descripcion}
                         imagen={evento.imagen}
+                        fecha={evento.fecha}
+                        tematica={evento.tematica}
+                        id={evento.id}
                     />
                 ))
             ) : (
-                <EventCard
-                    nombre="Evento Genérico"
-                    fecha="Fecha no disponible"
-                    descripcion="Descripción no disponible"
-                    imagen="Cualquiera"
-                />
+                <p>No hay eventos disponibles</p>
             )}
         </div>
     );
 };
 
 export default EventList;
-
