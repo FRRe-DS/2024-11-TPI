@@ -10,9 +10,10 @@ const authRoutes = require('./routes/authRoutes');
 const userRoutes = require('./routes/userRoutes');
 const sponsorRoutes = require('./routes/sponsor');
 const votacionesRouter = require('./routes/votaciones');
+const eventosRoutes = require('./routes/eventos');
 
 const app = express();
-const PORT = 3000;
+const PORT = 3000; // O usa el valor de puerto de .env si está configurado
 require('dotenv').config();
 
 // Middlewares
@@ -36,6 +37,7 @@ app.use('/api/auth', authRoutes);
 app.use('/api/user', userRoutes); // Asegúrate de que esta línea esté aquí
 app.use('/sponsors', sponsorRoutes);
 app.use('/votaciones', votacionesRouter);
+app.use('/api/eventos', eventosRoutes);
 
 // Iniciar el servidor y la conexión con la base de datos
 sequelize.sync({ alter: true })

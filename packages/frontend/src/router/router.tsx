@@ -9,8 +9,8 @@ import VotingPage from '../features/voting/VotingPage.tsx';
 import ProtectedRoute from './ProtectedRoute.tsx';
 import Registerpage from '../features/auth/pages/registerpage.tsx';
 import EventDetail from '../features/events/components/EventDetail.tsx';
-import VotacionPage from "../features/voting/VotingPage.tsx";
-import VotacionQRCodeWrapper from "../features/voting/VotacionQRCodeWrapper.tsx"; // Agrega el componente para ver el detalle de un evento
+import VotingEventList from '../features/voting/VotingEventList';
+import VotacionQRCodeWrapper from '../features/voting/VotacionQRCodeWrapper';
 
 function AppRouter() {
     return (
@@ -33,8 +33,9 @@ function AppRouter() {
                 />
                 {/* Ruta para ver los detalles de un evento */}
                 <Route path="/events/:id" element={<EventDetail />} />
-                <Route path="/votacion/:eventoId" element={<VotacionPage />} />
+                <Route path="/votacion/:eventoId" element={<VotingPage />} />
                 <Route path="/codigo-qr/:eventoId" element={<VotacionQRCodeWrapper />} />
+                <Route path="/votacion-eventos" element={<VotingEventList />} />
             </Routes>
         </Router>
     );

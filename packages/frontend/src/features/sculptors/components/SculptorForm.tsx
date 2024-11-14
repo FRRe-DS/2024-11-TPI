@@ -1,5 +1,4 @@
 import React, { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
 import { createEscultor } from '../../../services/SculptorService.ts';  // Cambia a tu servicio adecuado
 
 const SculptorForm = () => {
@@ -8,7 +7,6 @@ const SculptorForm = () => {
     const [fechaNacimiento, setFechaNacimiento] = useState('');
     const [fechaFallecimiento, setFechaFallecimiento] = useState('');
     const [error, setError] = useState('');
-    const navigate = useNavigate();
 
     const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
@@ -25,7 +23,6 @@ const SculptorForm = () => {
                 setBiografia('');
                 setFechaNacimiento('');
                 setFechaFallecimiento('');
-                navigate('/'); // Redirige al usuario a la página principal después de crear el escultor
             } else {
                 setError('No se pudo crear el escultor. Inténtalo de nuevo.');
             }
