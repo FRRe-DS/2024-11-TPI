@@ -1,5 +1,4 @@
 import React, { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
 import { createEscultura } from '../../../services/SculptureService.ts';  // Cambia a tu servicio adecuado
 
 const SculptureForm = () => {
@@ -8,7 +7,7 @@ const SculptureForm = () => {
     const [descripcion, setDescripcion] = useState('');
     const [tematica, setTematica] = useState('');
     const [error, setError] = useState('');
-    const navigate = useNavigate();
+
 
     const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
@@ -25,7 +24,6 @@ const SculptureForm = () => {
                 setFechaCreacion('');
                 setDescripcion('');
                 setTematica('');
-                navigate('/'); // Redirige al usuario a la página principal después de crear la escultura
             } else {
                 setError('No se pudo crear la escultura. Inténtalo de nuevo.');
             }

@@ -11,9 +11,13 @@ const Evento = sequelize.define('Evento',{
         type: DataTypes.STRING,
         allowNull: false,
     },
-    fecha: {
+    fechaInc: {
         type: DataTypes.DATE,
-        allowNull: false,
+        allowNull: true,
+    },
+    fechaFin: {
+        type: DataTypes.DATE,
+        allowNull: true,
     },
     lugar: {
         type: DataTypes.STRING,
@@ -21,12 +25,15 @@ const Evento = sequelize.define('Evento',{
     },
     descripcion: {
         type: DataTypes.TEXT,
+        allowNull: false,
     },
     tematica: {
         type: DataTypes.STRING,
+        allowNull: false,
     },
     imagen: {
         type: DataTypes.STRING,
+        allowNull: true,
     },
 }, {
     timestamps: true,

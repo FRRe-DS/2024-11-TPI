@@ -1,36 +1,38 @@
 import React, { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 import axios from 'axios';
+import EventCard from "../../components/ui/EventCard.tsx"; // Para hacer solicitudes HTTP
+ // Asegúrate de importar la tarjeta de evento
 
-// Función que valida si la fecha está dentro del rango
-const verificarFechaDeVotacion = (fechaInicio: string, fechaFin: string): boolean => {
-    const ahora = new Date();
-    const inicio = new Date(fechaInicio);
-    const fin = new Date(fechaFin);
+const VotacionPage: React.FC = () => {
+    const { eventoId } = useParams<{ eventoId: string }>(); // Obtener eventoId desde la URL
+    const [evento, setEvento] = useState<any>(null); // Almacenar la información del evento
+    const [isExpired, setIsExpired] = useState(false); // Validación de fecha
 
-    return ahora >= inicio && ahora <= fin;
-};
+    // Función para verificar si la fecha está dentro del rango
+    const verificarFechaDeVotacion = (fechaInicio: string, fechaFin: string): boolean => {
+        const ahora = new Date();
+        const inicio = new Date(fechaInicio);
+        const fin = new Date(fechaFin);
 
-const VotingPage: React.FC = () => {
-    const { eventoId } = useParams<{ eventoId: string }>();
-    const [evento, setEvento] = useState<any>(null);
-    const [isExpired, setIsExpired] = useState(false);
-    const [voto, setVoto] = useState('');
-    const [mensaje, setMensaje] = useState('');
+        return ahora >= inicio && ahora <= fin;
+    };
 
     useEffect(() => {
         const fetchEvento = async () => {
             try {
+                // Llamada al backend para obtener los detalles del evento
                 const response = await axios.get(`/api/eventos/${eventoId}`);
                 const eventoData = response.data;
 
+                // Verificar las fechas de votación
                 const fechaInicio = eventoData.fechaInicio;
                 const fechaFin = eventoData.fechaFin;
 
                 if (!verificarFechaDeVotacion(fechaInicio, fechaFin)) {
-                    setIsExpired(true);
+                    setIsExpired(true); // Si las fechas no son válidas, mostrar mensaje
                 } else {
-                    setEvento(eventoData);
+                    setEvento(eventoData); // Si las fechas son válidas, guardar los datos
                 }
             } catch (error) {
                 console.error('Error al obtener el evento:', error);
@@ -40,36 +42,28 @@ const VotingPage: React.FC = () => {
         fetchEvento();
     }, [eventoId]);
 
-    const handleVotacion = async () => {
-        if (!voto) {
-            setMensaje('Por favor, elige tu voto.');
-            return;
-        }
-
-        try {
-            const response = await axios.post(`/api/votacion/${eventoId}`, { voto });
-            setMensaje(response.data);
-        } catch (error) {
-            setMensaje('Hubo un error al registrar el voto');
-        }
-    };
-
     if (isExpired) {
         return <div>La votación ha expirado.</div>;
     }
 
     return (
-        <div>
-            <h1>Votación para el Evento: {evento?.nombre}</h1>
-            <p>{evento?.descripcion}</p>
-            <div>
-                <button onClick={() => setVoto('Si')}>Votar Sí</button>
-                <button onClick={() => setVoto('No')}>Votar No</button>
-            </div>
-            <button onClick={handleVotacion}>Enviar Voto</button>
-            {mensaje && <p>{mensaje}</p>}
+        <div className="flex justify-center items-center min-h-screen bg-gray-100">
+            {/* Mostrar la tarjeta del evento */}
+            {evento ? (
+                <EventCard
+                    key={evento.id}
+                    nombre={evento.nombre}
+                    descripcion={evento.descripcion}
+                    imagen={evento.imagen}
+                    fecha={evento.fecha}
+                    tematica={evento.tematica}
+                    id={evento.id}
+                />
+            ) : (
+                <p>Cargando evento...</p>
+            )}
         </div>
     );
 };
 
-export default VotingPage;
+export default VotacionPage;
