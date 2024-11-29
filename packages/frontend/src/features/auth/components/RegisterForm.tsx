@@ -1,10 +1,13 @@
-// RegisterForm.tsx
-
 import React, { useState } from 'react';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 
-const RegisterForm = () => {
+interface RegisterFormProps {
+    onSwitchToLogin: () => void;
+}
+
+const RegisterForm: React.FC<RegisterFormProps> = ({ onSwitchToLogin }) => {
+    const [nombre, setNombre] = useState('');
     const [username, setUsername] = useState('');
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
@@ -16,6 +19,7 @@ const RegisterForm = () => {
 
         try {
             const response = await axios.post(`${API_URL}/auth/register`, {
+                nombre,
                 username,
                 email,
                 password,
@@ -59,6 +63,19 @@ const RegisterForm = () => {
                 </div>
                 <div className="relative">
                     <input
+                        type="text"
+                        placeholder="Nombre"
+                        value={nombre}
+                        onChange={(e) => setNombre(e.target.value)}
+                        className="peer h-10 w-full border-b-2 border-gray-300 text-white bg-transparent placeholder-transparent focus:outline-none focus:border-purple-300"
+                        required
+                    />
+                    <label htmlFor="username"
+                           className="absolute left-0 -top-3.5 text-gray-300 text-sm peer-focus:-top-3.5 peer-focus:text-purple-200 peer-focus:text-sm"
+                    > Nombre Completo </label>
+                </div>
+                <div className="relative">
+                    <input
                         type="email"
                         placeholder="Email"
                         value={email}
@@ -91,6 +108,20 @@ const RegisterForm = () => {
                     </button>
                     {error && <p className="mt-4 text-red-500 text-center">{error}</p>}
                 </div>
+                <p className="text-center text-gray-300">
+                    ¿Ya tienes una cuenta?{' '}
+                    <button
+                        onClick={(e) => {
+                            e.preventDefault();
+                            onSwitchToLogin();
+                        }}
+                        className="text-purple-200 hover:underline focus:outline-none ml-2"
+                    >
+                        Iniciar sesión
+                    </button>
+                </p>
+
+
             </form>
         </div>
     );

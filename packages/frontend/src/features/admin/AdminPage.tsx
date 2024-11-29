@@ -15,9 +15,7 @@ import Home from "../home/Home.tsx";
 import Events from "../events/Events.tsx";
 import Sculptures from "../sculptures/Sculptures.tsx";
 import Sculptors from "../sculptors/Sculptors.tsx";
-import LoginPage from "../auth/pages/LoginPage.tsx";
-import RegisterPage from "../auth/pages/registerpage.tsx";
-import AuthPage from "../auth/pages/AuthPage.tsx";
+import LoginPage from "../auth/pages/AuthPage.tsx";
 
 const AdminPage: React.FC = () => {
     const [selectedPage, setSelectedPage] = useState<string>("home");  // Estado para las nuevas páginas
@@ -34,12 +32,8 @@ const AdminPage: React.FC = () => {
                 return <Sculptures />;
             case "sculptors":
                 return <Sculptors />;
-            case "auth":
-                return <AuthPage />;
             case "login":
                 return <LoginPage />;
-            case "register":
-                return <RegisterPage />;
             default:
                 return <Home />;
         }
@@ -98,25 +92,11 @@ const AdminPage: React.FC = () => {
                             Sculptors
                         </li>
                         <li
-                            onClick={() => setSelectedPage("auth")}
-                            className="cursor-pointer mb-6 flex items-center text-lg hover:text-gray-300 transition-all ease-in-out"
-                        >
-                            <FaUser className="mr-3 text-xl"/>
-                            Auth
-                        </li>
-                        <li
                             onClick={() => setSelectedPage("login")}
                             className="cursor-pointer mb-6 flex items-center text-lg hover:text-gray-300 transition-all ease-in-out"
                         >
                             <FaUser className="mr-3 text-xl"/>
-                            Login
-                        </li>
-                        <li
-                            onClick={() => setSelectedPage("register")}
-                            className="cursor-pointer mb-6 flex items-center text-lg hover:text-gray-300 transition-all ease-in-out"
-                        >
-                            <FaUser className="mr-3 text-xl"/>
-                            Register
+                            login
                         </li>
 
                         {/* Enlaces para los módulos de gestión */}

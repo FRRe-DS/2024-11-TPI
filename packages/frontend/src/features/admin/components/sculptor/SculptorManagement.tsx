@@ -1,6 +1,6 @@
 import React from 'react';
 import CreateSculptor from "./components/SculptorForm";
-import DeleteSculptor from "./components/SculptorDelete";
+//import DeleteSculptor from "./components/SculptorDelete";
 import SculptorListAdmin from "./components/SculptorListAdmin";
 
 const SculptorManagement: React.FC = () => {
@@ -12,8 +12,8 @@ const SculptorManagement: React.FC = () => {
                 return <CreateSculptor />;
             case 'list':
                 return <SculptorListAdmin />;
-            case 'delete':
-                return <DeleteSculptor />;
+            //case 'delete':
+                //return <DeleteSculptor />;
             default:
                 return null;
         }

@@ -3,7 +3,11 @@ import { login } from '../../../services/AuthService.ts';
 import { useNavigate } from 'react-router-dom';
 import LoginForm from './LoginForm';
 
-const Login: React.FC = () => {
+interface LoginProps {
+    onSwitchToRegister: () => void;
+}
+
+const Login: React.FC<LoginProps> = ({ onSwitchToRegister }) => {
     const [error, setError] = useState<string | null>(null);
     const [loading, setLoading] = useState(false);
     const navigate = useNavigate();
@@ -36,6 +40,7 @@ const Login: React.FC = () => {
             onSubmit={handleLogin}
             loading={loading}
             error={error}
+            onSwitchToRegister={onSwitchToRegister}
         />
     );
 };

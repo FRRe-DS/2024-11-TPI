@@ -4,6 +4,7 @@ const { User, Escultor } = require("../models");
 const createEscultor = async () => {
     try {
         // Datos configurables para el escultor
+        const nombre = "Escultor Ejemplo";
         const username = "escultor1"; // Nombre de usuario
         const email = "escultor1@gmail.com"; // Correo electrónico
         const password = "escultor123"; // Contraseña
@@ -21,6 +22,7 @@ const createEscultor = async () => {
 
         // Crear el usuario
         const newUser = await User.create({
+            nombre,
             username,
             email,
             password: hashedPassword,
@@ -32,7 +34,7 @@ const createEscultor = async () => {
             userId: newUser.id, // Relacionar con el ID del usuario creado
             nombre: "Escultor Ejemplo",
             biografia: "Este es un escultor de prueba.",
-            imagen: "https://example.com/imagen-defecto.png", // Imagen por defecto
+            imagen: "https://example.com/imagen-defecto.png",
             puntuacionTotal: 0, // Puntuación inicial
             instagram: "https://instagram.com/escultor1",
             facebook: "https://facebook.com/escultor1",

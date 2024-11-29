@@ -1,18 +1,18 @@
-// LoginForm.tsx
 import React, { useState } from 'react';
 
 interface LoginFormProps {
     onSubmit: (username: string, password: string) => void;
     loading: boolean;
     error: string | null;
+    onSwitchToRegister: () => void;
 }
 
-const LoginForm: React.FC<LoginFormProps> = ({ onSubmit, loading, error }) => {
+const LoginForm: React.FC<LoginFormProps> = ({onSubmit, loading, error, onSwitchToRegister }) => {
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
 
     const handleSubmit = (e: React.FormEvent) => {
-        e.preventDefault(); // Evita la recarga de la página
+        e.preventDefault();
         console.log('Formulario enviado con:', { username, password });
 
         if (username && password) {
@@ -58,16 +58,6 @@ const LoginForm: React.FC<LoginFormProps> = ({ onSubmit, loading, error }) => {
                            className="absolute left-0 -top-3.5 text-gray-300 text-sm peer-focus:-top-3.5 peer-focus:text-purple-200 peer-focus:text-sm">Contraseña</label>
                 </div>
                 {error && <p className="text-red-200 text-sm">{error}</p>}
-                <div className="flex items-center justify-between">
-                    <label className="flex items-center text-sm text-gray-200">
-                        <input
-                            className="form-checkbox h-4 w-4 text-purple-600 bg-gray-800 border-gray-300 rounded"
-                            type="checkbox"
-                        />
-                        <span className="ml-2">Recuerdame</span>
-                    </label>
-
-                </div>
                 <div>
                     <button
                         type="submit"
@@ -79,8 +69,17 @@ const LoginForm: React.FC<LoginFormProps> = ({ onSubmit, loading, error }) => {
                 </div>
                 <div className="text-center text-gray-300">
                     ¿No tienes una cuenta?
-                    <a className="text-purple-200 hover:underline" href="/registrarse"> Registrarse </a>
+                    <button
+                        onClick={(e) => {
+                            e.preventDefault();
+                            onSwitchToRegister();
+                        }}
+                        className="text-purple-200 hover:underline focus:outline-none ml-2"
+                    >
+                        Registrarse
+                    </button>
                 </div>
+
             </form>
         </div>
     );

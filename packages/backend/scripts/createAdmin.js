@@ -15,6 +15,7 @@ const createAdmin = async () => {
 
         // Crear usuario administrador
         const adminUser = await User.create({
+            nombre: process.env.ADMIN_USERNAME,
             username: process.env.ADMIN_USERNAME,
             email: process.env.ADMIN_EMAIL,
             password: hashedPassword,

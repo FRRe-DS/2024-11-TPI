@@ -5,12 +5,13 @@ import 'swiper/css/effect-flip';
 import 'swiper/css/pagination';
 import 'swiper/css/navigation';
 import { EffectFlip } from 'swiper/modules';
-import Login from "../components/Login.tsx";
-import RegisterForm from "../components/RegisterForm.tsx";
-import UserRoleIndicator from "../../../layout/Navbar/component/ui/UserRoleIndicator.tsx";
+import Login from "../components/Login";
+import RegisterForm from "../components/RegisterForm";
+import UserRoleIndicator from "../../../layout/Navbar/component/ui/UserRoleIndicator";
+import { useRef } from "react";
 
-export default function AuthPage() {
-
+export default function LoginPage() {
+    const swiperRef = useRef<any>(null);
     return (
         <div
             className="w-full min-h-screen flex flex-col items-center justify-center bg-cover bg-center"  // Añadido bg-cover y min-h-screen
@@ -27,12 +28,13 @@ export default function AuthPage() {
                     loop={true}
                     modules={[EffectFlip]}
                     className="w-full max-w-md"
+                    onSwiper={(swiper) => (swiperRef.current = swiper)}
                 >
                     <SwiperSlide className="flex items-center justify-center">
-                        <Login/>
+                        <Login onSwitchToRegister={() => swiperRef.current?.slideTo(1)} />
                     </SwiperSlide>
                     <SwiperSlide className="flex items-center justify-center">
-                        <RegisterForm/>
+                        <RegisterForm onSwitchToLogin={() => swiperRef.current?.slideTo(0)} />
                     </SwiperSlide>
                 </Swiper>
             </div>

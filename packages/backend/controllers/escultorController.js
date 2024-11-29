@@ -3,7 +3,7 @@ const { Escultor, User } = require("../models");
 // Crear un escultor
 const crearEscultor = async (req, res) => {
     try {
-        const { userId, biografia, imagen, instagram, facebook, youtube, linkedin } = req.body;
+        const { userId, nombre, biografia, imagen, instagram, facebook, youtube, linkedin } = req.body;
 
         const user = await User.findByPk(userId);
         if (!user) {
@@ -12,6 +12,7 @@ const crearEscultor = async (req, res) => {
 
         const escultor = await Escultor.create({
             userId,
+            nombre,
             biografia,
             imagen,
             instagram,

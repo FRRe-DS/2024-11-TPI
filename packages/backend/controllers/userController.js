@@ -19,15 +19,16 @@ const getUsers = async (req, res) => {
 // Crear un nuevo usuario
 const createUser = async (req, res) => {
     try {
-        const { username, email, password, role, isActive } = req.body;
+        const { nombre, username, email, password, role, isActive } = req.body;
 
         // Validar que los campos obligatorios estén presentes
-        if (!username || !email || !password) {
-            return res.status(400).json({ message: "Nombre de usuario, correo y contraseña son obligatorios" });
+        if (!nombre || !username || !email || !password) {
+            return res.status(400).json({ message: "Nombre, usuario, correo y contraseña son obligatorios" });
         }
 
         // Crear el usuario con los datos proporcionados
         let user = User.build({
+            nombre,
             username,
             email,
             password,
