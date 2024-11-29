@@ -21,7 +21,6 @@ function AppRouter() {
                 <Route path="/esculturas" element={<Sculptures />} />
                 <Route path="/escultores" element={<Sculptors />} />
                 <Route path="/login" element={<LoginPage />} />
-                <Route path="/votingpage" element={<VotingPage />} />
                 <Route path="/Registrarse" element={<Registerpage />} />
                 <Route
                     path="/adminpage"
