@@ -11,6 +11,7 @@ import VotingEventList from '../features/voting/components/VotingEventList.tsx';
 import VotacionQRCodeWrapper from '../features/voting/QRCode/VotacionQRCodeWrapper.tsx';
 import Sculptures from "../features/sculptures/Sculptures.tsx";
 import Sculptors from "../features/sculptors/Sculptors.tsx";
+import AuthPage from "../features/auth/pages/AuthPage.tsx";
 
 function AppRouter() {
     return (
@@ -21,7 +22,8 @@ function AppRouter() {
                 <Route path="/esculturas" element={<Sculptures />} />
                 <Route path="/escultores" element={<Sculptors />} />
                 <Route path="/login" element={<LoginPage />} />
-                <Route path="/Registrarse" element={<Registerpage />} />
+                <Route path="/Register" element={<Registerpage />} />
+                <Route path="/auth" element={<AuthPage />} />
                 <Route
                     path="/adminpage"
                     element={

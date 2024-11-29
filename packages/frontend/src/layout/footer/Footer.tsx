@@ -4,23 +4,20 @@ import React from "react";
 const Footer: React.FC = () => {
     return (
         <footer
-            className="fixed bottom-0 left-0 w-full bg-cover bg-center text-white py-10"
+            className="fixed bottom-0 left-0 w-full bg-cover bg-center text-white "
             style={{
                 backgroundImage: `url('https://plus.unsplash.com/premium_photo-1719864933065-6639a2d32e56?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D')`,
-                backgroundPosition: 'center -320px',
+                backgroundPosition: 'center -390px',
             }}
         >
-
             {/* Contenedor principal para la disposición */}
             <div className="flex justify-between items-center px-10">
                 {/* Logo a la izquierda */}
                 <div className="flex justify-start items-center">
                     <img src={logo} alt="Logo" className="h-[116px] object-contain"/>
                 </div>
-
                 {/* Navegación de links a la derecha */}
                 <div className="flex flex-col justify-center items-end gap-4">
-
                     {/* Iconos de redes sociales */}
                     <div className="flex justify-end gap-6 mt-6">
                         <a href="https://twitter.com/bienaldelchaco" target="_blank" rel="noopener noreferrer"
@@ -46,7 +43,6 @@ const Footer: React.FC = () => {
                     </div>
                 </div>
             </div>
-
             {/* Información de derechos de autor */}
             <div className="text-center mt-6">
                 <p className="text-sm opacity-80">
