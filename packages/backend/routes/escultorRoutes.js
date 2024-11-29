@@ -6,7 +6,7 @@ const {
     actualizarEscultor,
     eliminarEscultor,
 } = require("../controllers/escultorController");
-const authenticateToken = require("../middlewares/authMiddleware"); // Cambiado a importar la función directamente
+const authenticateToken = require("../middlewares/authMiddleware");
 const roleMiddleware = require("../middlewares/roleMiddleware");
 
 const router = express.Router();
@@ -17,13 +17,13 @@ router.post("/", authenticateToken, roleMiddleware("admin"), crearEscultor);
 // Obtener todos los escultores
 router.get("/", authenticateToken, obtenerEscultores);
 
-// Obtener un escultor por ID
+// Obtener un escultor por id
 router.get("/:id", authenticateToken, obtenerEscultorPorId);
 
-// Actualizar un escultor (solo accesible para admin)
+// Actualizar un escultor (por id) - Solo admins
 router.put("/:id", authenticateToken, roleMiddleware("admin"), actualizarEscultor);
 
-// Eliminar un escultor (solo accesible para admin)
+// Eliminar un escultor (por id) - Solo admins
 router.delete("/:id", authenticateToken, roleMiddleware("admin"), eliminarEscultor);
 
 module.exports = router;

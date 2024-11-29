@@ -1,4 +1,4 @@
-require('dotenv').config(); // Cargar las variables de entorno
+require('dotenv').config(); // Cargar variables de entorno
 const { Sequelize } = require('sequelize');
 
 // Crear instancia de Sequelize
@@ -26,20 +26,9 @@ const sequelize = new Sequelize(
     }
 );
 
-// Mostrar la configuración de conexión (sin contraseña)
-console.log('DB Config:', {
-    DB_NAME: process.env.POSTGRES_DB,
-    DB_USER: process.env.POSTGRES_USER,
-    DB_PASSWORD: '********',
-    DB_HOST: process.env.DB_HOST,
-    DB_PORT: process.env.DB_PORT,
-});
+// Probar conexión a la base de datos
+sequelize.authenticate()
+    .then(() => console.log('Conexión a la base de datos establecida con éxito.'))
+    .catch((error) => console.error('Error en la conexión a la base de datos:', error));
 
-// Probar la conexión a la base de datos
-sequelize
-    .authenticate()
-    .then(() => console.log('Conexión a la base de datos establecida con éxito.')) // Éxito
-    .catch((error) => console.error('Error en la conexión a la base de datos:', error)); // Error
-
-// Exportar la instancia de Sequelize para usarla en otros módulos
 module.exports = sequelize;

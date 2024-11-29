@@ -7,11 +7,11 @@ const Qr = require("./Qr");
 const Voto = require("./Voto");
 
 // Relaciones
-User.hasOne(Escultor, { foreignKey: "userId", as: "perfil" });
-Escultor.belongsTo(User, { foreignKey: "userId", as: "usuario" });
+User.hasOne(Escultor, { foreignKey: 'userId', as: 'perfil' });
+Escultor.belongsTo(User, { foreignKey: 'userId', as: 'usuario' });
 
-Escultor.hasMany(Escultura, { foreignKey: "escultorId", as: "esculturas" });
-Escultura.belongsTo(Escultor, { foreignKey: "escultorId", as: "escultor" });
+Escultor.hasMany(Escultura, { foreignKey: 'userId', as: "esculturas" });
+Escultura.belongsTo(Escultor, { foreignKey: 'userId', as: "escultor" });
 
 Evento.hasMany(Escultura, { foreignKey: "eventoId", as: "esculturas" });
 Escultura.belongsTo(Evento, { foreignKey: "eventoId", as: "evento" });

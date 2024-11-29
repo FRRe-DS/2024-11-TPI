@@ -1,22 +1,17 @@
-const { Escultor, Escultura, User } = require("../models");
+const { Escultor, User } = require("../models");
 
 // Crear un escultor
 const crearEscultor = async (req, res) => {
     try {
-        const { userId, nombre, biografia, imagen, instagram, facebook, youtube, linkedin } = req.body;
+        const { userId, biografia, imagen, instagram, facebook, youtube, linkedin } = req.body;
 
-        // Buscar el usuario asociado para obtener datos
         const user = await User.findByPk(userId);
         if (!user) {
             return res.status(404).json({ message: "Usuario no encontrado" });
         }
 
-        // Crear el escultor con datos adicionales del usuario
-        const nuevoEscultor = await Escultor.create({
-            userId: user.id,
-            username: user.username,
-            email: user.email,
-            nombre: nombre || user.username, // Por defecto, usa el nombre de usuario
+        const escultor = await Escultor.create({
+            userId,
             biografia,
             imagen,
             instagram,
@@ -25,18 +20,18 @@ const crearEscultor = async (req, res) => {
             linkedin,
         });
 
-        res.status(201).json({ message: "Escultor creado exitosamente", escultor: nuevoEscultor });
+        res.status(201).json({ message: "Escultor creado exitosamente", escultor });
     } catch (error) {
         console.error("Error al crear escultor:", error);
         res.status(500).json({ message: "Error interno del servidor" });
     }
 };
 
-// Obtener todos los escultores con sus puntuaciones totales
+// Obtener todos los escultores
 const obtenerEscultores = async (req, res) => {
     try {
         const escultores = await Escultor.findAll({
-            attributes: ["id", "nombre", "puntuacionTotal"], // Incluir la puntuación total
+            include: [{ model: User, attributes: ["username", "email"] }],
         });
         res.status(200).json({ escultores });
     } catch (error) {
@@ -45,18 +40,14 @@ const obtenerEscultores = async (req, res) => {
     }
 };
 
-// Obtener un escultor por ID con sus puntuaciones totales y esculturas
+// Obtener un escultor por id
 const obtenerEscultorPorId = async (req, res) => {
     try {
         const { id } = req.params;
-        const escultor = await Escultor.findByPk(id, {
-            include: [
-                {
-                    model: Escultura,
-                    as: "esculturas",
-                    attributes: ["id", "nombre", "descripcion", "puntuacion"],
-                },
-            ],
+
+        const escultor = await Escultor.findOne({
+            where: { userId: id },
+            include: [{ model: User, attributes: ["username", "email"] }],
         });
 
         if (!escultor) {
@@ -70,22 +61,21 @@ const obtenerEscultorPorId = async (req, res) => {
     }
 };
 
-// Actualizar un escultor
+// Actualizar un escultor por id
 const actualizarEscultor = async (req, res) => {
     try {
         const { id } = req.params;
-        const { nombre, biografia, imagen, puntuacionTotal, instagram, facebook, youtube, linkedin } = req.body;
+        const { biografia, imagen, puntuacionTotal, instagram, facebook, youtube, linkedin } = req.body;
 
-        const escultor = await Escultor.findByPk(id);
+        const escultor = await Escultor.findOne({ where: { userId: id } });
         if (!escultor) {
             return res.status(404).json({ message: "Escultor no encontrado" });
         }
 
         await escultor.update({
-            nombre,
             biografia,
             imagen,
-            puntuacionTotal: puntuacionTotal || escultor.puntuacionTotal, // Mantiene la puntuación actual si no se actualiza
+            puntuacionTotal,
             instagram,
             facebook,
             youtube,
@@ -99,12 +89,12 @@ const actualizarEscultor = async (req, res) => {
     }
 };
 
-// Eliminar un escultor
+// Eliminar un escultor por id
 const eliminarEscultor = async (req, res) => {
     try {
         const { id } = req.params;
 
-        const escultor = await Escultor.findByPk(id);
+        const escultor = await Escultor.findOne({ where: { userId: id } });
         if (!escultor) {
             return res.status(404).json({ message: "Escultor no encontrado" });
         }

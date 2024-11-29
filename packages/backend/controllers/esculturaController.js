@@ -3,7 +3,12 @@ const { Escultura, Escultor, Evento } = require("../models");
 // Crear una escultura
 const crearEscultura = async (req, res) => {
     try {
-        const { nombre, descripcion, plano, imagenes, imagenFinal, fechaCreacion, escultorId, eventoId } = req.body;
+        const { nombre, descripcion, plano, imagenes, imagenFinal, fechaCreacion, usuarioId, eventoId } = req.body;
+
+        // Verificar que usuarioId y eventoId son válidos (opcional)
+        if (!usuarioId || !eventoId) {
+            return res.status(400).json({ message: "Se debe proporcionar un usuarioId y un eventoId válidos." });
+        }
 
         const nuevaEscultura = await Escultura.create({
             nombre,
@@ -12,7 +17,7 @@ const crearEscultura = async (req, res) => {
             imagenes,
             imagenFinal,
             fechaCreacion,
-            escultorId,
+            userId: usuarioId, // Usamos userId en lugar de escultorId
             eventoId,
         });
 
@@ -66,7 +71,7 @@ const obtenerEsculturaPorId = async (req, res) => {
 const actualizarEscultura = async (req, res) => {
     try {
         const { id } = req.params;
-        const { nombre, descripcion, plano, imagenes, imagenFinal, fechaCreacion, escultorId, eventoId } = req.body;
+        const { nombre, descripcion, plano, imagenes, imagenFinal, fechaCreacion, usuarioId, eventoId } = req.body;
 
         const escultura = await Escultura.findByPk(id);
         if (!escultura) {
@@ -80,7 +85,7 @@ const actualizarEscultura = async (req, res) => {
             imagenes,
             imagenFinal,
             fechaCreacion,
-            escultorId,
+            userId: usuarioId, // Usamos userId en lugar de escultorId
             eventoId,
         });
 

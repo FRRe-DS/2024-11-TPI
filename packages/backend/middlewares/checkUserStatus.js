@@ -1,25 +1,48 @@
-const { User } = require("../models"); // Importar el modelo de usuario
+const { User } = require("../models");
+
+const userCache = new Map(); // Cache temporal para almacenar usuarios
 
 const checkUserStatus = async (req, res, next) => {
     try {
-        const userId = req.user.id; // Se asume que el usuario ya fue autenticado y `req.user` existe
-        const user = await User.findByPk(userId);
+        const userId = req.user.id;
 
+        // Verificar si el usuario ya está en el cache
+        if (userCache.has(userId)) {
+            const cachedUser = userCache.get(userId);
+
+            if (!cachedUser.isActive) {
+                return res.status(403).json({ message: "Usuario inactivo" });
+            }
+
+            if (cachedUser.expiryDate && new Date() > new Date(cachedUser.expiryDate)) {
+                return res.status(403).json({ message: "Usuario expirado" });
+            }
+
+            // Usuario validado desde el cache
+            return next();
+        }
+
+        // Si no está en el cache, buscar en la base de datos
+        const user = await User.findByPk(userId);
         if (!user) {
             return res.status(404).json({ message: "Usuario no encontrado" });
         }
 
-        // Verificar si el usuario está activo
+        // Agregar al cache con un tiempo de vida limitado
+        userCache.set(userId, {
+            isActive: user.isActive,
+            expiryDate: user.expiryDate,
+        });
+        setTimeout(() => userCache.delete(userId), 60000); // Tiempo de vida: 60 segundos
+
         if (!user.isActive) {
             return res.status(403).json({ message: "Usuario inactivo" });
         }
 
-        // Verificar si el usuario ha expirado
         if (user.expiryDate && new Date() > new Date(user.expiryDate)) {
             return res.status(403).json({ message: "Usuario expirado" });
         }
 
-        // Si todo está bien, continuar con la solicitud
         next();
     } catch (error) {
         console.error("Error verificando el estado del usuario:", error);

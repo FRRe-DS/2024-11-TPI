@@ -1,7 +1,7 @@
 const { DataTypes } = require('sequelize');
 const sequelize = require('../config/database');
 
-const User = sequelize.define("User", {
+const User = sequelize.define('User', {
     id: {
         type: DataTypes.INTEGER,
         primaryKey: true,
@@ -12,6 +12,15 @@ const User = sequelize.define("User", {
         allowNull: false,
         unique: true,
     },
+    password: {
+        type: DataTypes.STRING,
+        allowNull: false,
+    },
+    role: {
+        type: DataTypes.ENUM('admin', 'user', 'escultor'),
+        allowNull: false,
+        defaultValue: 'user',
+    },
     email: {
         type: DataTypes.STRING,
         allowNull: false,
@@ -20,28 +29,17 @@ const User = sequelize.define("User", {
             isEmail: true,
         },
     },
-    password: {
-        type: DataTypes.STRING,
-        allowNull: false,
-    },
-    role: {
-        type: DataTypes.ENUM('admin', 'user', 'escultor'), // Tipos de roles disponibles
-        allowNull: false,
-        defaultValue: 'user',
-    },
     isActive: {
-        type: DataTypes.BOOLEAN, // Indica si el usuario está activo
+        type: DataTypes.BOOLEAN,
         defaultValue: true,
     },
     expiryDate: {
-        type: DataTypes.DATE, // Fecha de expiración opcional
+        type: DataTypes.DATE,
         allowNull: true,
-        defaultValue: null,
     },
 }, {
-    timestamps: true, // Incluye campos `createdAt` y `updatedAt`
-    createdAt: 'createdAt', // Nombre personalizado para la columna
-    updatedAt: 'updatedAt', // Nombre personalizado para la columna
+    timestamps: true,
+    tableName: 'Users',
 });
 
 module.exports = User;

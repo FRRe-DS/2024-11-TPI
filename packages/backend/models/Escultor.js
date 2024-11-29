@@ -1,28 +1,19 @@
-const { DataTypes } = require("sequelize");
-const sequelize = require("../config/database");
+const { DataTypes } = require('sequelize');
+const sequelize = require('../config/database');
+const User = require('./User');
 
-const Escultor = sequelize.define("Escultor", {
-    id: {
-        type: DataTypes.INTEGER,
-        primaryKey: true,
-        autoIncrement: true,
-    },
+const Escultor = sequelize.define('Escultor', {
     userId: {
         type: DataTypes.INTEGER,
+        primaryKey: true,
         allowNull: false,
-        unique: true, // Relación uno a uno con User
+        unique: true,
         references: {
-            model: "Users",
-            key: "id",
+            model: User,
+            key: 'id',
         },
-    },
-    username: {
-        type: DataTypes.STRING,
-        allowNull: false,
-    },
-    email: {
-        type: DataTypes.STRING,
-        allowNull: false,
+        onUpdate: 'CASCADE',
+        onDelete: 'SET NULL',
     },
     biografia: {
         type: DataTypes.TEXT,
@@ -30,23 +21,33 @@ const Escultor = sequelize.define("Escultor", {
     },
     imagen: {
         type: DataTypes.STRING,
-        allowNull: true,
-        defaultValue: null,
+        allowNull: false,
+        defaultValue: 'https://default-avatar.com/imagen.png',
     },
     puntuacionTotal: {
         type: DataTypes.INTEGER,
         allowNull: false,
         defaultValue: 0,
     },
-    isActive: {
-        type: DataTypes.BOOLEAN,
-        allowNull: false,
-        defaultValue: true, // Define si es un escultor activo
+    instagram: {
+        type: DataTypes.STRING,
+        allowNull: true,
+    },
+    facebook: {
+        type: DataTypes.STRING,
+        allowNull: true,
+    },
+    youtube: {
+        type: DataTypes.STRING,
+        allowNull: true,
+    },
+    linkedin: {
+        type: DataTypes.STRING,
+        allowNull: true,
     },
 }, {
     timestamps: true,
-    createdAt: "createdAt",
-    updatedAt: "updatedAt",
+    tableName: 'Escultors',
 });
 
 module.exports = Escultor;
