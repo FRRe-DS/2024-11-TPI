@@ -7,7 +7,7 @@ import "swiper/css/pagination";
 import Hero from "./components/Hero.tsx";
 import EventListHome from "./components/EventListHome";
 import SculptureListHome from "./components/SculptureListHome";
-import SculptorListHome from "./components/SculptorListHome";
+//import SculptorListHome from "./components/SculptorListHome";
 import Maps from "./components/Maps";
 import { Pagination } from "swiper/modules";
 
@@ -33,10 +33,6 @@ const Home: React.FC = () => {
                 <SwiperSlide
                     className="w-full h-full bg-gradient-to-b from-blue-300 to-blue-500 flex items-center justify-center">
                     <SculptureListHome/>
-                </SwiperSlide>
-                <SwiperSlide
-                    className="w-full h-full bg-gradient-to-b from-blue-200 to-blue-400 flex items-center justify-center">
-                    <SculptorListHome/>
                 </SwiperSlide>
                 <SwiperSlide
                     className="w-full h-full bg-gradient-to-b from-blue-100 to-blue-300 flex items-center justify-center">

@@ -1,22 +1,11 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState} from 'react';
 import SculptorCard from './ui/SculptorCard';
-import {getEscultores, updateEscultor} from "../../../services/escultorService.ts";
+import { updateEscultor} from "../../../services/escultorService.ts";
 
 
 const SculptorList: React.FC = () => {
     const [escultores, setEscultores] = useState<any[]>([]);
 
-    useEffect(() => {
-        const fetchEscultores = async () => {
-            try {
-                const data = await getEscultores();
-                setEscultores(data);
-            } catch (error) {
-                console.error('Error al obtener los escultores:', error);
-            }
-        };
-        fetchEscultores();
-    }, []);
 
     const handleSaveSculptor = async (updatedSculptor: any) => {
         try {

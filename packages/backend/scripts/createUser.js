@@ -44,7 +44,7 @@ const createUsers = async () => {
                 nombre: 'Sol',
                 username: 'sol',
                 password: 'sol', // Cambiar por una contraseña segura
-                email: 'manu@gmail.com',
+                email: 'sol@gmail.com',
                 role: 'user',
             },
         ];

@@ -7,7 +7,7 @@ const Qr = require("./Qr");
 const Voto = require("./Voto");
 
 // Relaciones
-User.hasOne(Escultor, { foreignKey: 'userId', as: 'perfil' });
+User.hasOne(Escultor, { foreignKey: 'userId', as: 'usuario' });
 Escultor.belongsTo(User, { foreignKey: 'userId', as: 'usuario' });
 
 Escultor.hasMany(Escultura, { foreignKey: 'userId', as: "esculturas" });

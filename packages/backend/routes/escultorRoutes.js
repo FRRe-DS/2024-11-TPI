@@ -1,4 +1,6 @@
-const express = require("express");
+const express = require('express');
+const router = express.Router();
+
 const {
     crearEscultor,
     obtenerEscultores,
@@ -8,8 +10,6 @@ const {
 } = require("../controllers/escultorController");
 const authenticateToken = require("../middlewares/authMiddleware");
 const roleMiddleware = require("../middlewares/roleMiddleware");
-
-const router = express.Router();
 
 // Crear un escultor (solo accesible para admin)
 router.post("/", authenticateToken, roleMiddleware("admin"), crearEscultor);

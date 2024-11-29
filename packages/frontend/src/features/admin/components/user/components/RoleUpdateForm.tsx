@@ -59,7 +59,7 @@ const RoleUpdateForm: React.FC = () => {
     if (error) return <p className="text-center text-red-500">{error}</p>;
 
     return (
-        <div className="w-full max-w-6xl mx-auto p-6 bg-white rounded-lg shadow-lg">
+        <div className="w-full max-w-6xl mx-auto p-6 bg-gradient-to-r from-blue-100 via-indigo-100 to-purple-100 rounded-lg shadow-2xl">
             <h3 className="text-3xl font-bold text-center text-gray-800 mb-6">
                 Gestión de Roles de Usuarios
             </h3>

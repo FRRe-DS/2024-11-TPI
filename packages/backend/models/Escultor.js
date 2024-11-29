@@ -21,7 +21,7 @@ const Escultor = sequelize.define('Escultor', {
     },
     imagen: {
         type: DataTypes.STRING,
-        allowNull: false,
+        allowNull: true,
         defaultValue: 'https://default-avatar.com/imagen.png',
     },
     puntuacionTotal: {

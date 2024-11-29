@@ -4,9 +4,9 @@ const { User, Escultor } = require("../models");
 const createEscultor = async () => {
     try {
         // Datos configurables para el escultor
-        const nombre = "Escultor Ejemplo";
-        const username = "escultor1"; // Nombre de usuario
-        const email = "escultor1@gmail.com"; // Correo electrónico
+        const nombre = "Escultor Ejemplo2";
+        const username = "escultor12"; // Nombre de usuario
+        const email = "escultor12@gmail.com"; // Correo electrónico
         const password = "escultor123"; // Contraseña
         const role = "escultor"; // Rol fijo para escultores
 

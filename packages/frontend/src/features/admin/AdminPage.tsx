@@ -58,7 +58,7 @@ const AdminPage: React.FC = () => {
     return (
         <div className="w-full h-screen flex">
             {/* Menú lateral */}
-            <div className="w-1/4 bg-gradient-to-t from-blue-700 to-blue-500 p-4 text-white flex flex-col justify-between shadow-lg">
+            <div className="w-1/4 bg-gradient-to-r from-blue-100 via-indigo-100 to-purple-100 rounded-lg p-4 text-gray-900 flex flex-col justify-between shadow-lg">
                 <div>
                     <h2 className="text-3xl font-extrabold mb-8">Admin Dashboard</h2>
                     <ul>
@@ -132,17 +132,13 @@ const AdminPage: React.FC = () => {
                 </div>
 
                 {/* Footer */}
-                <div className="text-center text-sm text-gray-300 mt-12">
+                <div className="text-center text-sm text-gray-950 mt-12">
                     <p>Bienal Admin Panel</p>
                 </div>
             </div>
 
             {/* Databoard con efecto Swiper */}
             <div className="w-3/4 bg-gray-100 p-6 flex flex-col">
-                <div className="mb-6 text-2xl font-semibold text-gray-800">
-                    {selectedPage.charAt(0).toUpperCase() + selectedPage.slice(1)} Page
-                </div>
-
                 <Swiper
                     grabCursor={true}
                     effect="creative"
@@ -156,7 +152,7 @@ const AdminPage: React.FC = () => {
                         },
                     }}
                     modules={[EffectCreative]}
-                    className="w-full h-full rounded-lg shadow-xl"
+                    className="w-full h-full bg-gradient-to-r from-blue-100 via-indigo-100 to-purple-100 rounded-lg shadow-2xl"
                 >
                     <SwiperSlide className="flex items-center justify-center bg-gradient-to-b from-blue-300 to-blue-500 rounded-lg shadow-lg">
                         {/* Aquí se renderiza el contenido dependiendo de la página seleccionada */}
@@ -164,7 +160,7 @@ const AdminPage: React.FC = () => {
                     </SwiperSlide>
 
                     {/* Contenido de los módulos de gestión */}
-                    <SwiperSlide className="flex items-center justify-center bg-gradient-to-b from-blue-400 to-blue-600 rounded-lg shadow-lg">
+                    <SwiperSlide className="flex items-center justify-center bg-gradient-to-r from-blue-100  to-purple-100 via-red-100 rounded-lg shadow-2xl">
                         {renderDataboardContent()}
                     </SwiperSlide>
                 </Swiper>
