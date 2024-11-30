@@ -4,8 +4,6 @@ interface SculptorCardProps {
     id: number;
     nombre: string;
     biografia: string;
-    fechaNacimiento: string;
-    fechaFallecimiento?: string;
     imagen?: string;
     onSave: (updatedSculptor: any) => void;
 }
@@ -14,8 +12,6 @@ const SculptorCard: React.FC<SculptorCardProps> = ({
                                                        id,
                                                        nombre,
                                                        biografia,
-                                                       fechaNacimiento,
-                                                       fechaFallecimiento,
                                                        imagen,
                                                        onSave,
                                                    }) => {
@@ -24,8 +20,6 @@ const SculptorCard: React.FC<SculptorCardProps> = ({
         id,
         nombre,
         biografia,
-        fechaNacimiento,
-        fechaFallecimiento,
         imagen,
     });
 
@@ -58,22 +52,6 @@ const SculptorCard: React.FC<SculptorCardProps> = ({
                         className="border p-2 mb-2 w-full rounded"
                         placeholder="Biografía"
                         required
-                    />
-                    <input
-                        name="fechaNacimiento"
-                        type="date"
-                        value={editedSculptor.fechaNacimiento}
-                        onChange={handleInputChange}
-                        className="border p-2 mb-2 w-full rounded"
-                        required
-                    />
-                    <input
-                        name="fechaFallecimiento"
-                        type="date"
-                        value={editedSculptor.fechaFallecimiento || ''}
-                        onChange={handleInputChange}
-                        className="border p-2 mb-2 w-full rounded"
-                        placeholder="Fecha de Fallecimiento (opcional)"
                     />
                     <input
                         name="imagen"
@@ -120,14 +98,6 @@ const SculptorCard: React.FC<SculptorCardProps> = ({
                                 biografia
                             )}
                         </p>
-                        <p className="text-gray-500 text-sm">
-                            Fecha de Nacimiento: {fechaNacimiento}
-                        </p>
-                        {fechaFallecimiento && (
-                            <p className="text-gray-500 text-sm">
-                                Fallecimiento: {fechaFallecimiento}
-                            </p>
-                        )}
                     </div>
                 </div>
             )}

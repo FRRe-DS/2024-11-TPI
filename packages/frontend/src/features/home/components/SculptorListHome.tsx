@@ -8,7 +8,7 @@ const SculptorListHome: React.FC = () => {
     useEffect(() => {
         const fetchEscultores = async () => {
             try {
-                const data = await fetchEscultoresConNombre();  // Usamos el nuevo servicio
+                const data = await fetchEscultoresConNombre();
                 console.log("Datos recibidos:", data);  // Verifica los datos
                 setEscultores(data);  // Establecemos los escultores con nombre
             } catch (error) {
@@ -34,7 +34,13 @@ const SculptorListHome: React.FC = () => {
                 {escultores.length > 0 ? (
                     <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8 px-4">
                         {escultores.map((escultor, id) => (
-                            <SculptorCardHome key={id} {...escultor} />
+                            <SculptorCardHome
+                                key={id}
+                                nombre={escultor["usuario.nombre"]}  // Específicamente pasando el nombre
+                                biografia={escultor.biografia}
+                                tematica={escultor.tematica}
+                                imagen={escultor.imagen || "https://default-avatar.com/imagen.png"}  // Imagen con valor por defecto
+                            />
                         ))}
                     </div>
                 ) : (
