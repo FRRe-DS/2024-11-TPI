@@ -28,11 +28,12 @@ const UserLoggedInMenu: React.FC<UserLoggedInMenuProps> = ({ role }) => {
                 onClick={toggleMenu}
                 className="flex items-center justify-center w-32 h-10 bg-gray-800 text-white rounded-md hover:bg-gray-700 focus:outline-none"
             >
-                {loading
-                    ? 'Cargando...'
-                    : user
-                        ? `${user.username} (${role === 'admin' ? 'Admin' : 'Usuario'})`
-                        : 'Iniciar sesión / Registrarse'}
+                {loading ? 'Cargando...' : user ? (
+                    // Mostrar nombre del usuario si está autenticado
+                    `${user.username} (${role === 'admin' ? 'Admin' : 'Usuario'})`
+                ) : (
+                    'Iniciar sesión'
+                )}
             </button>
 
             {isOpen && (
@@ -43,7 +44,6 @@ const UserLoggedInMenu: React.FC<UserLoggedInMenuProps> = ({ role }) => {
                                 Panel Admin
                             </Link>
                         )}
-                        {user && (
                             <>
                                 <button
                                     onClick={handleLogoutClick}
@@ -52,7 +52,7 @@ const UserLoggedInMenu: React.FC<UserLoggedInMenuProps> = ({ role }) => {
                                     Cerrar sesión
                                 </button>
                             </>
-                        )}
+
                     </div>
                 </div>
             )}

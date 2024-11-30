@@ -7,12 +7,10 @@ interface NavbarToggleButtonProps {
     className?: string;
 }
 
-const NavbarToggleButton: React.FC<NavbarToggleButtonProps> = ({ isExpanded, toggleNavbar }) => {
+const SidebarToggleButton: React.FC<NavbarToggleButtonProps> = ({ isExpanded, toggleNavbar }) => {
     return (
         <div className="flex items-center gap-2 relative p-2 m-4 rounded-lg backdrop-blur-md bg-white/30 shadow-lg z-50">
-            {/* Botón para ir al Home */}
-            <HomeButton />
-
+            {isExpanded && <HomeButton />}
             {/* Botón para alternar el Navbar o Sidebar */}
             <button
                 onClick={toggleNavbar}
@@ -26,4 +24,4 @@ const NavbarToggleButton: React.FC<NavbarToggleButtonProps> = ({ isExpanded, tog
     );
 };
 
-export default NavbarToggleButton;
+export default SidebarToggleButton;

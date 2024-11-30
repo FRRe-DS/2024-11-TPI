@@ -4,7 +4,12 @@ import { FaHome, FaMapMarkedAlt, FaUsers, FaShapes, FaCalendarAlt } from "react-
 import { NavbarLinksProps } from "../interfaces/INavbarProps.ts";
 import UserMenu from "../../../../features/user/components/UserMenu.tsx"; // Importa el nuevo componente
 
-const NavbarLinks: React.FC<NavbarLinksProps> = ({ links, closeNavbar, isVertical = false }) => {
+const NavbarLinks: React.FC<NavbarLinksProps> = ({
+                                                     links,
+                                                     closeNavbar,
+                                                     isVertical = false,
+                                                     onLinkClick
+                                                 }) => {
     const icons: { [key: string]: React.ReactNode } = {
         hero: <FaHome />,
         eventos: <FaCalendarAlt />,
@@ -15,16 +20,18 @@ const NavbarLinks: React.FC<NavbarLinksProps> = ({ links, closeNavbar, isVertica
 
     return (
         <ul
-            className={`flex ${
-                isVertical ? "flex-col items-start" : "items-center"
-            } gap-4 p-4 list-none`} // Sin marcadores
+            className={`flex ${ isVertical ? " flex-col items-center" : "items-center" } gap-4 p-4 list-none`} // Sin marcadores
         >
             {links.map((link, index) => (
                 <li key={index} className="relative group">
                     {"id" in link ? (
                         <a
-                            href={`#${link.id}`}
-                            onClick={closeNavbar}
+                            href={`#${link.id}`} // Agrega el ID al enlace
+                            onClick={(e) => {
+                                e.preventDefault(); // Previene el comportamiento predeterminado del enlace
+                                if (onLinkClick) onLinkClick(link.index); // Llama a onLinkClick con el índice
+                                if (closeNavbar) closeNavbar(); // Cierra la barra si se requiere
+                            }}
                             className={`${buttonLinkStyles.base} ${buttonLinkStyles.hover}`}
                         >
                             <span className={`${buttonLinkStyles.icon}`}>
@@ -54,7 +61,7 @@ const NavbarLinks: React.FC<NavbarLinksProps> = ({ links, closeNavbar, isVertica
                 </li>
             ))}
             {/* Agrega el indicador del rol del usuario */}
-            <li className="mt-4">
+            <li >
                 <UserMenu />
             </li>
         </ul>
@@ -62,3 +69,4 @@ const NavbarLinks: React.FC<NavbarLinksProps> = ({ links, closeNavbar, isVertica
 };
 
 export default NavbarLinks;
+
