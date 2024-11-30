@@ -11,12 +11,16 @@ import { Pagination } from "swiper/modules";
 import Navigation from "../../layout/Navbar/Navigation.tsx";
 import { INavbarLink } from "../../layout/Navbar/components/interfaces/INavigationLink.ts";
 import { useRef } from "react";
+import SculptorListHome from "./components/SculptorListHome.tsx";
+import Ranking from "../ranking/Ranking.tsx";
 
 const navbarLinks: INavbarLink[] = [
     { id: "hero", label: "Inicio", index: 0 },
     { id: "eventos", label: "Eventos", index: 1 },
     { id: "esculturas", label: "Esculturas", index: 2 },
-    { id: "maps", label: "Maps", index: 3 },
+    { id: "escultores", label: "Escultores", index: 3 },
+    { id: "ranking", label: "Ranking", index: 4 },
+    { id: "maps", label: "Maps", index: 5 },
 ];
 
 const Home: React.FC = () => {
@@ -56,6 +60,10 @@ const Home: React.FC = () => {
                 <SwiperSlide
                     className="w-full h-full bg-gradient-to-b from-blue-400 to-blue-600 flex items-center justify-center">
                     <SculptorListHome/>
+                </SwiperSlide>
+                <SwiperSlide
+                    className="w-full h-full bg-gradient-to-b from-blue-100 to-blue-300 flex items-center justify-center">
+                    <Ranking/>
                 </SwiperSlide>
                 <SwiperSlide
                     className="w-full h-full bg-gradient-to-b from-blue-100 to-blue-300 flex items-center justify-center">
