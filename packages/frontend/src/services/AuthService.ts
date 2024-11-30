@@ -31,6 +31,33 @@ export const login = async (username: string, password: string) => {
     }
 };
 
+// Servicio para registrar un nuevo usuario
+interface RegisterUserData {
+    nombre: string;
+    username: string;
+    email: string;
+    password: string;
+}
+
+export const registerUser = async (userData: RegisterUserData) => {
+    try {
+        const response = await api.post('/auth/register', {
+            ...userData,
+            role: 'user',   // role fijo
+            isActive: true, // isActive automático
+        });
+
+        // Si la respuesta incluye un token, lo guardamos en localStorage
+        if (response.data.token) {
+            localStorage.setItem('token', response.data.token); // Guardar token en localStorage
+        }
+
+        return response.data;
+    } catch (err) {
+        throw new Error('Hubo un error al registrar al usuario');
+    }
+};
+
 // Cerrar sesión (Logout)
 export const logout = () => {
     tokenService.removeToken();

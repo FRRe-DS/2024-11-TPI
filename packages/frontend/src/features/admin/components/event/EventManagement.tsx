@@ -1,7 +1,7 @@
 import React from 'react';
-import CreateEvent from "./components/EventForm.tsx";
+import CreateEvent from "./components/Event.create.tsx";
 import DeleteEvent from "./components/EventDelete.tsx";
-import EventListAdmin from "./components/EventListAdmin.tsx";
+import EventEditAdmin from "./components/Event.edit.admin.tsx";
 
 const EventManagement: React.FC = () => {
     const [selectedAction, setSelectedAction] = React.useState<string | null>(null);
@@ -11,7 +11,7 @@ const EventManagement: React.FC = () => {
             case 'create':
                 return <CreateEvent />;
             case 'list':
-                return <EventListAdmin />;
+                return <EventEditAdmin />;
             case 'delete':
                 return <DeleteEvent />;
             default:

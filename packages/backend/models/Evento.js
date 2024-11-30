@@ -19,6 +19,18 @@ const Evento = sequelize.define("Evento", {
         type: DataTypes.TEXT,
         allowNull: true,
     },
+    fechaInc: {
+        type: DataTypes.DATE,  // Campo de fecha de inicio
+        allowNull: true,
+    },
+    fechaFin: {
+        type: DataTypes.DATE,  // Campo de fecha de fin
+        allowNull: true,
+    },
+    imagen: {
+        type: DataTypes.STRING, // Tipo para almacenar un enlace a la imagen
+        allowNull: true,        // Puede ser nulo
+    },
 }, {
     timestamps: true,
     createdAt: "createdAt",

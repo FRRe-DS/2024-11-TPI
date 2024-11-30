@@ -14,7 +14,6 @@ api.interceptors.request.use(
         const token = localStorage.getItem("token");
 
         // Verificar si el token está en localStorage
-        console.log('Token en localStorage:', token);
 
         if (token) {
             // Si el token está presente, configurarlo en los encabezados
@@ -38,7 +37,6 @@ api.interceptors.request.use(
 api.interceptors.response.use(
     (response) => {
         // Verificar la respuesta del servidor
-        console.log('Respuesta de la API:', response);
         return response;
     },
     (error) => {
@@ -51,7 +49,6 @@ api.interceptors.response.use(
 // Interceptor para manejar errores generales de la API
 api.interceptors.response.use(
     (response) => {
-        console.log('Respuesta exitosa recibida:', response);
         return response;
     },
     (error) => {

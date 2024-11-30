@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import 'swiper/css';
 import 'swiper/css/pagination';
-import { getEventos } from '../../../services/EventService';
+import { getEventos } from '../../../services/EventService'; // Servicio actualizado
 import { Pagination } from 'swiper/modules';
 import EventCardHome from "./ui/EventCardHome";
 import { Link } from "react-router-dom";
@@ -14,10 +14,10 @@ const EventListHome: React.FC = () => {
     useEffect(() => {
         const fetchEventos = async () => {
             try {
-                const data = await getEventos();
-                setEventos(data.eventos || []);
-                if (data.eventos?.length > 0) {
-                    setCurrentBg(data.eventos[0].imagen); // Primer fondo al cargar.
+                const data = await getEventos(); // Llamada al nuevo servicio
+                setEventos(data || []); // Suponiendo que la respuesta es un array de eventos
+                if (data?.length > 0) {
+                    setCurrentBg(data[0].imagen); // Primer fondo al cargar.
                 }
             } catch (error) {
                 console.error('Error al cargar los eventos:', error);
@@ -44,7 +44,7 @@ const EventListHome: React.FC = () => {
             <div className="absolute inset-0 bg-black bg-opacity-50"></div>
 
             {/* Contenido */}
-            <div className="relative w-full h-full flex flex-col justify-between z-10">
+            <div className="relative w-full h-full flex flex-col items-center justify-center z-10">
                 {/* Swiper */}
                 {eventos.length > 0 ? (
                     <Swiper
@@ -54,7 +54,7 @@ const EventListHome: React.FC = () => {
                         pagination={{ clickable: true }}
                         loop
                         onSlideChange={handleSlideChange} // Aquí se usa el método.
-                        className="relative w-full max-w-6xl z-10 flex-grow"
+                        className="relative w-full max-w-6xl pt-60 z-10 flex-grow"
                     >
                         {eventos.map((evento) => (
                             <SwiperSlide key={evento.id}>

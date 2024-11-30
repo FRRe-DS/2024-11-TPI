@@ -5,10 +5,10 @@ const { generateToken } = require("../../shared/utils/jwt");
 // Registro de usuario
 const register = async (req, res) => {
     try {
-        const { username, email, password, role } = req.body;
+        const { nombre, username, email, password, role } = req.body;
 
         // Validar datos requeridos
-        if (!username || !email || !password) {
+        if (!nombre || !username || !email || !password) {
             return res.status(400).json({ message: "Todos los campos son obligatorios" });
         }
 
@@ -23,10 +23,12 @@ const register = async (req, res) => {
 
         // Crear el usuario
         const newUser = await User.create({
+            nombre,          // Ahora se agrega 'nombre'
             username,
             email,
             password: hashedPassword,
             role: role || "user", // Asigna "user" como rol predeterminado
+            isActive: true,  // Asegúrate de configurar 'isActive' automáticamente
         });
 
         res.status(201).json({ message: "Usuario registrado exitosamente", user: newUser });
