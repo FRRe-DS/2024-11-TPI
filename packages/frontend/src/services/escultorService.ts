@@ -24,7 +24,7 @@ export const fetchEscultoresConNombre = async () => {
         console.log("Escultores con nombres:", escultoresConNombre); // Verifica la respuesta
         return escultoresConNombre;
     } catch (error) {
-        console.error("Error en la carga de escultores:", error);
+        console.error("Error en la carga de usuarios:", error);
         throw error;
     }
 };
