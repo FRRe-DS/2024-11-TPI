@@ -1,4 +1,6 @@
-/** @type {import('tailwindcss').Config} */
+import autoprefixer from 'autoprefixer';
+import tailwindcss from 'tailwindcss';
+
 export default {
   // Activar el modo oscuro utilizando clases (útil para usarlo con un botón que cambie el tema)
   darkMode: 'class', // o 'media' si prefieres basarte en la preferencia del sistema
@@ -138,7 +140,7 @@ export default {
     // Configurar daisyUI para que funcione con temas y personalización
     daisyui: {
       themes: [
-        {
+          {
           light: {
             primary: "#006FEE",
             secondary: "#7828C8",
@@ -165,6 +167,8 @@ export default {
       ],
     },
     plugins: [
+      autoprefixer(),
+      tailwindcss(),
       require("daisyui"),
       require("@tailwindcss/forms"),
       require("@tailwindcss/typography"),

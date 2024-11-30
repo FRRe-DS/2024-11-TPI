@@ -10,7 +10,7 @@ export const fetchEscultoresConNombre = async () => {
                     const userResponse = await api.get(`/users/${escultor.userId}`);
                     return {
                         ...escultor,
-                        nombre: userResponse.data.usuario?.nombre || "Escultor sin nombre", // Cambié esto para acceder a usuario.nombre
+                        nombre: userResponse.data.usuario?.nombre || "Escultor sin Nombre",
                     };
                 } catch (userError) {
                     console.error("Error al obtener el usuario:", userError);

@@ -41,7 +41,6 @@ async function obtenerEscultores(req, res) {
             }],
             raw: true,
         });
-
         return res.json(escultores);
     } catch (error) {
         console.error('Error al obtener escultores:', error);
