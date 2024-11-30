@@ -54,7 +54,7 @@ const Ranking = () => {
                                     alt="Escultor"
                                     className="w-10 h-10 rounded-full mr-4"
                                 />
-                                <span className="text-gray-800 font-medium">{escultor.nombre}</span>
+                                <span className="text-gray-800 font-medium">{escultor["usuario.nombre"]}</span>
                             </td>
                             <td className="px-4 py-3 text-center text-lg font-bold text-gray-700">
                                 {escultor.puntuacionTotal}

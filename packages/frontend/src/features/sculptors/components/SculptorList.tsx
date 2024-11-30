@@ -9,7 +9,7 @@ const SculptorList: React.FC = () => {
 
     const handleSaveSculptor = async (updatedSculptor: any) => {
         try {
-            await updateEscultor(updatedSculptor.id, updatedSculptor);
+            await updateEscultor(updatedSculptor.id);
             setEscultores((prev) =>
                 prev.map((escultor) =>
                     escultor.id === updatedSculptor.id ? updatedSculptor : escultor
@@ -30,8 +30,6 @@ const SculptorList: React.FC = () => {
                         id={escultor.id}
                         nombre={escultor.nombre}
                         biografia={escultor.biografia}
-                        fechaNacimiento={escultor.fechaNacimiento}
-                        fechaFallecimiento={escultor.fechaFallecimiento}
                         imagen={escultor.imagen}
                         onSave={handleSaveSculptor}
                     />
