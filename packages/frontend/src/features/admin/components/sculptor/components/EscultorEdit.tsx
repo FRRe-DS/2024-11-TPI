@@ -1,5 +1,5 @@
-import { useEffect, useState } from "react";
-import { fetchEscultores, fetchEscultorById, updateEscultor } from "../../../../../services/escultorService.ts";
+import React, { useEffect, useState } from "react";
+import { fetchEscultoresConNombre, fetchEscultorById, updateEscultor } from "../../../../../services/escultorService.ts";
 
 const EscultorEdit: React.FC = () => {
     const [escultores, setEscultores] = useState<any[]>([]);
@@ -20,7 +20,8 @@ const EscultorEdit: React.FC = () => {
     useEffect(() => {
         const fetchData = async () => {
             try {
-                const data = await fetchEscultores();
+                const data = await fetchEscultoresConNombre();
+                console.log("Escultores cargados con nombre useffect:", data); // Verifica si los nombres están presentes
                 setEscultores(data);
             } catch (err) {
                 setError("Error al cargar los escultores");
@@ -37,6 +38,7 @@ const EscultorEdit: React.FC = () => {
         try {
             setLoading(true);
             const data = await fetchEscultorById(userId);
+            console.log("Datos del escultor seleccionado:", data); // Verifica los datos del escultor
             setSelectedEscultor(data);
             setFormData(data); // Rellenar el formulario con los datos existentes
         } catch (err) {
@@ -86,10 +88,18 @@ const EscultorEdit: React.FC = () => {
                                 <button
                                     onClick={() => handleSelectEscultor(escultor.userId)}
                                     className="w-full text-left text-lg text-blue-500 hover:text-blue-700 font-medium transition-all duration-300">
-                                    {escultor.biografia || "Escultor sin biografía"}
+                                    <div>
+                                        <strong>ID:</strong> {escultor.userId || "No disponible"}
+                                    </div>
+                                    <div>
+                                        <strong>Biografía:</strong> {escultor.biografia || "No disponible"}
+                                    </div>
                                 </button>
                             </li>
                         ))}
+
+
+
                     </ul>
                 </div>
             )}

@@ -3,34 +3,31 @@ import React, { useState, useEffect } from 'react';
 interface EventCardAdminProps {
     id: string;
     nombre: string;
+    tematica: string;
     descripcion: string;
     imagen: string;
     fechaInc: string;  // Cambiar de fechaInicio a fechaInc
     fechaFin: string;
-    tematica: string;
-    lugar: string;
     onSave: (updatedEvent: any) => void;
 }
 
 const EventCardAdmin: React.FC<EventCardAdminProps> = ({
                                                            id,
                                                            nombre,
+                                                           tematica,
                                                            descripcion,
                                                            imagen,
                                                            fechaInc,  // Cambiar de fechaInicio a fechaInc
                                                            fechaFin,
-                                                           tematica,
-                                                           lugar,
                                                            onSave
                                                        }) => {
     const [editData, setEditData] = useState({
         nombre,
+        tematica,
         descripcion,
         imagen,
         fechaInc,  // Cambiar de fechaInicio a fechaInc
         fechaFin,
-        tematica,
-        lugar
     });
 
     // Usa useEffect para asegurarte de que los datos se actualicen al recibir nuevas props
@@ -70,6 +67,14 @@ const EventCardAdmin: React.FC<EventCardAdminProps> = ({
                     className="w-full p-2 border rounded-md"
                     placeholder="Nombre del evento"
                 />
+                <input
+                    type="text"
+                    name="tematica"
+                    value={editData.tematica}
+                    onChange={handleChange}
+                    className="w-full p-2 border rounded-md"
+                    placeholder="Temática"
+                />
                 <textarea
                     name="descripcion"
                     value={editData.descripcion}
@@ -84,22 +89,6 @@ const EventCardAdmin: React.FC<EventCardAdminProps> = ({
                     onChange={handleChange}
                     className="w-full p-2 border rounded-md"
                     placeholder="URL de la imagen"
-                />
-                <input
-                    type="text"
-                    name="lugar"
-                    value={editData.lugar}
-                    onChange={handleChange}
-                    className="w-full p-2 border rounded-md"
-                    placeholder="Lugar"
-                />
-                <input
-                    type="text"
-                    name="tematica"
-                    value={editData.tematica}
-                    onChange={handleChange}
-                    className="w-full p-2 border rounded-md"
-                    placeholder="Temática"
                 />
                 <input
                     type="datetime-local"

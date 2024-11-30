@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import UserList from "./components/UserList";
 import RoleUpdateForm from "./components/RoleUpdateForm";
+import UserDelete from "./components/userDelete.tsx";
 
 const UserManagement: React.FC = () => {
     const [selectedAction, setSelectedAction] = useState<string | null>(null);
@@ -11,6 +12,8 @@ const UserManagement: React.FC = () => {
                 return <UserList />;
             case 'updateRole':
                 return <RoleUpdateForm />;
+            case 'delete':
+                return <UserDelete />;
             default:
                 return null;
         }
@@ -45,10 +48,29 @@ const UserManagement: React.FC = () => {
                     <button
                         onClick={() => setSelectedAction('updateRole')}
                         className={`relative font-semibold text-white cursor-pointer border-none rounded-md w-full py-4 text-xl z-10 overflow-hidden
-                        ${selectedAction === 'list' ? 'bg-gradient-to-r from-green-500 to-green-700' : 'bg-gradient-to-r from-gray-500 to-gray-700 hover:from-green-500 hover:to-green-700'}`}
+                        ${selectedAction === 'delete' ? 'bg-gradient-to-r from-green-500 to-green-700' : 'bg-gradient-to-r from-gray-500 to-gray-700 hover:from-green-500 hover:to-green-700'}`}
                     >    <span
                         className="w-full py-4 absolute inset-0 flex items-center justify-center text-2xl z-10 backdrop-blur-lg rounded-md">
                             Editar Rol
+                        </span>
+                        {/* Blobs de fondo */}
+                        <span
+                            className="blob absolute top-0 left-0 w-24 h-16 rounded-full bg-orange-500 opacity-80 transition-transform duration-300 ease-in-out group-hover:scale-125"></span>
+                        <span
+                            className="blob absolute top-0 left-10 w-24 h-16 rounded-full bg-purple-500 opacity-80 transition-transform duration-300 ease-in-out group-hover:scale-125"></span>
+                        <span
+                            className="blob absolute top-[-1em] left-20 w-24 h-16 rounded-full bg-pink-500 opacity-80 transition-transform duration-300 ease-in-out group-hover:scale-125"></span>
+                        <span
+                            className="blob absolute top-8 left-24 w-24 h-16 rounded-full bg-blue-500 opacity-80 transition-transform duration-300 ease-in-out group-hover:scale-125"></span>
+                    </button>
+                    <button
+                        onClick={() => setSelectedAction('delete')}
+                        className={`relative font-semibold text-white cursor-pointer border-none rounded-md w-full py-4 text-xl z-10 overflow-hidden
+                        ${selectedAction === 'create' ? 'bg-gradient-to-r from-purple-500 to-blue-500' : 'bg-gradient-to-r from-gray-500 to-gray-700 hover:from-purple-500 hover:to-blue-500'}`}
+                    >
+                        <span
+                            className="w-full py-4 absolute inset-0 flex items-center justify-center text-2xl z-10 backdrop-blur-lg rounded-md">
+                            Borrar Usuarios
                         </span>
                         {/* Blobs de fondo */}
                         <span

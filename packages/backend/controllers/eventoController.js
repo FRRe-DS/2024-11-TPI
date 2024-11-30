@@ -3,18 +3,26 @@ const { Evento, Escultura } = require("../models");
 // Crear un evento
 const crearEvento = async (req, res) => {
     try {
-        const { nombre, tematica, descripcion } = req.body;
+        const { nombre, tematica, descripcion, fechaInc, fechaFin, imagen} = req.body;
 
-        const nuevoEvento = await Evento.create({
+        // Validar que los campos obligatorios estén presentes
+        if (!nombre || !tematica ) {
+            return res.status(400).json({ message: 'Faltan campos requeridos: nombre, tematica, o lugar' });
+        }
+
+        const evento = await Evento.create({
             nombre,
             tematica,
-            descripcion,
+            descripcion: descripcion || null,
+            fechaInc: fechaInc || null,
+            fechaFin: fechaFin || null,
+            imagen: imagen || null,
         });
 
-        res.status(201).json({ message: "Evento creado exitosamente", evento: nuevoEvento });
+        res.status(201).json({ message: "Evento creado exitosamente", evento });
     } catch (error) {
         console.error("Error al crear evento:", error);
-        res.status(500).json({ message: "Error interno del servidor" });
+        res.status(500).json({ message: "Error interno del servidor", error: error.message });
     }
 };
 
@@ -67,17 +75,30 @@ const obtenerEventoPorId = async (req, res) => {
 const actualizarEvento = async (req, res) => {
     try {
         const { id } = req.params;
-        const { nombre, tematica, descripcion } = req.body;
+        const { nombre, tematica, descripcion, fechaInc, fechaFin, imagen } = req.body; // Ahora recibimos las fechas también
 
+        // Buscamos el evento por su ID
         const evento = await Evento.findByPk(id);
+
+        // Si el evento no existe, respondemos con un error
         if (!evento) {
             return res.status(404).json({ message: "Evento no encontrado" });
         }
 
-        await evento.update({ nombre, tematica, descripcion });
+        // Actualizamos el evento con los nuevos datos
+        await evento.update({
+            nombre,
+            tematica,
+            descripcion,
+            fechaInc, // Se actualiza la fecha de inicio
+            fechaFin, // Se actualiza la fecha de fin
+            imagen
+        });
 
+        // Respondemos con el mensaje de éxito y los datos del evento actualizado
         res.status(200).json({ message: "Evento actualizado exitosamente", evento });
     } catch (error) {
+        // Si ocurre un error, lo registramos y respondemos con un error interno del servidor
         console.error("Error al actualizar evento:", error);
         res.status(500).json({ message: "Error interno del servidor" });
     }

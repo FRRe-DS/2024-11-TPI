@@ -10,6 +10,8 @@ import VotacionQRCodeWrapper from '../features/voting/QRCode/VotacionQRCodeWrapp
 import Sculptures from "../features/sculptures/Sculptures.tsx";
 import Sculptors from "../features/sculptors/Sculptors.tsx";
 import LoginPage from "../features/auth/pages/AuthPage.tsx";
+import Ranking from "../features/ranking/Ranking.tsx";
+
 
 function AppRouter() {
     return (
@@ -34,6 +36,7 @@ function AppRouter() {
                 <Route path="/votacion/:eventoId" element={<VotingPage />} />
                 <Route path="/codigo-qr/:eventoId" element={<VotacionQRCodeWrapper />} />
                 <Route path="/votacion-eventos" element={<VotingEventList />} />
+                <Route path="/ranking" element={<Ranking />} />
             </Routes>
         </Router>
     );

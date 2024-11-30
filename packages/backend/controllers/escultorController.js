@@ -37,8 +37,9 @@ async function obtenerEscultores(req, res) {
             include: [{
                 model: User,
                 as: 'usuario',
-                attributes: ['id', 'nombre', 'username', 'email', 'role'], // Ajusta los atributos según sea necesario
+                attributes: ['id', 'nombre', 'username', 'email', 'role'],
             }],
+            raw: true,
         });
 
         return res.json(escultores);

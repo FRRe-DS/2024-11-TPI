@@ -1,5 +1,34 @@
 import api from './axiosConfig';
 
+// Obtener escultores con nombre de usuario
+export const fetchEscultoresConNombre = async () => {
+    try {
+        const response = await api.get('/escultores'); // Obtener escultores
+        const escultoresConNombre = await Promise.all(
+            response.data.map(async (escultor: any) => {
+                try {
+                    const userResponse = await api.get(`/users/${escultor.userId}`);
+                    return {
+                        ...escultor,
+                        nombre: userResponse.data.usuario?.nombre || "Escultor sin nombre", // Cambié esto para acceder a usuario.nombre
+                    };
+                } catch (userError) {
+                    console.error("Error al obtener el usuario:", userError);
+                    return {
+                        ...escultor,
+                        nombre: "Escultor sin nombre",
+                    };
+                }
+            })
+        );
+        console.log("Escultores con nombres:", escultoresConNombre); // Verifica la respuesta
+        return escultoresConNombre;
+    } catch (error) {
+        console.error("Error en la carga de escultores:", error);
+        throw error;
+    }
+};
+
 export const fetchEscultores = async () => {
     try {
         const response = await api.get('/escultores');
@@ -9,7 +38,6 @@ export const fetchEscultores = async () => {
         throw error;
     }
 };
-
 
 export const fetchEscultorById = async (userId: number): Promise<any> => {
     try {

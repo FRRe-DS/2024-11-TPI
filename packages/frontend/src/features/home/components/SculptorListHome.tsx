@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { getEscultores } from "../../../services/escultorService.ts";
+import { fetchEscultoresConNombre } from "../../../services/escultorService";
 import SculptorCardHome from "./ui/SculptorCardHome";
 
 const SculptorListHome: React.FC = () => {
@@ -8,16 +8,15 @@ const SculptorListHome: React.FC = () => {
     useEffect(() => {
         const fetchEscultores = async () => {
             try {
-                const data = await getEscultores();
-                console.log("Datos recibidos:", data); // Agrega este console.log
-                setEscultores(data.escultores || []); // Asegúrate de usar la propiedad correcta
+                const data = await fetchEscultoresConNombre();  // Usamos el nuevo servicio
+                console.log("Datos recibidos:", data);  // Verifica los datos
+                setEscultores(data);  // Establecemos los escultores con nombre
             } catch (error) {
                 console.error("Error al obtener los escultores:", error);
             }
         };
         fetchEscultores();
     }, []);
-
 
     return (
         <div

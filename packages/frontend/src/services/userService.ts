@@ -39,3 +39,12 @@ export const logout = async (): Promise<void> => {
         throw error;
     }
 };
+
+export const deleteUser = async (userId: number) => {
+    try {
+        const response = await api.delete(`/users/${userId}`);
+        return response.data;
+    } catch (error) {
+        throw new Error("Error al eliminar el usuario");
+    }
+};

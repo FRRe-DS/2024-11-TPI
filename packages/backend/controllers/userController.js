@@ -1,4 +1,4 @@
-const { User, Escultor } = require("../models");
+const { User } = require("../models");
 const { processUserData } = require("../middlewares/userMiddleware");
 
 // Obtener todos los usuarios
