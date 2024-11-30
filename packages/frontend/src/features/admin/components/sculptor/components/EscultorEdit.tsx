@@ -21,7 +21,6 @@ const EscultorEdit: React.FC = () => {
         const fetchData = async () => {
             try {
                 const data = await fetchEscultoresConNombre();
-                console.log("Escultores cargados con nombre useffect:", data); // Verifica si los nombres están presentes
                 setEscultores(data);
             } catch (err) {
                 setError("Error al cargar los escultores");
@@ -38,7 +37,6 @@ const EscultorEdit: React.FC = () => {
         try {
             setLoading(true);
             const data = await fetchEscultorById(userId);
-            console.log("Datos del escultor seleccionado:", data); // Verifica los datos del escultor
             setSelectedEscultor(data);
             setFormData(data); // Rellenar el formulario con los datos existentes
         } catch (err) {
@@ -75,34 +73,28 @@ const EscultorEdit: React.FC = () => {
 
     return (
         <div
-            className="w-[calc(100%+600px)] mx-[calc(-50px)] p-6 bg-gradient-to-r from-blue-100 via-indigo-100 to-purple-100 rounded-lg shadow-2xl overflow-y-auto max-h-[600px]">
+            className="w-[calc(100%+20px)] mx-[-10px] p-6 bg-gradient-to-r from-blue-100 via-indigo-100 to-purple-100 rounded-lg shadow-2xl overflow-y-auto max-h-[620px]">
             <h3 className="text-4xl font-semibold text-center text-gray-800 mb-8">Editar Escultor</h3>
 
             {/* Si no se ha seleccionado un escultor, mostrar la lista */}
-            {!selectedEscultor && (
-                <div className="mb-6">
-                    <h4 className="text-2xl font-semibold text-gray-700">Seleccionar Escultor</h4>
-                    <ul className="space-y-4">
-                        {escultores.map((escultor) => (
-                            <li key={escultor.userId} className="py-2">
-                                <button
-                                    onClick={() => handleSelectEscultor(escultor.userId)}
-                                    className="w-full text-left text-lg text-blue-500 hover:text-blue-700 font-medium transition-all duration-300">
-                                    <div>
-                                        <strong>ID:</strong> {escultor.userId || "No disponible"}
-                                    </div>
-                                    <div>
-                                        <strong>Biografía:</strong> {escultor.biografia || "No disponible"}
-                                    </div>
-                                </button>
-                            </li>
-                        ))}
-
-
-
-                    </ul>
-                </div>
-            )}
+            <div className="w-full px-4 sm:px-6 lg:px-8">
+                {!selectedEscultor && (
+                    <div className="mb-6 max-w-4xl mx-auto">
+                        <h4 className="text-2xl font-semibold text-gray-700">Seleccionar Escultor</h4>
+                        <ul className="space-y-4">
+                            {escultores.map((escultor) => (
+                                <li key={escultor.userId} className="py-2">
+                                    <button
+                                        onClick={() => handleSelectEscultor(escultor.userId)}
+                                        className="w-full text-left text-lg text-blue-500 hover:text-blue-700 font-medium transition-all duration-300">
+                                        {escultor['usuario.nombre']}
+                                    </button>
+                                </li>
+                            ))}
+                        </ul>
+                    </div>
+                )}
+            </div>
 
             {/* Mostrar el formulario solo si se ha seleccionado un escultor */}
             {selectedEscultor && (
