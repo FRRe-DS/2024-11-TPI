@@ -5,4 +5,5 @@ export interface NavbarLinksProps {
     closeNavbar: () => void;
     isVertical?: boolean;
     toggleNavbar?: () => void; // Opcional
+    onLinkClick?: (index: number) => void; //Opcional
 }

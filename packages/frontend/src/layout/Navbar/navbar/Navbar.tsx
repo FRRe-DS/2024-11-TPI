@@ -8,9 +8,10 @@ interface NavbarProps {
     links: INavbarLink[];
     isExpanded: boolean;
     toggleNavbar: () => void;
+    onLinkClick?: (index: number) => void;
 }
 
-const Navbar: React.FC<NavbarProps> = ({ links, isExpanded, toggleNavbar }) => {
+const Navbar: React.FC<NavbarProps> = ({ links, isExpanded, toggleNavbar, onLinkClick }) => {
     return (
         <header className={`${navbarStyles.container} md:flex hidden`}>
             <div className="flex items-center gap-2">
@@ -25,8 +26,8 @@ const Navbar: React.FC<NavbarProps> = ({ links, isExpanded, toggleNavbar }) => {
                     isExpanded ? navbarStyles.expanded : navbarStyles.collapsed
                 }`}
             >
-                <div className="flex justify-end gap-4 pr-4 md:gap-20 md:pr-20">
-                    <NavbarLinks links={links} closeNavbar={toggleNavbar} />
+                <div className="flex justify-end gap-4 pr-4 pt-3 md:gap-20 md:pr-20">
+                    <NavbarLinks links={links} closeNavbar={toggleNavbar} onLinkClick={onLinkClick} />
                 </div>
             </nav>
         </header>

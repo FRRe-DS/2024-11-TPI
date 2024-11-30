@@ -1,6 +1,7 @@
 export interface IInternalLink {
     id: string; // Requerido para navegación interna
     label: string;
+    index?: number;
     icon?: React.ReactNode;
 }
 
