@@ -1,7 +1,8 @@
 import React from 'react';
 
 import Footer from "../../layout/footer/Footer.tsx";
-import SculptorList from "./components/SculptorList.tsx"; // Asegúrate de crear este componente
+import SculptorList from "./components/SculptorList.tsx";
+
 
 const Sculptors: React.FC = () => {
     return (
