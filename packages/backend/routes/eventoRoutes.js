@@ -1,3 +1,4 @@
+// Importación de las dependencias necesarias
 const express = require("express");
 const {
     crearEvento,
@@ -5,25 +6,30 @@ const {
     obtenerEventoPorId,
     actualizarEvento,
     eliminarEvento,
-} = require("../controllers/eventoController");
-const authMiddleware = require("../middlewares/authMiddleware");
-const roleMiddleware = require("../middlewares/roleMiddleware");
+} = require("../controllers/eventoController"); // Controladores para las operaciones de eventos
+const authMiddleware = require("../middlewares/authMiddleware"); // Middleware de autenticación
+const roleMiddleware = require("../middlewares/roleMiddleware"); // Middleware para la validación de roles
 
-const router = express.Router();
+const router = express.Router(); // Crea un router para manejar las rutas de eventos
 
-// Crear un evento (solo accesible para admin)
+// Ruta para crear un evento
+// Solo accesible para administradores (mediante el middleware de autenticación y roles)
 router.post("/", authMiddleware, roleMiddleware("admin"), crearEvento);
 
-// Obtener todos los eventos
+// Ruta para obtener todos los eventos
+// No requiere autenticación, pero puedes añadirla si lo necesitas en el futuro
 router.get("/", obtenerEventos);
 
-// Obtener un evento por ID
+// Ruta para obtener un evento específico por ID
 router.get("/:id", obtenerEventoPorId);
 
-// Actualizar un evento (solo accesible para admin)
+// Ruta para actualizar un evento
+// Solo accesible para administradores (mediante el middleware de autenticación y roles)
 router.put("/:id", authMiddleware, roleMiddleware("admin"), actualizarEvento);
 
-// Eliminar un evento (solo accesible para admin)
+// Ruta para eliminar un evento
+// Solo accesible para administradores (mediante el middleware de autenticación y roles)
 router.delete("/:id", authMiddleware, roleMiddleware("admin"), eliminarEvento);
 
+// Exporta el router para que pueda ser utilizado en otras partes de la aplicación
 module.exports = router;

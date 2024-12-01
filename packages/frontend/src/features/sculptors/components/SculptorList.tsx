@@ -47,7 +47,7 @@ const EscultorList: React.FC = () => {
     if (error) return <p className="text-center text-red-500">{error}</p>;
 
     return (
-        <div className="w-full max-w-7xl mx-auto p-8 bg-gradient-to-r from-purple-400 via-indigo-300 to-blue-300 rounded-lg shadow-xl">
+        <div className="absolute inset-0 overflow-hidden w-full max-w-7xl mx-auto p-8 bg-gradient-to-r from-purple-400 via-indigo-300 to-blue-300 rounded-lg shadow-xl">
             <h3 className="text-3xl font-bold text-center mb-8 text-white">Escultores Destacados</h3>
 
             {/* Swiper */}

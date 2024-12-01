@@ -6,7 +6,7 @@ import SculptorList from "./components/SculptorList.tsx";
 
 const Sculptors: React.FC = () => {
     return (
-        <div className="flex flex-col min-h-screen">
+        <div className="absolute inset-0 overflow-hidden flex flex-col min-h-screen">
 
             <SculptorList />
             <Footer />
