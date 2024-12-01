@@ -9,12 +9,10 @@ const api = axios.create({
 api.interceptors.request.use(
     (config) => {
         const token = localStorage.getItem("token"); // Recuperamos el token del almacenamiento local
-
         // Si el token existe, se agrega al encabezado de autorización
         if (token) {
             config.headers.Authorization = `Bearer ${token}`; // Configuramos el encabezado de autorización con el token
         }
-
         // Devolvemos la configuración de la solicitud para que continúe con el flujo normal
         return config;
     },
