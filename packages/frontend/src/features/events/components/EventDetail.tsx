@@ -1,7 +1,5 @@
 // EventDetail.tsx
 import React, { useState, useEffect } from 'react';
-import Footer from '../../../layout/footer/Footer.tsx';
-
 import { useParams } from 'react-router-dom';
 import { getEventoById } from '../../../services/EventService.ts'; // Servicio para obtener un evento por
 import SculptureList from "../../sculptures/components/SculptureList.tsx";
@@ -45,7 +43,6 @@ const EventDetail: React.FC = () => {
                 <img src={evento.imagen} alt={evento.nombre} className="mt-6 w-full h-auto"/>
             </div>
             <SculptureList eventoId={evento.id}/>
-            <Footer />
         </div>
     );
 };
