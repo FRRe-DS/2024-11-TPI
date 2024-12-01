@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 import axios from 'axios';
-import Footer from '../../layout/footer/Footer.tsx';
 import EventCard from "../events/components/ui/EventCard.tsx"; // Componente para mostrar los detalles del evento
 
 const VotingPage: React.FC = () => {
@@ -52,7 +51,6 @@ const VotingPage: React.FC = () => {
                 tematica={evento.tematica}
                 id={evento.id}
             />
-            <Footer />
         </div>
     );
 };

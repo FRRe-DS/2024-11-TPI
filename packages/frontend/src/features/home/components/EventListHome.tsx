@@ -9,15 +9,15 @@ import { Link } from "react-router-dom";
 
 const EventListHome: React.FC = () => {
     const [eventos, setEventos] = useState<any[]>([]);
-    const [currentBg, setCurrentBg] = useState<string>(''); // Estado para el fondo dinámico.
+    const [currentBg, setCurrentBg] = useState<string>('');
 
     useEffect(() => {
         const fetchEventos = async () => {
             try {
-                const data = await getEventos(); // Llamada al nuevo servicio
-                setEventos(data || []); // Suponiendo que la respuesta es un array de eventos
+                const data = await getEventos();
+                setEventos(data || []);
                 if (data?.length > 0) {
-                    setCurrentBg(data[0].imagen); // Primer fondo al cargar.
+                    setCurrentBg(data[0].imagen);
                 }
             } catch (error) {
                 console.error('Error al cargar los eventos:', error);
@@ -28,7 +28,7 @@ const EventListHome: React.FC = () => {
 
     const handleSlideChange = (swiper: any) => {
         const currentIndex = swiper.realIndex;
-        setCurrentBg(eventos[currentIndex]?.imagen || ''); // Cambiar fondo dinámicamente.
+        setCurrentBg(eventos[currentIndex]?.imagen || '');
     };
 
     return (
@@ -40,12 +40,9 @@ const EventListHome: React.FC = () => {
                 backgroundPosition: 'center',
             }}
         >
-            {/* Overlay oscuro */}
             <div className="absolute inset-0 bg-black bg-opacity-50"></div>
 
-            {/* Contenido */}
-            <div className="relative w-full h-full flex flex-col items-center justify-center z-10">
-                {/* Swiper */}
+            <div className="relative w-full h-full flex flex-col items-center justify-center z-10 px-4">
                 {eventos.length > 0 ? (
                     <Swiper
                         modules={[Pagination]}
@@ -53,8 +50,8 @@ const EventListHome: React.FC = () => {
                         slidesPerView={1}
                         pagination={{ clickable: true }}
                         loop
-                        onSlideChange={handleSlideChange} // Aquí se usa el método.
-                        className="relative w-full max-w-6xl pt-60 z-10 flex-grow"
+                        onSlideChange={handleSlideChange}
+                        className="relative w-full max-w-6xl pt-16 z-10 flex-grow"
                     >
                         {eventos.map((evento) => (
                             <SwiperSlide key={evento.id}>
@@ -68,15 +65,16 @@ const EventListHome: React.FC = () => {
                     </p>
                 )}
 
-                {/* Botón "Ver eventos" */}
-                <div className="absolute bottom-8 left-1/2 transform -translate-x-1/2 z-20">
+                <div
+                    className="absolute bottom-8 left-1/2 transform -translate-x-1/2 z-20 w-full px-4 flex justify-center">
                     <Link
                         to="/Eventos"
-                        className="bg-blue-600 hover:bg-blue-700 text-white text-lg font-semibold px-6 py-3 rounded-lg shadow-md transition-transform transform hover:scale-105"
+                        className="bg-blue-600 hover:bg-blue-700 text-white text-lg font-semibold px-6 py-3 rounded-lg shadow-md transition-transform transform hover:scale-105 w-full sm:w-auto text-center"
                     >
-                        Ver eventos
+                        Ver Lista de Eventos
                     </Link>
                 </div>
+
             </div>
         </div>
     );

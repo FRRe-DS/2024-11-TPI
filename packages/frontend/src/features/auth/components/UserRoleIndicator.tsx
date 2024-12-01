@@ -1,5 +1,5 @@
 import React from 'react';
-import { getRole, logout } from "../../../../services/AuthService.ts"; // Asegúrate de importar logout
+import { getRole, logout } from "../../../services/AuthService.ts"; // Asegúrate de importar logout
 
 const CircleIndicator = ({ isAdmin }: { isAdmin: boolean }) => {
     return (

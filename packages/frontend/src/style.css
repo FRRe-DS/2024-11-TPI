@@ -11,30 +11,3 @@ button:hover .blob { transform: scale(1.3); }
 html {
     scroll-behavior: smooth;
 }
-
-/* Elimina márgenes y paddings globales */
-html, body {
-    margin: 0;
-    padding: 0;
-    width: 100%;
-    height: 100%;
-    overflow: hidden;
-}
-
-body {
-    display: flex;
-    flex-direction: column;
-    min-height: 100vh; /* Altura mínima del viewport */
-    font-size: 14px;
-}
-
-#root {
-    height: 100vh; /* Altura completa del viewport */
-    display: flex;
-    flex-direction: column;
-}
-
-.swiper-container {
-    height: 100vh; /* Asegura que el Swiper ocupe todo el viewport */
-    width: 100vw; /* Asegura ancho completo del viewport */
-}
