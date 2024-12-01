@@ -5,7 +5,7 @@ import EventList from "./components/EventList.tsx";
 
 const Events: React.FC = () => {
     return (
-        <div className="flex flex-col min-h-screen">
+        <div className="absolute inset-0 overflow-hidden flex flex-col min-h-screen">
 
             <EventList />
             <Footer />

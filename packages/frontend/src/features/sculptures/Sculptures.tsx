@@ -5,7 +5,7 @@ import SculptureList from "./components/SculptureList.tsx"; // Asegúrate de cre
 
 const Sculptures: React.FC = () => {
     return (
-        <div className="flex flex-col min-h-screen">
+        <div className="absolute inset-0 overflow-hidden flex flex-col min-h-screen">
 
             <SculptureList />
             <Footer />

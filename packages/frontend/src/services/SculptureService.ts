@@ -1,38 +1,91 @@
 import api from './axiosConfig';
 
-// Obtener todas las esculturas
+/**
+ * Obtiene todas las esculturas.
+ * @returns Las esculturas obtenidas desde el servidor.
+ */
 export const getEsculturas = async () => {
-    const response = await api.get('/esculturas');
-    return response.data.esculturas; // Extraemos el arreglo de esculturas
+    try {
+        const response = await api.get('/esculturas');
+        return response.data; // Devuelve los datos de la respuesta
+    } catch (error: unknown) {
+        // Manejo de error: comprobamos si error es una instancia de Error
+        if (error instanceof Error) {
+            throw new Error(`Error al obtener esculturas: ${error.message}`);
+        }
+        throw new Error('Error desconocido al obtener esculturas');
+    }
 };
 
-// Obtener esculturas filtradas por evento
-export const getEsculturasByEvent = async (eventoID: string) => {
-    if (!eventoID) throw new Error('Evento ID no proporcionado');
-    const response = await api.get(`/eventos/${eventoID}/esculturas`); // Supone que las esculturas por evento están en esta ruta
-    return response.data.esculturas;
+/**
+ * Obtiene las esculturas asociadas a un evento específico.
+ * @param eventoID El ID del evento para obtener las esculturas asociadas.
+ * @returns Las esculturas asociadas al evento.
+ * @throws Error si el eventoID no es proporcionado.
+ */
+export const getEsculturasByEvent = async (eventoID: any) => {
+    if (!eventoID) {
+        throw new Error('Evento ID no proporcionado');
+    }
+    try {
+        const response = await api.get(`/esculturas/${eventoID}`);
+        return response.data; // Devuelve las esculturas del evento
+    } catch (error: unknown) {
+        if (error instanceof Error) {
+            throw new Error(`Error al obtener esculturas del evento: ${error.message}`);
+        }
+        throw new Error('Error desconocido al obtener esculturas del evento');
+    }
 };
 
-// Crear una nueva escultura
+/**
+ * Crea una nueva escultura.
+ * @param data Los datos de la escultura que se desea crear.
+ * @returns La escultura creada.
+ */
 export const createEscultura = async (data: any) => {
-    const response = await api.post('/esculturas', data);
-    return response.data.escultura; // Retorna la escultura recién creada
+    try {
+        const response = await api.post('/esculturas', data);
+        return response.data; // Devuelve la escultura creada
+    } catch (error: unknown) {
+        if (error instanceof Error) {
+            throw new Error(`Error al crear escultura: ${error.message}`);
+        }
+        throw new Error('Error desconocido al crear escultura');
+    }
 };
 
-// Obtener una escultura por ID
-export const getEsculturaById = async (id: string) => {
-    const response = await api.get(`/esculturas/${id}`);
-    return response.data.escultura; // Extraemos la escultura específica
-};
-
-// Actualizar una escultura existente
+/**
+ * Actualiza una escultura existente.
+ * @param id El ID de la escultura que se desea actualizar.
+ * @param esculturaData Los nuevos datos para la escultura.
+ * @returns La escultura actualizada.
+ */
 export const updateEscultura = async (id: string, esculturaData: any) => {
-    const response = await api.put(`/esculturas/${id}`, esculturaData);
-    return response.data.escultura; // Retorna la escultura actualizada
+    try {
+        const response = await api.put(`/esculturas/${id}`, esculturaData);
+        return response.data; // Devuelve la escultura actualizada
+    } catch (error: unknown) {
+        if (error instanceof Error) {
+            throw new Error(`Error al actualizar escultura: ${error.message}`);
+        }
+        throw new Error('Error desconocido al actualizar escultura');
+    }
 };
 
-// Eliminar una escultura
+/**
+ * Elimina una escultura.
+ * @param id El ID de la escultura que se desea eliminar.
+ * @returns Los datos de la escultura eliminada.
+ */
 export const deleteEscultura = async (id: string) => {
-    const response = await api.delete(`/esculturas/${id}`);
-    return response.data.message; // Retorna el mensaje de éxito
+    try {
+        const response = await api.delete(`/esculturas/${id}`);
+        return response.data; // Devuelve los datos de la escultura eliminada
+    } catch (error: unknown) {
+        if (error instanceof Error) {
+            throw new Error(`Error al eliminar escultura: ${error.message}`);
+        }
+        throw new Error('Error desconocido al eliminar escultura');
+    }
 };

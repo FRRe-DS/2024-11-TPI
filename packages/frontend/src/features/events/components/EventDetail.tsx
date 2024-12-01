@@ -1,10 +1,10 @@
 // EventDetail.tsx
 import React, { useState, useEffect } from 'react';
-import Footer from '../../layout/footer/Footer.tsx';
+import Footer from '../../../layout/footer/Footer.tsx';
 
 import { useParams } from 'react-router-dom';
-import { getEventoById } from '../../services/EventService.ts'; // Servicio para obtener un evento por
-import SculptureList from "../sculptures/components/SculptureList.tsx";
+import { getEventoById } from '../../../services/EventService.ts'; // Servicio para obtener un evento por
+import SculptureList from "../../sculptures/components/SculptureList.tsx";
 
 const EventDetail: React.FC = () => {
     const { id =''} = useParams<{ id: string }>(); // Obtenemos el ID de la URL

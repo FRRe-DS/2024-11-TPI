@@ -1,50 +1,52 @@
 import api from './axiosConfig';
 import { User } from '../features/user/types/userTypes';
 
+// Función para obtener el usuario actual
 export const getCurrentUser = async (): Promise<User | null> => {
     try {
-        const response = await api.get('/users'); // Verifica si esta ruta es para obtener el usuario actual
+        const response = await api.get('/users'); // Verifica que esta ruta obtenga el usuario actual
         return response.data;
     } catch (error) {
-        console.error('Error al obtener el usuario actual:', error);
+        // Manejo de errores mínimo
         return null;
     }
 };
 
+// Función para obtener la lista de usuarios
 export const fetchUsers = async () => {
     try {
         const response = await api.get('/users');
-        return response.data.users; // Asegúrate de acceder a la propiedad 'users' de la respuesta
+        return response.data.users; // Asegúrate de acceder correctamente a la propiedad 'users' en la respuesta
     } catch (error) {
-        console.error("Error en la carga de usuarios:", error);
-        throw error;
+        throw new Error('Error en la carga de usuarios'); // Solo lanzamos el error sin imprimir en consola
     }
 };
 
+// Función para actualizar el rol de un usuario
 export const updateUserRole = async (userId: string, newRole: string) => {
     try {
-        const response = await api.put(`/roles/${userId}`, { role: newRole }); // Ruta modularizada para roles
+        const response = await api.put(`/roles/${userId}`, { role: newRole }); // Confirmar la ruta correcta para roles
         return response.data;
     } catch (error) {
-        console.error("Error en updateUserRole:", error);
-        throw error;
+        throw new Error('Error al actualizar el rol'); // Manejamos el error de manera sencilla
     }
 };
 
+// Función para cerrar sesión
 export const logout = async (): Promise<void> => {
     try {
-        await api.post('/auth/logout'); // Confirma la ruta correcta en el backend
+        await api.post('/auth/logout'); // Confirmar la ruta para cerrar sesión
     } catch (error) {
-        console.error("Error al cerrar sesión:", error);
-        throw error;
+        throw new Error('Error al cerrar sesión'); // Solo lanzamos el error sin loguearlo
     }
 };
 
+// Función para eliminar un usuario
 export const deleteUser = async (userId: number) => {
     try {
         const response = await api.delete(`/users/${userId}`);
         return response.data;
     } catch (error) {
-        throw new Error("Error al eliminar el usuario");
+        throw new Error('Error al eliminar el usuario'); // Manejamos el error de forma genérica
     }
 };

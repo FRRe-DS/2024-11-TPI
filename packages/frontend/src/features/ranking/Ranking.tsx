@@ -26,7 +26,7 @@ const Ranking = () => {
     };
 
     return (
-        <div className="bg-gradient-to-r from-blue-100 via-indigo-100 to-purple-100 min-h-screen flex flex-col items-center py-8">
+        <div className="absolute inset-0 overflow-hidden bg-gradient-to-r from-blue-100 via-indigo-100 to-purple-100 min-h-screen flex flex-col items-center py-8">
             <h1 className="text-4xl font-bold text-gray-800 mb-6">Ranking de Escultores</h1>
             <div className="w-full max-w-4xl bg-white shadow-lg rounded-lg overflow-hidden">
                 <table className="table-auto w-full text-left">

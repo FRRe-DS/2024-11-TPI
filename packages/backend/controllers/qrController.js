@@ -1,44 +1,53 @@
-const { Qr, Escultura } = require("../models");
-const qrService = require("../services/qrService");
+const { Qr, Escultura } = require("../models"); // Importamos los modelos necesarios
+const qrService = require("../services/qrService"); // Importamos el servicio para generar QR
 
-// Generar un QR para una escultura
+// Función para generar un QR para una escultura
 const generateQr = async (req, res, next) => {
     try {
-        const { esculturaId } = req.body;
+        const { esculturaId } = req.body; // Extraemos el ID de la escultura del cuerpo de la solicitud
+
+        // Generamos el código QR para la escultura con el ID proporcionado
         const result = await qrService.generateEsculturaQRCode(esculturaId);
+
+        // Enviamos la respuesta con el resultado del QR generado
         res.status(201).json(result);
     } catch (error) {
-        next(error); // Dejar el manejo de errores al middleware.
+        // Pasamos el error al middleware de manejo de errores
+        next(error);
     }
 };
 
-// Validar un QR escaneado
+// Función para validar un QR escaneado
 const validateQr = async (req, res) => {
     try {
-        const { uniqueCode } = req.params;
+        const { uniqueCode } = req.params; // Extraemos el código único del QR de los parámetros de la solicitud
 
-
-        console.log("Buscando en Qr:", uniqueCode);
+        // Buscamos el registro del QR en la base de datos usando el código único
         const qrRecord = await Qr.findOne({ where: { uniqueCode } });
-        console.log("Resultado:", qrRecord);
+
+        // Si no encontramos el QR, respondemos con un mensaje de error
         if (!qrRecord) {
             return res.status(404).json({ message: "Código QR no encontrado" });
         }
 
-        // Verificar si el QR ha expirado
+        // Comprobamos si el QR ha expirado comparando la fecha de expiración con la fecha actual
         if (Date.now() > new Date(qrRecord.expiration)) {
             return res.status(400).json({ message: "El código QR ha expirado" });
         }
 
-        // Retornar la escultura asociada
+        // Obtenemos la escultura asociada al QR usando el ID de la escultura
         const escultura = await Escultura.findByPk(qrRecord.esculturaId);
+
+        // Si no encontramos la escultura, respondemos con un mensaje de error
         if (!escultura) {
             return res.status(404).json({ message: "Escultura no encontrada" });
         }
 
+        // Si todo es válido, respondemos con un mensaje de éxito y la información de la escultura
         res.status(200).json({ message: "Código QR válido", escultura });
     } catch (error) {
-        console.error("Error al validar QR:", error);
+        // Manejo de errores: si ocurre un error, lo capturamos y respondemos con un mensaje genérico
+        // Se eliminó el console.error por razones de seguridad para no exponer detalles del error
         res.status(500).json({ message: "Error interno del servidor" });
     }
 };
