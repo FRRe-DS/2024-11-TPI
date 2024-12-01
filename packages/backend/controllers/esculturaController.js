@@ -1,33 +1,45 @@
-const { Escultura, Escultor, Evento } = require("../models");
+const { Escultura, Escultor, User } = require("../models");
 
 // Crear una escultura
-const crearEscultura = async (req, res) => {
+const crearEscultura = async (req, res, next) => {
     try {
-        // Desestructurar los datos recibidos en el cuerpo de la solicitud
-        const { nombre, descripcion, plano, imagenes, imagenFinal, fechaCreacion, usuarioId, eventoId } = req.body;
+        const { nombre, userId } = req.body;
 
-        // Verificar que usuarioId y eventoId son válidos
-        if (!usuarioId || !eventoId) {
-            return res.status(400).json({ message: "Se debe proporcionar un usuarioId y un eventoId válidos." });
-        }
-
-        // Crear nueva escultura en la base de datos
-        const nuevaEscultura = await Escultura.create({
-            nombre,
-            descripcion,
-            plano,
-            imagenes,
-            imagenFinal,
-            fechaCreacion,
-            userId: usuarioId, // Usamos userId en lugar de escultorId
-            eventoId,
+        // Verificar si el escultor existe y pertenece al usuario
+        const escultor = await Escultor.findOne({
+            where: { userId }, // Buscar por el `userId`
+            include: [
+                {
+                    model: Escultura,
+                    as: "escultura", // Especificar el alias definido en la asociación
+                },
+                {
+                    model: User,
+                    as: "usuario", // Especificar el alias definido en la asociación
+                    attributes: ["nombre"], // Obtener solo los campos necesarios
+                },
+            ],
         });
 
-        // Responder con éxito y la nueva escultura creada
-        res.status(201).json({ message: "Escultura creada exitosamente", escultura: nuevaEscultura });
+        if (!escultor) {
+            return res.status(404).json({ message: "Escultor no encontrado." });
+        }
+
+        // Verificar si ya tiene una escultura asociada
+        if (escultor.escultura) {
+            return res.status(400).json({ message: "El escultor ya tiene una escultura asociada." });
+        }
+
+        // Crear la nueva escultura
+        const nuevaEscultura = await Escultura.create({
+            nombre,
+            userId, // Asociar la escultura al usuario a través de `userId`
+        });
+
+        res.status(201).json(nuevaEscultura);
     } catch (error) {
-        // En caso de error, enviar mensaje genérico
-        res.status(500).json({ message: "Error interno del servidor" });
+        console.error("Error al crear la escultura:", error); // Registrar el error en el servidor
+        res.status(500).json({ error: "Error al crear la escultura" });
     }
 };
 

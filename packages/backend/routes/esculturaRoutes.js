@@ -18,7 +18,7 @@ const router = express.Router();
 
 // Ruta para crear una nueva escultura
 // Solo accesible para usuarios con el rol 'escultor' o 'admin'
-router.post("/", authMiddleware, roleMiddleware("escultor"), async (req, res) => {
+router.post("/", authMiddleware, roleMiddleware("admin"), async (req, res) => {
     try {
         // Llamada al controlador para crear la escultura
         await crearEscultura(req, res);
@@ -54,7 +54,7 @@ router.get("/:id", async (req, res) => {
 
 // Ruta para actualizar una escultura
 // Solo accesible para usuarios con el rol 'escultor' o 'admin'
-router.put("/:id", authMiddleware, roleMiddleware("escultor"), async (req, res) => {
+router.put("/:id", authMiddleware, roleMiddleware("admin"), async (req, res) => {
     try {
         // Llamada al controlador para actualizar la escultura
         await actualizarEscultura(req, res);
