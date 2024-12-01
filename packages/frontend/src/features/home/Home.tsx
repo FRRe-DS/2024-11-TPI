@@ -11,6 +11,7 @@ import { Pagination } from "swiper/modules";
 import Navigation from "../../layout/Navbar/Navigation.tsx";
 import { INavbarLink } from "../../layout/Navbar/components/interfaces/INavigationLink.ts";
 import { useRef } from "react";
+import SculptorListHome from "./components/SculptorListHome.tsx";
 
 const navbarLinks: INavbarLink[] = [
     { id: "hero", label: "Inicio", index: 0 },
