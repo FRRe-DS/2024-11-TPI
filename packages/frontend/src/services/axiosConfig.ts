@@ -11,16 +11,15 @@ console.log('Base URL configurada:', api.defaults.baseURL);
 // Interceptor para agregar el token a las solicitudes
 api.interceptors.request.use(
     (config) => {
-        const token = localStorage.getItem("token");
+        const token = localStorage.getItem('token');
 
         // Verificar si el token está en localStorage
-
         if (token) {
             // Si el token está presente, configurarlo en los encabezados
             config.headers.Authorization = `Bearer ${token}`;
             console.log('Encabezado Authorization configurado:', config.headers.Authorization);
         } else {
-            console.log('No se encontró token en localStorage');
+            console.warn('No se encontró token en localStorage');
         }
 
         // Verificar los detalles completos de la solicitud antes de enviarla
@@ -36,23 +35,34 @@ api.interceptors.request.use(
 // Interceptor para manejar la respuesta
 api.interceptors.response.use(
     (response) => {
-        // Verificar la respuesta del servidor
         return response;
     },
     (error) => {
-        // Capturar cualquier error en la respuesta
-        console.error('Error en la respuesta de la API:', error.response ? error.response : error);
+        if (error.response) {
+            // El servidor respondió con un código fuera del rango 2xx
+            console.error('Error en la respuesta de la API:');
+            console.error(`- Código de estado: ${error.response.status}`);
+            console.error(`- Mensaje: ${error.response.statusText}`);
+            console.error(`- Detalles:`, error.response.data);
+        } else if (error.request) {
+            // La solicitud se hizo pero no hubo respuesta
+            console.error('El servidor no respondió. Detalles de la solicitud:', error.request);
+        } else {
+            // Algo pasó al configurar la solicitud
+            console.error('Error al configurar la solicitud:', error.message);
+        }
+
         return Promise.reject(error);
     }
 );
 
-// Interceptor para manejar errores generales de la API
+// Interceptor para manejar errores generales de la API (puedes combinar con el anterior)
 api.interceptors.response.use(
     (response) => {
         return response;
     },
     (error) => {
-        console.error('Error al recibir la respuesta:', error);
+        console.error('Error inesperado al recibir la respuesta:', error);
         return Promise.reject(error);
     }
 );
