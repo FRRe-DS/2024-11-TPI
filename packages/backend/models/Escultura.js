@@ -21,7 +21,7 @@ const Escultura = sequelize.define("Escultura", {
     },
     plano: {
         type: DataTypes.STRING, // Tipo de dato cadena para la URL del plano inicial
-        allowNull: false, // No puede ser nulo
+        allowNull: true, // Puede ser nulo
     },
     imagenes: {
         type: DataTypes.ARRAY(DataTypes.STRING), // Tipo de dato arreglo de cadenas (URLs de imágenes)
@@ -34,7 +34,7 @@ const Escultura = sequelize.define("Escultura", {
     },
     fechaCreacion: {
         type: DataTypes.DATE, // Tipo de dato fecha para la fecha de creación
-        allowNull: false, // No puede ser nulo
+        allowNull: true, // No puede ser nulo
     },
     puntuacion: {
         type: DataTypes.INTEGER, // Tipo de dato entero para la puntuación de la escultura

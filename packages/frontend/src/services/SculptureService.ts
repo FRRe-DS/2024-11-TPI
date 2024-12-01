@@ -45,15 +45,16 @@ export const getEsculturasByEvent = async (eventoID: any) => {
  */
 export const createEscultura = async (data: any) => {
     try {
-        const response = await api.post('/esculturas', data);
-        return response.data; // Devuelve la escultura creada
+        const response = await api.post('/esculturas', data); // Llamada al backend
+        return response.data; // Devuelve los datos de la escultura creada
     } catch (error: unknown) {
+        // Manejo de errores
         if (error instanceof Error) {
             throw new Error(`Error al crear escultura: ${error.message}`);
         }
         throw new Error('Error desconocido al crear escultura');
     }
-};
+}
 
 /**
  * Actualiza una escultura existente.

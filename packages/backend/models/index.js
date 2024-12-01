@@ -12,14 +12,14 @@ const Voto = require("./Voto");
 // Relaciones entre los modelos de la base de datos:
 
 // 1. Un 'User' tiene un solo 'Escultor' (relación uno a uno).
-User.hasOne(Escultor, { foreignKey: 'userId', as: 'usuario' });
+User.hasOne(Escultor, { as: "escultor", foreignKey: "userId", onDelete: "CASCADE" });
 // 2. Un 'Escultor' pertenece a un 'User' (relación inversa).
-Escultor.belongsTo(User, { foreignKey: 'userId', as: 'usuario' });
+Escultor.belongsTo(User, { as: "usuario", foreignKey: "userId", onDelete: "CASCADE" });
 
-// 3. Un 'Escultor' tiene muchas 'Escultura' (relación uno a muchos).
-Escultor.hasMany(Escultura, { foreignKey: 'userId', as: "esculturas" });
+// 3. Un 'Escultor' tiene una 'Escultura' (relación uno a uno).
+Escultor.hasOne(Escultura, { as: "escultura", foreignKey: "userId", onDelete: "CASCADE" });
 // 4. Una 'Escultura' pertenece a un 'Escultor' (relación inversa).
-Escultura.belongsTo(Escultor, { foreignKey: 'userId', as: "escultor" });
+Escultura.belongsTo(Escultor, { as: "escultor", foreignKey: "userId", onDelete: "CASCADE" });
 
 // 5. Un 'Evento' tiene muchas 'Escultura' (relación uno a muchos).
 Evento.hasMany(Escultura, { foreignKey: "eventoId", as: "esculturas" });
@@ -40,6 +40,11 @@ Voto.belongsTo(Escultura, { foreignKey: "esculturaId", as: "escultura" });
 Escultor.hasMany(Voto, { foreignKey: "escultorId", as: "votosEscultor" });
 // 12. Un 'Voto' pertenece a un 'Escultor' (relación inversa).
 Voto.belongsTo(Escultor, { foreignKey: "escultorId", as: "escultor" });
+
+// 13. Una escultura tiene un codigo QR.
+Escultura.hasOne(Qr, { as: "codigoQR", foreignKey: "esculturaId", onDelete: "CASCADE" });
+// 14. Un codigo Qr pertenece a una escultura.
+Qr.belongsTo(Escultura, { as: "escultura", foreignKey: "esculturaId" });
 
 // Exporta todos los modelos y sequelize para que puedan ser utilizados en otras partes de la aplicación.
 module.exports = { Voto, Qr, sequelize, User, Escultor, Escultura, Evento };
