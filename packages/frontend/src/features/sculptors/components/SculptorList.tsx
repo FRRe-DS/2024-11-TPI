@@ -1,44 +1,145 @@
-import React, { useState} from 'react';
-import SculptorCard from './ui/SculptorCard';
-import { updateEscultor} from "../../../services/escultorService.ts";
+import React, { useEffect, useState } from "react";
+import { Swiper, SwiperSlide } from "swiper/react";
 
+// Import Swiper styles
+import "swiper/css";
+import "swiper/css/effect-cards";
 
-const SculptorList: React.FC = () => {
-    const [escultores, setEscultores] = useState<any[]>([]);
+// Import required modules
+import { EffectCards } from "swiper/modules";
+import { fetchEscultores } from "../../../services/escultorService.ts";
 
+// Import iconos de redes sociales
+import { FaInstagram, FaFacebook, FaYoutube, FaLinkedin } from "react-icons/fa";
 
-    const handleSaveSculptor = async (updatedSculptor: any) => {
-        try {
-            await updateEscultor(updatedSculptor.id);
-            setEscultores((prev) =>
-                prev.map((escultor) =>
-                    escultor.id === updatedSculptor.id ? updatedSculptor : escultor
-                )
-            );
-        } catch (error) {
-            console.error('Error al actualizar el escultor:', error);
-        }
-    };
+interface Escultor {
+    userId: number;
+    biografia: string | null;
+    imagen: string;
+    puntuacionTotal: number;
+    instagram?: string;
+    facebook?: string;
+    youtube?: string;
+    linkedin?: string;
+}
+
+const EscultorList: React.FC = () => {
+    const [escultores, setEscultores] = useState<Escultor[]>([]);
+    const [loading, setLoading] = useState(true);
+    const [error, setError] = useState<string | null>(null);
+
+    useEffect(() => {
+        const fetchData = async () => {
+            try {
+                const data = await fetchEscultores();
+                setEscultores(Array.isArray(data) ? data : []);
+            } catch (err) {
+                setError("Error al cargar la lista de escultores");
+            } finally {
+                setLoading(false);
+            }
+        };
+
+        fetchData();
+    }, []);
+
+    if (loading) return <p className="text-center text-lg text-gray-600">Cargando escultores...</p>;
+    if (error) return <p className="text-center text-red-500">{error}</p>;
 
     return (
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 p-6">
-            <h2 className="w-full text-3xl font-bold text-center mb-8">Lista de Escultores</h2>
-            {escultores.length > 0 ? (
-                escultores.map((escultor) => (
-                    <SculptorCard
-                        key={escultor.id}
-                        id={escultor.id}
-                        nombre={escultor.nombre}
-                        biografia={escultor.biografia}
-                        imagen={escultor.imagen}
-                        onSave={handleSaveSculptor}
-                    />
-                ))
-            ) : (
-                <p>No hay escultores disponibles</p>
-            )}
+        <div className="w-full max-w-7xl mx-auto p-8 bg-gradient-to-r from-purple-400 via-indigo-300 to-blue-300 rounded-lg shadow-xl">
+            <h3 className="text-3xl font-bold text-center mb-8 text-white">Escultores Destacados</h3>
+
+            {/* Swiper */}
+            <Swiper
+                effect={"cards"}
+                grabCursor={true}
+                modules={[EffectCards]}
+                className="rounded-lg shadow-xl"
+                spaceBetween={10}  // Menor espacio entre slides
+                slidesPerView={1}  // Por defecto, solo se muestra un slide
+                loop={true}
+                breakpoints={{
+                    640: {
+                        slidesPerView: 1,  // En pantallas pequeñas, solo un slide
+                    },
+                    768: {
+                        slidesPerView: 2,  // En pantallas medianas, 2 slides
+                    },
+                    1024: {
+                        slidesPerView: 3,  // En pantallas grandes, 3 slides
+                    },
+                }}
+            >
+                {escultores.length > 0 ? (
+                    escultores.map((escultor) => (
+                        <SwiperSlide key={escultor.userId}>
+                            <div className="relative bg-white rounded-xl shadow-lg overflow-hidden transition-transform transform hover:scale-105 duration-300">
+                                {/* Contenedor de imagen cuadrado */}
+                                <div className="relative w-full h-64 md:h-72">
+                                    <img
+                                        src={escultor.imagen || "/default-image.jpg"}
+                                        alt={escultor.biografia || "Escultor"}
+                                        className="absolute inset-0 w-full h-full object-cover rounded-t-xl"
+                                    />
+                                </div>
+                                <div className="p-4">
+                                    <h4 className="text-lg font-semibold text-gray-800">
+                                        {escultor.biografia || "Biografía no disponible"}
+                                    </h4>
+                                    <p className="text-gray-600 text-sm mt-2">Puntuación: {escultor.puntuacionTotal}</p>
+                                    <div className="mt-3 flex justify-start gap-4">
+                                        {escultor.instagram && (
+                                            <a
+                                                href={escultor.instagram}
+                                                target="_blank"
+                                                rel="noopener noreferrer"
+                                                className="text-blue-500 hover:text-blue-600 transition-colors duration-200"
+                                            >
+                                                <FaInstagram size={20} />
+                                            </a>
+                                        )}
+                                        {escultor.facebook && (
+                                            <a
+                                                href={escultor.facebook}
+                                                target="_blank"
+                                                rel="noopener noreferrer"
+                                                className="text-blue-500 hover:text-blue-600 transition-colors duration-200"
+                                            >
+                                                <FaFacebook size={20} />
+                                            </a>
+                                        )}
+                                        {escultor.youtube && (
+                                            <a
+                                                href={escultor.youtube}
+                                                target="_blank"
+                                                rel="noopener noreferrer"
+                                                className="text-blue-500 hover:text-blue-600 transition-colors duration-200"
+                                            >
+                                                <FaYoutube size={20} />
+                                            </a>
+                                        )}
+                                        {escultor.linkedin && (
+                                            <a
+                                                href={escultor.linkedin}
+                                                target="_blank"
+                                                rel="noopener noreferrer"
+                                                className="text-blue-500 hover:text-blue-600 transition-colors duration-200"
+                                            >
+                                                <FaLinkedin size={20} />
+                                            </a>
+                                        )}
+                                    </div>
+                                </div>
+                            </div>
+                        </SwiperSlide>
+                    ))
+                ) : (
+                    <p className="text-center text-gray-500">No hay escultores disponibles</p>
+                )}
+            </Swiper>
         </div>
     );
 };
 
-export default SculptorList;
+export default EscultorList;
