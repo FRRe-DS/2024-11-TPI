@@ -30,7 +30,7 @@ const UserLoggedInMenu: React.FC<UserLoggedInMenuProps> = ({ role }) => {
             >
                 {loading ? 'Cargando...' : user ? (
                     // Mostrar nombre del usuario si está autenticado
-                    `${user.username} (${role === 'admin' ? 'Admin' : 'Usuario'})`
+                    `${user.username} (${ role === 'admin' ? 'Admin' : 'Usuario'})`
                 ) : (
                     'Iniciar sesión'
                 )}

@@ -26,7 +26,7 @@ const Navbar: React.FC<NavbarProps> = ({ links, isExpanded, toggleNavbar, onLink
                     isExpanded ? navbarStyles.expanded : navbarStyles.collapsed
                 }`}
             >
-                <div className="flex justify-end gap-4 pr-4 pt-3 md:gap-20 md:pr-20">
+                <div className="flex justify-end gap-4 pt-3 md:gap-20 md:pr-20">
                     <NavbarLinks links={links} closeNavbar={toggleNavbar} onLinkClick={onLinkClick} />
                 </div>
             </nav>
