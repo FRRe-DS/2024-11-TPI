@@ -5,15 +5,15 @@ import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import Home from '../features/home/Home.tsx';
 import Events from '../features/events/Events.tsx';
 import AdminPage from '../features/admin/AdminPage.tsx';
-//import VotingPage from '../features/voting/VotingPage.tsx';
 import ProtectedRoute from './ProtectedRoute.tsx'; // Componente para protección de rutas
 //import EventDetail from '../features/events/components/EventDetail.tsx';
-import VotingEventList from '../features/voting/components/VotingEventList.tsx';
+//import VotingEventList from '../features/voting/components/VotingEventList.tsx';
 import VotacionQRCodeWrapper from '../features/voting/QRCode/VotacionQRCodeWrapper.tsx';
 import Sculptures from "../features/sculptures/Sculptures.tsx";
 import Sculptors from "../features/sculptors/Sculptors.tsx";
 import LoginPage from "../features/auth/pages/AuthPage.tsx";
 import Ranking from "../features/ranking/Ranking.tsx";
+import VotingPage from "../features/voting/VotingPage.tsx";
 
 // Componente que maneja las rutas de la aplicación
 function AppRouter() {
@@ -55,7 +55,7 @@ function AppRouter() {
                 <Route path="/codigo-qr/:esculturaID" element={<VotacionQRCodeWrapper />} />
 
                 {/* Ruta para listar los eventos de votación */}
-                <Route path="/votacion-eventos" element={<VotingEventList />} />
+                <Route path="/votacion-escultura/:QrCode/:esculturaId" element={<VotingPage />} />
 
                 {/* Ruta para ver el ranking de escultores */}
                 <Route path="/ranking" element={<Ranking />} />

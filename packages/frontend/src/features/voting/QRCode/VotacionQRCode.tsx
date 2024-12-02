@@ -8,7 +8,7 @@ interface VotacionQRCodeProps {
 
 const VotacionQRCode: React.FC<VotacionQRCodeProps> = ({ }) => {
     const [qrCode, setQrCode] = useState<any>('');  // Estado para almacenar el código QR
-    const esculturaId = '1';  // Ejemplo de esculturaId
+    const esculturaId = '2';  // Ejemplo de esculturaId
 
     // useEffect con dependencia vacía [] para que solo se ejecute una vez
     useEffect(() => {
@@ -30,7 +30,7 @@ const VotacionQRCode: React.FC<VotacionQRCodeProps> = ({ }) => {
     }
 
     // URL dinámica con esculturaId y qrCode
-    const baseURL = `${window.location.origin}/escultura/${esculturaId}/${qrCode}`;
+    const baseURL = `${window.location.origin}/votacion-escultura/${qrCode}/${esculturaId}`;
 
     return (
         <div>
