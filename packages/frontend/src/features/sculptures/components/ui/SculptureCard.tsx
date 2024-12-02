@@ -2,9 +2,9 @@ import React, { useState } from 'react';
 
 interface SculptureCardProps {
     nombre: string;
-    descripcion: string;
-    fechaCreacion: string;
-    tematica: string;
+    descripcion?: string;
+    fechaCreacion?: string;
+    tematica?: string;
     id: string;
     imagen?: string; // La imagen es opcional
 }
@@ -31,25 +31,32 @@ const SculptureCard: React.FC<SculptureCardProps> = ({ nombre, descripcion, tema
                 <h2 className="text-lg font-bold text-gray-800 truncate mb-2">{nombre}</h2>
 
                 {/* Información adicional */}
-                <p className="text-sm text-gray-600 mb-1">
-                    <span className="font-semibold">Fecha de creación:</span> {new Date(fechaCreacion).toLocaleDateString()}
-                </p>
-                <p className="text-sm text-gray-600 mb-1">
-                    <span className="font-semibold">Temática:</span> {tematica}
-                </p>
+                {fechaCreacion && (
+                    <p className="text-sm text-gray-600 mb-1">
+                        <span
+                            className="font-semibold">Fecha de creación:</span> {new Date(fechaCreacion).toLocaleDateString()}
+                    </p>
+                )}
+                {tematica && (
+                    <p className="text-sm text-gray-600 mb-1">
+                        <span className="font-semibold">Temática:</span> {tematica}
+                    </p>
+                )}
 
                 {/* Descripción */}
-                <p className="text-sm text-gray-700 mb-2">
-                    {showFullDescription ? descripcion : `${descripcion.substring(0, 100)}...`}
-                    {descripcion.length > 100 && (
-                        <button
-                            onClick={() => setShowFullDescription(!showFullDescription)}
-                            className="text-blue-500 text-sm underline ml-1"
-                        >
-                            {showFullDescription ? 'Ver menos' : 'Ver más'}
-                        </button>
-                    )}
-                </p>
+                {descripcion && (
+                    <p className="text-sm text-gray-700 mb-2">
+                        {showFullDescription ? descripcion : `${descripcion.substring(0, 100)}...`}
+                        {descripcion.length > 100 && (
+                            <button
+                                onClick={() => setShowFullDescription(!showFullDescription)}
+                                className="text-blue-500 text-sm underline ml-1"
+                            >
+                                {showFullDescription ? 'Ver menos' : 'Ver más'}
+                            </button>
+                        )}
+                    </p>
+                )}
 
                 {/* Footer */}
                 <div className="text-right">

@@ -6,10 +6,11 @@ import useUser from '../../user/hooks/useUser';
 import {logout} from "../../../services/AuthService.ts"; // Importar el hook para obtener el usuario
 
 interface UserLoggedInMenuProps {
+    username: any;
     role: string; // Puede ser 'user' o 'admin'
 }
 
-const UserLoggedInMenu: React.FC<UserLoggedInMenuProps> = ({ role }) => {
+const UserLoggedInMenu: React.FC<UserLoggedInMenuProps> = ({ role, username }) => {
     const { user, loading } = useUser(); // Obtener el usuario y el estado de carga
     const [isOpen, setIsOpen] = useState(false);
 
@@ -30,7 +31,7 @@ const UserLoggedInMenu: React.FC<UserLoggedInMenuProps> = ({ role }) => {
             >
                 {loading ? 'Cargando...' : user ? (
                     // Mostrar nombre del usuario si está autenticado
-                    `${user.username} (${ role === 'admin' ? 'Admin' : 'Usuario'})`
+                    `${username} (${ role === 'admin' ? 'Admin' : 'Usuario'})`
                 ) : (
                     'Iniciar sesión'
                 )}

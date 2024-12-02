@@ -1,6 +1,8 @@
 const { User } = require("../models");
 const { processUserData } = require("../middlewares/userMiddleware");
 
+
+
 // Obtener todos los usuarios
 const getUsers = async (req, res) => {
     const limit = parseInt(req.query.limit) || 10; // Número de usuarios por página
@@ -10,6 +12,7 @@ const getUsers = async (req, res) => {
         const users = await User.findAll({
             attributes: ["id", "username", "email", "role", "isActive", "expiryDate"],
         });
+        console.log('hace este')
         // Responder con los usuarios obtenidos
         res.status(200).json({ users });
     } catch (error) {

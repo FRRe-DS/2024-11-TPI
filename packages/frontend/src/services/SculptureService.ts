@@ -7,15 +7,19 @@ import api from './axiosConfig';
 export const getEsculturas = async () => {
     try {
         const response = await api.get('/esculturas');
-        return response.data; // Devuelve los datos de la respuesta
+        return response.data; // Devuelve los datos recibidos de la API
     } catch (error: unknown) {
-        // Manejo de error: comprobamos si error es una instancia de Error
+        // Manejo de error detallado
         if (error instanceof Error) {
-            throw new Error(`Error al obtener esculturas: ${error.message}`);
+            // Error conocido (por ejemplo, de la red o del servidor)
+            throw new Error(error.message);
+        } else {
+            // Error desconocido
+            throw new Error('Error desconocido al obtener esculturas');
         }
-        throw new Error('Error desconocido al obtener esculturas');
     }
 };
+
 
 /**
  * Obtiene las esculturas asociadas a un evento específico.

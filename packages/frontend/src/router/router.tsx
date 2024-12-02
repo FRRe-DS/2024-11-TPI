@@ -48,7 +48,7 @@ function AppRouter() {
                 {/* Ruta para ver los detalles de un evento */}
                 <Route path="/events/:id" element={<EventDetail />} />
 
-                {/* Ruta para la página de votación de un evento */}
+                {/* Ruta para la página de votación de un escultor */}
                 <Route path="/votacion/:eventoId" element={<VotingPage />} />
 
                 {/* Ruta para el QR de votación de un evento */}
