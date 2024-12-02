@@ -3,10 +3,10 @@ import React, { useState } from 'react';
 interface SculptureCardAdminProps {
     id: number;
     nombre: string;
-    descripcion: string;
-    fechaCreacion: string;
-    tematica: string;
-    imagen?: string;
+    descripcion: string | null;
+    fechaCreacion: string | null;
+    tematica: string | null;
+    imagen?: string | null;
     onSave: (updatedSculpture: any) => void;
 }
 
@@ -32,7 +32,7 @@ const SculptureCardAdmin: React.FC<SculptureCardAdminProps> = ({
 
     const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
         const { name, value } = e.target;
-        setEditedSculpture((prev) => ({ ...prev, [name]: value }));
+        setEditedSculpture((prev) => ({ ...prev, [name]: value || null })); // Cambio aquí para asignar null si el valor es vacío
     };
 
     const handleSave = () => {
@@ -53,7 +53,7 @@ const SculptureCardAdmin: React.FC<SculptureCardAdminProps> = ({
                     />
                     <textarea
                         name="descripcion"
-                        value={editedSculpture.descripcion}
+                        value={editedSculpture.descripcion || ''}
                         onChange={handleInputChange}
                         className="border p-2 mb-2 w-full rounded"
                         placeholder="Descripción"
@@ -61,13 +61,13 @@ const SculptureCardAdmin: React.FC<SculptureCardAdminProps> = ({
                     <input
                         name="fechaCreacion"
                         type="date"
-                        value={editedSculpture.fechaCreacion}
+                        value={editedSculpture.fechaCreacion || ''}
                         onChange={handleInputChange}
                         className="border p-2 mb-2 w-full rounded"
                     />
                     <input
                         name="tematica"
-                        value={editedSculpture.tematica}
+                        value={editedSculpture.tematica || ''}
                         onChange={handleInputChange}
                         className="border p-2 mb-2 w-full rounded"
                         placeholder="Temática"
@@ -102,9 +102,9 @@ const SculptureCardAdmin: React.FC<SculptureCardAdminProps> = ({
                     )}
                     <p className="text-sm mb-2">
                         {showFullDescription
-                            ? descripcion
-                            : `${descripcion.slice(0, 10)}...`}
-                        {descripcion.length > 100 && (
+                            ? descripcion || ''
+                            : `${descripcion?.slice(0, 10)}...`}
+                        {descripcion && descripcion.length > 100 && (
                             <button
                                 onClick={() => setShowFullDescription(!showFullDescription)}
                                 className="text-blue-500 underline ml-1"
@@ -113,8 +113,8 @@ const SculptureCardAdmin: React.FC<SculptureCardAdminProps> = ({
                             </button>
                         )}
                     </p>
-                    <p className="text-sm text-gray-600 mb-2">Fecha de creación: {fechaCreacion}</p>
-                    <p className="text-sm text-gray-600 mb-4">Temática: {tematica}</p>
+                    <p className="text-sm text-gray-600 mb-2">Fecha de creación: {fechaCreacion || 'N/A'}</p>
+                    <p className="text-sm text-gray-600 mb-4">Temática: {tematica || 'N/A'}</p>
                     <button
                         onClick={() => setEditing(true)}
                         className="bg-gray-500 text-white px-4 py-2 rounded w-full"

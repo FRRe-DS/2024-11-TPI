@@ -35,8 +35,21 @@ router.get("/", async (req, res) => {
         // Llamada al controlador para obtener todas las esculturas
         await obtenerEsculturas(req, res);
     } catch (error) {
-        // Error general, mínimo pero necesario
-        res.status(500).json({ error: "Error al obtener las esculturas" });
+        // Control detallado de errores con registro y mensaje al cliente
+        console.error("Error en la ruta /api/esculturas:", error.message);
+
+        if (error.stack) {
+            console.error("Stack trace:", error.stack); // Registra el stack trace para más detalles
+        }
+
+        // Verifica si el error tiene un mensaje detallado y devuélvelo
+        const errorMessage = error instanceof Error && error.message ? error.message : "Error desconocido";
+
+        // Responde con un error genérico, pero proporcionando detalles en los registros
+        res.status(500).json({
+            error: errorMessage,
+            message: "Hubo un problema al obtener las esculturas. Intenta nuevamente más tarde.",
+        });
     }
 });
 

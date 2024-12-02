@@ -1,4 +1,4 @@
-const { Escultura, Escultor, User } = require("../models");
+const { Evento, Escultura, Escultor, User } = require("../models");
 
 // Crear una escultura
 const crearEscultura = async (req, res, next) => {
@@ -46,21 +46,25 @@ const crearEscultura = async (req, res, next) => {
 // Obtener todas las esculturas
 const obtenerEsculturas = async (req, res) => {
     try {
+
         // Obtener todas las esculturas, incluyendo la información del escultor y del evento
         const esculturas = await Escultura.findAll({
             include: [
-                { model: Escultor, as: "escultor", attributes: ["id", "nombre"] },
-                { model: Evento, as: "evento", attributes: ["id", "nombre", "tematica"] },
+                { model: Escultor, as: "escultor", attributes: ["userId"] },
+                { model: Evento, as: "evento", attributes: ["id"] },
             ],
         });
-
         // Responder con las esculturas encontradas
         res.status(200).json({ esculturas });
     } catch (error) {
+        // Log del error para depuración
+        console.error('Error al obtener esculturas:', error);
+
         // En caso de error, enviar mensaje genérico
         res.status(500).json({ message: "Error interno del servidor" });
     }
 };
+
 
 // Obtener una escultura por ID
 const obtenerEsculturaPorId = async (req, res) => {

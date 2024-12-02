@@ -5,7 +5,6 @@ const qrService = require("../services/qrService"); // Importamos el servicio pa
 const generateQr = async (req, res, next) => {
     try {
         const { esculturaId } = req.body; // Extraemos el ID de la escultura del cuerpo de la solicitud
-
         // Generamos el código QR para la escultura con el ID proporcionado
         const result = await qrService.generateEsculturaQRCode(esculturaId);
 
@@ -44,7 +43,7 @@ const validateQr = async (req, res) => {
         }
 
         // Si todo es válido, respondemos con un mensaje de éxito y la información de la escultura
-        res.status(200).json({ message: "Código QR válido", escultura });
+        res.status(200).json({ escultura });
     } catch (error) {
         // Manejo de errores: si ocurre un error, lo capturamos y respondemos con un mensaje genérico
         // Se eliminó el console.error por razones de seguridad para no exponer detalles del error
