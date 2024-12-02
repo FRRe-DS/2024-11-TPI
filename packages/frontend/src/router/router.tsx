@@ -5,9 +5,9 @@ import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import Home from '../features/home/Home.tsx';
 import Events from '../features/events/Events.tsx';
 import AdminPage from '../features/admin/AdminPage.tsx';
-import VotingPage from '../features/voting/VotingPage.tsx';
+//import VotingPage from '../features/voting/VotingPage.tsx';
 import ProtectedRoute from './ProtectedRoute.tsx'; // Componente para protección de rutas
-import EventDetail from '../features/events/components/EventDetail.tsx';
+//import EventDetail from '../features/events/components/EventDetail.tsx';
 import VotingEventList from '../features/voting/components/VotingEventList.tsx';
 import VotacionQRCodeWrapper from '../features/voting/QRCode/VotacionQRCodeWrapper.tsx';
 import Sculptures from "../features/sculptures/Sculptures.tsx";
@@ -45,14 +45,14 @@ function AppRouter() {
                     }
                 />
 
-                {/* Ruta para ver los detalles de un evento */}
-                <Route path="/events/:id" element={<EventDetail />} />
+                {/* NO SE USA CREO Ruta para ver los detalles de un evento */}
+                {/*<Route path="/events/:id" element={<EventDetail />} />*/}
 
-                {/* Ruta para la página de votación de un escultor */}
-                <Route path="/votacion/:eventoId" element={<VotingPage />} />
+                {/* NO SE USA Ruta para la página de votación de un escultor */}
+                {/*<Route path="/votacion/:eventoId" element={<VotingPage />} />*/}
 
-                {/* Ruta para el QR de votación de un evento */}
-                <Route path="/codigo-qr/:eventoId" element={<VotacionQRCodeWrapper />} />
+                {/* VA A USARSE PARA ESCULTORES QR Ruta para el QR de votación de una escultura */}
+                <Route path="/codigo-qr/:esculturaID" element={<VotacionQRCodeWrapper />} />
 
                 {/* Ruta para listar los eventos de votación */}
                 <Route path="/votacion-eventos" element={<VotingEventList />} />

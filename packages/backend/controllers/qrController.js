@@ -5,7 +5,6 @@ const qrService = require("../services/qrService"); // Importamos el servicio pa
 const generateQr = async (req, res, next) => {
     try {
         const { esculturaId } = req.body; // Extraemos el ID de la escultura del cuerpo de la solicitud
-
         // Generamos el código QR para la escultura con el ID proporcionado
         const result = await qrService.generateEsculturaQRCode(esculturaId);
 

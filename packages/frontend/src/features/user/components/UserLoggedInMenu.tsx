@@ -11,8 +11,10 @@ interface UserLoggedInMenuProps {
 }
 
 const UserLoggedInMenu: React.FC<UserLoggedInMenuProps> = ({ role, username }) => {
+    // NO SE NECESITA SACAR DSP
     const { user, loading } = useUser(); // Obtener el usuario y el estado de carga
     const [isOpen, setIsOpen] = useState(false);
+    console.log(user)
 
     const toggleMenu = () => {
         setIsOpen((prev) => !prev);
@@ -45,6 +47,9 @@ const UserLoggedInMenu: React.FC<UserLoggedInMenuProps> = ({ role, username }) =
                                 Panel Admin
                             </Link>
                         )}
+                        <Link to={`/codigo-qr/${username}`} className="block px-4 py-2 text-gray-800 hover:bg-gray-100">
+                            Crear Qr
+                        </Link>
                             <>
                                 <button
                                     onClick={handleLogoutClick}

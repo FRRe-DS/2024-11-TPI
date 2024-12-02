@@ -8,14 +8,14 @@ const Qr = sequelize.define(
     {
         // Campo ID con UUID para mayor estandarización.
         id: {
-            type: DataTypes.UUID, // Identificador único
-            defaultValue: DataTypes.UUIDV4, // Generación automática
-            primaryKey: true, // Define este campo como la clave primaria
+            type: DataTypes.INTEGER,     // Tipo de dato INTEGER para el ID
+            primaryKey: true,            // Es la clave primaria
+            autoIncrement: true,  // Define este campo como la clave primaria
         },
 
         // Relación con Esculturas.
         esculturaId: {
-            type: DataTypes.UUID, // UUID para mantener consistencia con el modelo 'Escultura'.
+            type: DataTypes.INTEGER, // UUID para mantener consistencia con el modelo 'Escultura'.
             allowNull: false, // No puede ser nulo.
             references: {
                 model: "Esculturas", // Relacionado con la tabla 'Esculturas'.
