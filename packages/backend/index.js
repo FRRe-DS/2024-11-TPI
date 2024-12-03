@@ -15,7 +15,7 @@ const app = express();
 app.use(
     cors({
         // Configura CORS para aceptar solicitudes de tu frontend en localhost y en el entorno de producción (Render)
-        origin: ['http://localhost:5173', 'https://bienal-del-chaco2024-frontend-9xyl.vercel.app', process.env.FRONTEND_URL], // Agrega el origen del frontend
+        origin: ['http://localhost:5173','https://bienal-del-chaco2024-frontend-9xyl.vercel.app', process.env.FRONTEND_URL], // Agrega el origen del frontend
         methods: ['GET', 'POST', 'PUT', 'DELETE'], // Métodos permitidos
         credentials: true, // Permitir envío de cookies
     })
