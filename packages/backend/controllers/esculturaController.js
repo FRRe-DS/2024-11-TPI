@@ -43,17 +43,28 @@ const crearEscultura = async (req, res, next) => {
     }
 };
 
-// Obtener todas las esculturas
+// Obtener esculturas, con la posibilidad de filtrar por escultor
 const obtenerEsculturas = async (req, res) => {
     try {
+        // Acceder correctamente al parámetro de consulta escultorId
+        const { escultorId } = req.query;  // Aquí extraemos escultorId, no 'userId'
 
-        // Obtener todas las esculturas, incluyendo la información del escultor y del evento
+        const where = {}; // Definir el filtro para la consulta
+
+        // Si se recibe el escultorId, agregarlo al filtro
+        if (escultorId) {
+            where['userId'] = escultorId;  // Filtrar por escultorId (debe coincidir con la columna en la base de datos)
+        }
+
+        // Obtener las esculturas, filtrando por escultorId si está presente
         const esculturas = await Escultura.findAll({
+            where,
             include: [
                 { model: Escultor, as: "escultor", attributes: ["userId"] },
                 { model: Evento, as: "evento", attributes: ["id"] },
             ],
         });
+
         // Responder con las esculturas encontradas
         res.status(200).json({ esculturas });
     } catch (error) {
