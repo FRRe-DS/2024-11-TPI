@@ -1,6 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import { GenerarQr } from '../../../services/QrService.ts';
 import ReactQR from 'react-qr-code';
+import {getUser} from "../../../services/AuthService.ts";
+import {getEsculturas} from "../../../services/SculptureService.ts";
 
 interface VotacionQRCodeProps {
     esculturaId: string;
@@ -8,13 +10,18 @@ interface VotacionQRCodeProps {
 
 const VotacionQRCode: React.FC<VotacionQRCodeProps> = ({ }) => {
     const [qrCode, setQrCode] = useState<any>('');  // Estado para almacenar el código QR
-    const esculturaId = '1';  // Ejemplo de esculturaId
+    const esculturaId= '1';
+    //const [esculturaId, setEsculturaId] = useState<string | undefined>(undefined);
 
     // useEffect con dependencia vacía [] para que solo se ejecute una vez
     useEffect(() => {
         const fetchQr = async () => {
             try {
-                const qrData = await GenerarQr(esculturaId);
+                const user = await getUser();
+                console.log('User', user.id)
+                const esculturas = await getEsculturas(user.id)
+                console.log('Esto',esculturas);
+                const qrData = await GenerarQr('1');
                 console.log(qrData);  // Muestra el objeto completo
                 setQrCode(qrData);
             } catch (err) {
