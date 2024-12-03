@@ -10,8 +10,6 @@ interface VotacionQRCodeProps {
 
 const VotacionQRCode: React.FC<VotacionQRCodeProps> = ({ }) => {
     const [qrCode, setQrCode] = useState<any>('');  // Estado para almacenar el código QR
-    const esculturaId= '1';
-    //const [esculturaId, setEsculturaId] = useState<string | undefined>(undefined);
 
     // useEffect con dependencia vacía [] para que solo se ejecute una vez
     useEffect(() => {
@@ -19,9 +17,9 @@ const VotacionQRCode: React.FC<VotacionQRCodeProps> = ({ }) => {
             try {
                 const user = await getUser();
                 console.log('User', user.id)
-                const esculturas = await getEsculturas(user.id)
-                console.log('Esto',esculturas);
-                const qrData = await GenerarQr('1');
+                const escultura = await getEsculturas(user.id)
+                console.log('Esto',escultura);
+                const qrData = await GenerarQr(escultura.id);
                 console.log(qrData);  // Muestra el objeto completo
                 setQrCode(qrData);
             } catch (err) {
