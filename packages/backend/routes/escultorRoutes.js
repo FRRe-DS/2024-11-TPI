@@ -22,7 +22,7 @@ router.post("/", authenticateToken, roleMiddleware("admin"), crearEscultor);
 
 // Ruta para obtener todos los escultores. Solo accesible para usuarios autenticados.
 // El middleware 'authenticateToken' verifica si el usuario está autenticado.
-router.get("/", authenticateToken, obtenerEscultores);
+router.get("/", obtenerEscultores);
 
 // Ruta para obtener un escultor por su ID. Solo accesible para usuarios autenticados.
 // El middleware 'authenticateToken' verifica si el usuario está autenticado.

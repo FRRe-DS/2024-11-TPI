@@ -16,7 +16,7 @@ const SculptureListHome: React.FC<SculptureListHomeProps> = ({ eventoId }) => {
                 const data = eventoId
                     ? await getEsculturasByEvent(eventoId)
                     : await getEsculturas();
-                setEsculturas(data);
+                setEsculturas(data.esculturas);
             } catch (error) {
                 console.error("Error al cargar esculturas:", error);
             }
