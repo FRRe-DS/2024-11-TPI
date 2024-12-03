@@ -6,7 +6,7 @@ interface SculptureCardAdminProps {
     descripcion: string | null;
     fechaCreacion: string | null;
     tematica: string | null;
-    imagen?: string | null;
+    imagenFinal?: string | null;
     onSave: (updatedSculpture: any) => void;
 }
 
@@ -16,7 +16,7 @@ const SculptureCardAdmin: React.FC<SculptureCardAdminProps> = ({
                                                                    descripcion,
                                                                    fechaCreacion,
                                                                    tematica,
-                                                                   imagen,
+                                                                   imagenFinal,
                                                                    onSave,
                                                                }) => {
     const [editing, setEditing] = useState(false);
@@ -26,7 +26,7 @@ const SculptureCardAdmin: React.FC<SculptureCardAdminProps> = ({
         descripcion,
         fechaCreacion,
         tematica,
-        imagen,
+        imagenFinal,
     });
     const [showFullDescription, setShowFullDescription] = useState(false);
 
@@ -73,11 +73,11 @@ const SculptureCardAdmin: React.FC<SculptureCardAdminProps> = ({
                         placeholder="Temática"
                     />
                     <input
-                        name="imagen"
-                        value={editedSculpture.imagen || ''}
+                        name="imagenFinal"
+                        value={editedSculpture.imagenFinal || ''}
                         onChange={handleInputChange}
                         className="border p-2 mb-2 w-full rounded"
-                        placeholder="URL de la imagen"
+                        placeholder="URL de la imagenFinal"
                     />
                     <button
                         onClick={handleSave}
@@ -89,15 +89,15 @@ const SculptureCardAdmin: React.FC<SculptureCardAdminProps> = ({
             ) : (
                 <div>
                     <h3 className="text-xl font-bold mb-3 text-center">{nombre}</h3>
-                    {imagen ? (
+                    {imagenFinal ? (
                         <img
-                            src={imagen}
+                            src={imagenFinal}
                             alt={nombre}
                             className="w-full h-64 object-cover mb-4 rounded"
                         />
                     ) : (
                         <div className="w-full h-64 bg-gray-200 flex items-center justify-center text-gray-500 mb-4 rounded">
-                            Sin Imagen
+                            Sin imagenFinal
                         </div>
                     )}
                     <p className="text-sm mb-2">

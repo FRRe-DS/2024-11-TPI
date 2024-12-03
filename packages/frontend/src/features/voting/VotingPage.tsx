@@ -5,7 +5,7 @@ import {registerVote} from "../../services/VotingService.ts"; // Asumimos que ti
 
 
 interface Escultura {
-    imagen?: any;
+    imagenFinal: any;
     escultor: any;
     id: string;
     nombre: string;
@@ -84,7 +84,7 @@ const VotingPage: React.FC = () => {
                     </p>
                     <div className="flex justify-center mt-6">
                         <img
-                            src={escultura.imagen}
+                            src={escultura.imagenFinal}
                             alt={`Escultura: ${escultura.nombre}`}
                             className="max-w-full h-auto rounded-lg shadow-lg"
                         />

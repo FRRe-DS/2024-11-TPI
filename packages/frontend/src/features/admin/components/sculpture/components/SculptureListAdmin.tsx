@@ -8,7 +8,7 @@ interface Escultura {
     nombre: string;
     fechaCreacion: string ;
     tematica: string;
-    imagen?: string;
+    imagenFinal?: string;
 }
 
 const SculptureListAdmin: React.FC = () => {
@@ -62,7 +62,7 @@ const SculptureListAdmin: React.FC = () => {
                             descripcion={escultura.descripcion}
                             fechaCreacion={escultura.fechaCreacion}
                             tematica={escultura.tematica}
-                            imagen={escultura.imagen}
+                            imagenFinal={escultura.imagenFinal}
                             onSave={handleSaveSculpture}
                         />
                     ))
