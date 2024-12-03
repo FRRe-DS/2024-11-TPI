@@ -5,14 +5,13 @@ import api from './axiosConfig';
  *
  * @param esculturaId - ID de la escultura a la que se le da el voto.
  * @param voto - El valor del voto (como string, por ejemplo: "like", "dislike").
- * @param eventoId - (Opcional) ID del evento asociado al voto.
  * @returns La respuesta de la API con los datos del voto registrado.
  * @throws Error si no se encuentra el token de autenticación o si la solicitud falla.
  */
 export const registerVote = async (
-    esculturaId: number,
-    voto: string,
-    eventoId?: number
+    esculturaId: string,  // Cambié el tipo a string ya que el backend usa un ID en string
+    puntuacion: number,  // Se cambia el tipo de 'voto' a número, ya que el backend espera un valor numérico
+    qrCode: any,  // Se agrega qrCode como parámetro
 ) => {
     const token = localStorage.getItem('token');
 
@@ -22,15 +21,15 @@ export const registerVote = async (
     try {
         // Realizar la solicitud POST para registrar el voto
         const { data } = await api.post(
-            `/votar/${eventoId ?? ''}/${esculturaId}`,
-            { voto },
+            `/votos/${esculturaId}`,  // El endpoint ahora solo necesita esculturaId
+            { puntuacion, qrCode },  // Pasamos puntuación y qrCode en el cuerpo
             {
                 headers: { Authorization: `Bearer ${token}` },
             }
         );
 
         return data;
-    } catch {
+    } catch (error) {
         // Error mínimo sin detalles adicionales
         throw new Error('Error al registrar el voto');
     }

@@ -2,6 +2,43 @@
 @tailwind components;
 @tailwind utilities;
 
+/*ESTRELLITAS*/
+#form {
+    width: 250px;
+    margin: 0 auto;
+    height: 50px;
+}
+
+#form p {
+    text-align: center;
+}
+
+#form label {
+    font-size: 20px;
+}
+
+input[type="radio"] {
+    display: none;
+}
+
+label {
+    color: grey;
+}
+
+.clasificacion {
+    direction: rtl;
+    unicode-bidi: bidi-override;
+}
+
+label:hover,
+label:hover ~ label {
+    color: orange;
+}
+
+input[type="radio"]:checked ~ label {
+    color: orange;
+}
+
 /* Esto es para los botones de colores */
 button:hover .blob:nth-child(1) { background: #0061ff; }
 button:hover .blob:nth-child(2) { background: #ff1b6b; }

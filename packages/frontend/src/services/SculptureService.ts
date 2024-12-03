@@ -20,6 +20,15 @@ export const getEsculturas = async () => {
     }
 };
 
+export const getEsculturaporId = async(esculturaID: any)=>{
+    try{
+        const response = await api.get(`/esculturas/${esculturaID}`);
+        return response.data;
+    } catch (error) {
+        console.log(error)
+        throw error;
+    }
+}
 
 /**
  * Obtiene las esculturas asociadas a un evento específico.
