@@ -36,11 +36,11 @@ const EventEditAdmin: React.FC = () => {
     };
 
     return (
-        <div className="w-full p-8 bg-gradient-to-r from-blue-50 via-indigo-50 to-purple-50 rounded-lg shadow-xl overflow-hidden">
+        <div className="max-w-max p-3 bg-gradient-to-r from-blue-50 via-indigo-50 to-purple-50 rounded-lg shadow-xl overflow-hidden ">
             <div className="text-center mb-6">
-                <h1 className="text-2xl font-extrabold text-gray-800">Lista de Eventos</h1>
-                <div className="w-20 h-1 bg-purple-500 mx-auto mt-2 rounded-full"></div>
+                <h1 className="text-xl font-extrabold text-gray-800 mb-10">Lista de Eventos</h1>
             </div>
+
             {eventos.length > 0 ? (
                 <Swiper
                     effect={'coverflow'}
@@ -56,7 +56,7 @@ const EventEditAdmin: React.FC = () => {
                         slideShadows: true,
                     }}
                     modules={[EffectCoverflow]}
-                    className="w-full"
+                    className="w-full scale-[0.60] -top-32"
                 >
                     {eventos.map((evento: any) => (
                         <SwiperSlide
@@ -68,7 +68,7 @@ const EventEditAdmin: React.FC = () => {
                                 src={evento.imagen}
                                 alt={evento.nombre}
                             />
-                            <div className="flex-1 p-4 flex flex-col space-y-2 overflow-y-auto max-h-[250px]">
+                            <div className="flex-1 p-4 flex flex-col space-y-2 overflow-y-auto max-h-max">
                                 <h2 className="text-lg font-bold text-gray-800">{evento.nombre}</h2>
                                 <p className="text-sm text-gray-600">{evento.descripcion}</p>
                                 <div className="mt-auto">

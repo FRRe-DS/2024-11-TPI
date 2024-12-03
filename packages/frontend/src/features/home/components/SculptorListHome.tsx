@@ -4,7 +4,7 @@ import SculptorCardHome from "./ui/SculptorCardHome";
 import { Swiper, SwiperSlide } from 'swiper/react';
 import 'swiper/css';
 import 'swiper/css/pagination';
-import { Pagination } from 'swiper/modules';
+import { Pagination, Navigation } from 'swiper/modules';
 
 const SculptorListHome: React.FC = () => {
     const [escultores, setEscultores] = useState<any[]>([]);
@@ -45,8 +45,10 @@ const SculptorListHome: React.FC = () => {
                         slidesPerView={1}
                         spaceBetween={10}
                         pagination={{
-                            clickable: true,
+                            type: 'fraction',
                         }}
+                        navigation={true}
+
                         breakpoints={{
                             640: {
                                 slidesPerView: 2,
@@ -66,11 +68,12 @@ const SculptorListHome: React.FC = () => {
 
                             },
                         }}
-                        modules={[Pagination]}
+                        modules={[Pagination, Navigation]}
                         className="mySwiper w-full"
                     >
+
                         {escultores.map((escultor, id) => (
-                            <SwiperSlide key={id}>
+                            <SwiperSlide key={id} >
                                 <div className="flex justify-center">
                                     <SculptorCardHome
                                         nombre={escultor["usuario.nombre"]}
