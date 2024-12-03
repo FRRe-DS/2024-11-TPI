@@ -6,7 +6,7 @@ const SculptureDelete: React.FC = () => {
 
     const fetchEsculturas = async () => {
         const data = await getEsculturas();
-        setEsculturas(data);
+        setEsculturas(data.esculturas);
     };
 
     useEffect(() => {

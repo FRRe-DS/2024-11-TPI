@@ -4,21 +4,26 @@ import api from './axiosConfig';
  * Obtiene todas las esculturas.
  * @returns Las esculturas obtenidas desde el servidor.
  */
-export const getEsculturas = async () => {
+export const getEsculturas = async (escultorId?: number) => {
     try {
-        const response = await api.get('/esculturas');
+        // Si escultorId está presente, lo agregamos como parámetro de consulta
+        const queryParams = escultorId ? { params: { escultorId } } : {};
+        // Realizar la solicitud GET a la API, pasando los parámetros si se proporcionaron
+        const response = await api.get('/esculturas', queryParams);
+
         return response.data; // Devuelve los datos recibidos de la API
     } catch (error: unknown) {
         // Manejo de error detallado
         if (error instanceof Error) {
-            // Error conocido (por ejemplo, de la red o del servidor)
+            // Si el error es una instancia de Error, lo lanzamos con el mensaje correspondiente
             throw new Error(error.message);
         } else {
-            // Error desconocido
+            // Si el error es desconocido, lanzamos un error genérico
             throw new Error('Error desconocido al obtener esculturas');
         }
     }
 };
+
 
 export const getEsculturaporId = async(esculturaID: any)=>{
     try{

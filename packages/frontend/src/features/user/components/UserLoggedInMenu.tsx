@@ -31,9 +31,9 @@ const UserLoggedInMenu: React.FC<UserLoggedInMenuProps> = ({ role, username }) =
                 onClick={toggleMenu}
                 className="flex items-center justify-center w-32 h-10 bg-gray-800 text-white rounded-md hover:bg-gray-700 focus:outline-none"
             >
-                {loading ? 'Cargando...' : user ? (
+                {loading ? 'Cargando...' : username ? (
                     // Mostrar nombre del usuario si está autenticado
-                    `${username} (${ role === 'admin' ? 'Admin' : 'Usuario'})`
+                    `${username} (${role === 'admin' ? 'Admin' : role === 'escultor' ? 'Escultor' : 'Usuario'})`
                 ) : (
                     'Iniciar sesión'
                 )}
@@ -47,9 +47,12 @@ const UserLoggedInMenu: React.FC<UserLoggedInMenuProps> = ({ role, username }) =
                                 Panel Admin
                             </Link>
                         )}
+                        { role === 'escultor' && (
                         <Link to={`/codigo-qr/${username}`} className="block px-4 py-2 text-gray-800 hover:bg-gray-100">
                             Crear Qr
                         </Link>
+                        )
+                        }
                             <>
                                 <button
                                     onClick={handleLogoutClick}

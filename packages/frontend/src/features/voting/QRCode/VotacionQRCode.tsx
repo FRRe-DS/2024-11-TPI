@@ -1,28 +1,47 @@
 import React, { useEffect, useState } from 'react';
 import { GenerarQr } from '../../../services/QrService.ts';
 import ReactQR from 'react-qr-code';
+import { getUser } from "../../../services/AuthService.ts";
+import { getEsculturas } from "../../../services/SculptureService.ts";
 
-interface VotacionQRCodeProps {
-    esculturaId: string;
-}
 
-const VotacionQRCode: React.FC<VotacionQRCodeProps> = ({ }) => {
+const VotacionQRCode: React.FC = ({ }) => {
     const [qrCode, setQrCode] = useState<any>('');  // Estado para almacenar el código QR
-    const esculturaId = '2';  // Ejemplo de esculturaId
+    const [esculturaId, setEsculturaId] = useState<string | undefined>(undefined);
+    const [error, setError] = useState<string>(''); // Para manejar el error si no hay escultura
 
-    // useEffect con dependencia vacía [] para que solo se ejecute una vez
     useEffect(() => {
         const fetchQr = async () => {
             try {
-                const qrData = await GenerarQr(esculturaId);
-                console.log(qrData);  // Muestra el objeto completo
-                setQrCode(qrData);
+                const user = await getUser();
+                console.log('User', user.id);
+
+                // Obtener las esculturas para el usuario
+                const esculturas = await getEsculturas(user.id);
+                console.log('Esculturas:', esculturas);
+
+                if (esculturas.esculturas.length === 0) {
+                    setError('No tiene una escultura');
+                } else {
+                    console.log('Esto es:',esculturas.esculturas[0].id)
+                    setEsculturaId(String(esculturas.esculturas[0].id));// Establecer el ID de la escultura
+                    const qrData = await GenerarQr(esculturas.esculturas[0].id);
+                    console.log('Info que mando',qrData);
+                    setQrCode(qrData); // Establecer el código QR
+                }
             } catch (err) {
                 console.log('Error al generar el QR. Inténtalo nuevamente.');
+                setError('Error al obtener la escultura o generar el QR.');
             }
         };
+
         fetchQr();
     }, []);  // Dependencia vacía: solo se ejecuta una vez cuando se monta el componente
+
+    // Si hay un error o no hay escultura, mostrar mensaje de error
+    if (error) {
+        return <p>{error}</p>;
+    }
 
     // Si el qrCode aún no ha sido generado, muestra un mensaje de carga
     if (!qrCode) {
