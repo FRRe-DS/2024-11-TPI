@@ -15,7 +15,7 @@ const generateEsculturaQRCode = async (esculturaId) => {
         }
 
         // Generamos un código único para el QR utilizando crypto
-        const expiration = Date.now() + 10 * 60 * 1000; // La expiración del código QR es en 10 minutos
+        const expiration = Date.now() + 60 * 1000; // La expiración del código QR es en 10 minutos
         const uniqueCode = crypto.randomBytes(16).toString("hex"); // Generamos un código único en formato hexadecimal
 
         // Creamos un nuevo registro del QR en la base de datos
