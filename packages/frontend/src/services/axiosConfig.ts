@@ -2,7 +2,7 @@ import axios from 'axios';
 
 // Crear una instancia de Axios con baseURL configurada
 const api = axios.create({
-    baseURL: import.meta.env.VITE_API_URL || 'http://localhost:3000/api', // Usamos la URL base del entorno, si no está, usamos localhost
+    baseURL: import.meta.env.VITE_API_URL , // Usamos la URL base del entorno, si no está, usamos localhost
 });
 
 // Interceptor para agregar el token a las solicitudes
