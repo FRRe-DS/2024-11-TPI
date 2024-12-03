@@ -41,7 +41,7 @@ const VotacionQRCode: React.FC = ({ }) => {
     // Si hay un error o no hay escultura, mostrar mensaje de error
     if (error) {
         return (
-            <div className="flex items-center justify-center h-screen bg-blue-500 text-white">
+            <div className="flex items-center justify-center h-screen bg-gradient-to-r from-blue-100 via-indigo-100 to-purple-100 text-black">
                 <p className="text-lg font-bold">{error}</p>
             </div>
         );
@@ -49,7 +49,7 @@ const VotacionQRCode: React.FC = ({ }) => {
 
     if (!qrCode) {
         return (
-            <div className="flex items-center justify-center h-screen bg-blue-500 text-white">
+            <div className="flex items-center justify-center h-screen bg-gradient-to-r from-blue-100 via-indigo-100 to-purple-100 text-black">
                 <p className="text-lg font-bold">Cargando QR...</p>
             </div>
         );
@@ -58,10 +58,12 @@ const VotacionQRCode: React.FC = ({ }) => {
     const baseURL = `${window.location.origin}/votacion-escultura/${qrCode}/${esculturaId}`;
 
     return (
-        <div className="flex flex-col items-center justify-center h-screen bg-blue-500 text-white text-center p-4">
-            <h1 className="text-2xl font-bold mb-4">¡VOTA MI ESCULTURA!</h1>
-            <ReactQR value={baseURL} size={256} />
-            <p className="mt-4 text-lg">
+        <div className="flex flex-col items-center justify-center h-screen text-black text-center p-4 bg-gradient-to-r from-blue-100 via-indigo-100 to-purple-100">
+            <h1 className="text-2xl md:text-4xl font-bold mb-6">¡VOTA MI ESCULTURA!</h1>
+            <div className="w-[90%] h-[90%] max-w-[400px] max-h-[400px] md:max-w-[600px] md:max-h-[600px] bg-white p-2 rounded-lg shadow-lg">
+                <ReactQR value={baseURL} size={256} style={{ width: "100%", height: "100%" }} />
+            </div>
+            <p className="mt-6 text-lg md:text-xl">
                 Escanea el código QR para votar por mi escultura en este evento.
             </p>
         </div>

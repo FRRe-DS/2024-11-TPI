@@ -5,6 +5,7 @@ import {registerVote} from "../../services/VotingService.ts"; // Asumimos que ti
 
 
 interface Escultura {
+    imagen?: any;
     escultor: any;
     id: string;
     nombre: string;
@@ -50,7 +51,6 @@ const VotingPage: React.FC = () => {
                 console.log(response);
                 setPuntuacionSeleccionada(puntaje); // Actualizar el estado con el puntaje seleccionado
                 // Actualizar la puntuación de la escultura
-                setEscultura((prev) => prev ? { ...prev, puntuacion: prev.puntuacion + puntaje } : prev);
             } catch (err) {
                 setError('No se pudo registrar tu voto.');
             }
@@ -58,56 +58,83 @@ const VotingPage: React.FC = () => {
     };
 
     if (loading) {
-        return <p>Cargando información de la escultura...</p>;
+        return (
+            <div className="flex items-center justify-center h-screen bg-gradient-to-r from-blue-100 via-indigo-100 to-purple-100 text-black">
+                <p className="text-lg font-medium">Cargando información de la escultura...</p>
+            </div>
+        );
     }
 
     if (error) {
-        return <p>{error}</p>;
+        return (
+            <div className="flex items-center justify-center h-screen bg-gradient-to-r from-blue-100 via-indigo-100 to-purple-100 text-black">
+                <p className="text-lg font-medium">{error}</p>
+            </div>
+        );
     }
 
     return (
-        <div>
+        <div className="min-h-screen flex flex-col items-center bg-gradient-to-r from-blue-100 via-indigo-100 to-purple-100 text-white p-4">
             {escultura ? (
-                <div>
-                    <h1>{escultura.nombre}</h1>
-                    <p>{escultura.descripcion}</p>
-                    <p><strong>Autor:</strong> {escultura.escultor.usuario.nombre}</p>
-                    <p><strong>QR Code:</strong> {QrCode}</p> {/* Mostrar el QR code de la URL */}
-                    <p><strong>Puntuación actual:</strong> {escultura.puntuacion}</p>
+                <div className="w-full max-w-6xl bg-white text-gray-800 rounded-lg shadow-lg p-6">
+                    <h1 className="text-3xl font-bold text-center mb-4">{escultura.nombre}</h1>
+                    <p className="text-center text-gray-600 mb-6">{escultura.descripcion}</p>
+                    <p className="text-center text-gray-700">
+                        <strong>Autor:</strong> {escultura.escultor.usuario.nombre}
+                    </p>
+                    <div className="flex justify-center mt-6">
+                        <img
+                            src={escultura.imagen}
+                            alt={`Escultura: ${escultura.nombre}`}
+                            className="max-w-full h-auto rounded-lg shadow-lg"
+                        />
+                    </div>
+                    <p className="text-center text-gray-700 mb-4">
+                        <strong>Puntuación actual:</strong> {escultura.puntuacion}
+                    </p>
 
-                    {/* Aquí se muestra el sistema de estrellas */}
-                    <div>
-                        <p>Vota por esta escultura:</p>
-                        <form>
-                            <div className="clasificacion">
-                                {/* Crear las estrellas como botones de radio */}
-                                {[5, 4, 3, 2, 1].map((valor) => (
-                                    <span key={valor}>
-                                        <input
-                                            type="radio"
-                                            id={`radio${valor}`}
-                                            name="estrellas"
-                                            value={valor}
-                                            checked={puntuacionSeleccionada === valor}
-                                            onChange={() => manejarVoto(valor)} // Maneja el voto cuando se selecciona
-                                        />
-                                        <label htmlFor={`radio${valor}`}>★</label>
-                                    </span>
-                                ))}
-                            </div>
-                        </form>
+                    <div className="text-center mb-6">
+                        <p className="text-lg font-medium">Escanea este código QR para más detalles:</p>
+                        <div className="inline-block bg-gray-100 p-4 rounded-lg shadow-md mt-2">
+                            <p className="font-mono text-xs">{QrCode}</p>
+                        </div>
+                    </div>
+
+                    <div className="text-center">
+                        <p className="text-lg font-medium mb-2">Vota por esta escultura:</p>
+                        <div className="flex justify-center space-x-2">
+                            {[1, 2, 3, 4, 5].map((valor) => (
+                                <button
+                                    key={valor}
+                                    onClick={() => manejarVoto(valor)}
+                                    onMouseEnter={() => setPuntuacionSeleccionada(valor)} // Cambiar color al pasar el mouse
+                                    onMouseLeave={() => setPuntuacionSeleccionada(null)} // Restablecer color al quitar el mouse
+                                    className={`text-4xl transition-transform transform ${
+                                        puntuacionSeleccionada && puntuacionSeleccionada >= valor
+                                            ? 'text-yellow-500 scale-125'
+                                            : 'text-gray-400 hover:text-yellow-400 hover:scale-110'
+                                    }`}
+                                    aria-label={`Votar con ${valor} estrellas`}
+                                >
+                                    ★
+                                </button>
+                            ))}
+                        </div>
                         {puntuacionSeleccionada !== null && (
-                            <p>Has votado con {puntuacionSeleccionada} estrella{puntuacionSeleccionada > 1 ? "s" : ""}</p>
+                            <p className="mt-4 text-lg">
+                                Has votado con{' '}
+                                <span className="font-bold">{puntuacionSeleccionada}</span>{' '}
+                                estrella{puntuacionSeleccionada > 1 ? 's' : ''}.
+                            </p>
                         )}
                     </div>
                 </div>
             ) : (
-                <p>No se encontró la escultura.</p>
+                <p className="text-lg font-medium">No se encontró la escultura.</p>
             )}
         </div>
     );
 };
 
 export default VotingPage;
-
 
