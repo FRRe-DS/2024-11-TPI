@@ -40,21 +40,30 @@ const VotacionQRCode: React.FC = ({ }) => {
 
     // Si hay un error o no hay escultura, mostrar mensaje de error
     if (error) {
-        return <p>{error}</p>;
+        return (
+            <div className="flex items-center justify-center h-screen bg-blue-500 text-white">
+                <p className="text-lg font-bold">{error}</p>
+            </div>
+        );
     }
 
-    // Si el qrCode aún no ha sido generado, muestra un mensaje de carga
     if (!qrCode) {
-        return <p>Cargando QR...</p>;
+        return (
+            <div className="flex items-center justify-center h-screen bg-blue-500 text-white">
+                <p className="text-lg font-bold">Cargando QR...</p>
+            </div>
+        );
     }
 
-    // URL dinámica con esculturaId y qrCode
     const baseURL = `${window.location.origin}/votacion-escultura/${qrCode}/${esculturaId}`;
 
     return (
-        <div>
+        <div className="flex flex-col items-center justify-center h-screen bg-blue-500 text-white text-center p-4">
+            <h1 className="text-2xl font-bold mb-4">¡VOTA MI ESCULTURA!</h1>
             <ReactQR value={baseURL} size={256} />
-            <p>Escanea el código QR para votar en este evento</p>
+            <p className="mt-4 text-lg">
+                Escanea el código QR para votar por mi escultura en este evento.
+            </p>
         </div>
     );
 };
