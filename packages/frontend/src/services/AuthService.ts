@@ -99,4 +99,5 @@ export const isAuthenticated = () => {
 };
 
 // Obtener el rol del usuario actual
-export const getRole = () => tokenService.getRole(); // Obtenemos el rol del usuario desde el servicio de token
+export const getRole = () => tokenService.getRole();// Obtenemos el rol del usuario desde el servicio de token
+export const getName = () => tokenService.getUser();
