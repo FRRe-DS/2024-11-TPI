@@ -1,7 +1,7 @@
 // Importación de librerías necesarias
 const bcrypt = require("bcryptjs");
 const { User } = require("../models"); // Modelo de usuario
-const { generateToken } = require("../../shared/utils/jwt"); // Función para generar token JWT
+const { generateToken } = require("../utils/jwt"); // Función para generar token JWT
 
 // Función para registrar un usuario
 const register = async (req, res) => {

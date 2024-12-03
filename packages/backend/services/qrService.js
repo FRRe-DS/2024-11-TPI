@@ -1,5 +1,5 @@
 // Requerimos los módulos necesarios
-const { generateQRCode } = require("../../shared/utils/qrcode"); // Función para generar el QR visual
+const { generateQRCode } = require("../utils/qrcode"); // Función para generar el QR visual
 const { Escultura, Qr } = require("../models"); // Modelos de Escultura y Qr desde la base de datos
 const crypto = require("crypto"); // Módulo para generar un código único aleatorio
 
