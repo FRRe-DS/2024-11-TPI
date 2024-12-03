@@ -4,11 +4,8 @@ import ReactQR from 'react-qr-code';
 import { getUser } from "../../../services/AuthService.ts";
 import { getEsculturas } from "../../../services/SculptureService.ts";
 
-interface VotacionQRCodeProps {
-    esculturaId: string;
-}
 
-const VotacionQRCode: React.FC<VotacionQRCodeProps> = ({ }) => {
+const VotacionQRCode: React.FC = ({ }) => {
     const [qrCode, setQrCode] = useState<any>('');  // Estado para almacenar el código QR
     const [esculturaId, setEsculturaId] = useState<string | undefined>(undefined);
     const [error, setError] = useState<string>(''); // Para manejar el error si no hay escultura
@@ -23,12 +20,13 @@ const VotacionQRCode: React.FC<VotacionQRCodeProps> = ({ }) => {
                 const esculturas = await getEsculturas(user.id);
                 console.log('Esculturas:', esculturas);
 
-                if (esculturas.length === 0) {
+                if (esculturas.esculturas.length === 0) {
                     setError('No tiene una escultura');
                 } else {
-                    setEsculturaId(esculturas[0].id); // Establecer el ID de la escultura
-                    const qrData = await GenerarQr(esculturas[0].id);
-                    console.log(qrData);
+                    console.log('Esto es:',esculturas.esculturas[0].id)
+                    setEsculturaId(String(esculturas.esculturas[0].id));// Establecer el ID de la escultura
+                    const qrData = await GenerarQr(esculturas.esculturas[0].id);
+                    console.log('Info que mando',qrData);
                     setQrCode(qrData); // Establecer el código QR
                 }
             } catch (err) {

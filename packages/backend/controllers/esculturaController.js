@@ -3,8 +3,8 @@ const { Evento, Escultura, Escultor, User } = require("../models");
 // Crear una escultura
 const crearEscultura = async (req, res, next) => {
     try {
-        const { nombre, userId } = req.body;
-
+        const { nombre, escultorId } = req.body;
+        const userId= escultorId;
         // Verificar si el escultor existe y pertenece al usuario
         const escultor = await Escultor.findOne({
             where: { userId }, // Buscar por el `userId`
@@ -20,7 +20,6 @@ const crearEscultura = async (req, res, next) => {
                 },
             ],
         });
-
         if (!escultor) {
             return res.status(404).json({ message: "Escultor no encontrado." });
         }
