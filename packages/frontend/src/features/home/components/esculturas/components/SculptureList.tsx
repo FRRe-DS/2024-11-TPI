@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
-import {getEsculturas, getEsculturasByEvent} from '../../../../../services/SculptureService.ts';
-import SculptureCard from '../ui/SculptureCard.tsx';
+import { getEsculturas, getEsculturasByEvent } from '../../../../../services/SculptureService.ts';
+import SculptureCard from '../ui/Escultura.Card.tsx';
 
 interface SculptureListProps {
     eventoId?: any;
@@ -14,9 +14,7 @@ const SculptureList: React.FC<SculptureListProps> = ({ eventoId }) => {
         const fetchEsculturas = async () => {
             try {
                 setLoading(true);
-                console.log(eventoId)
                 const data = eventoId ? await getEsculturasByEvent(eventoId) : await getEsculturas();
-                console.log(data)
                 setEsculturas(data.esculturas);
             } catch (error) {
                 console.error('Error al obtener las esculturas:', error);
@@ -33,23 +31,24 @@ const SculptureList: React.FC<SculptureListProps> = ({ eventoId }) => {
     }
 
     return (
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 p-4">
-            {esculturas && esculturas.length > 0 ? (
-                esculturas.map((escultura: any) => (
-                    <div key={escultura.id} className="bg-white shadow-lg rounded-lg p-4 flex flex-col items-center">
-                        <SculptureCard
-                            nombre={escultura.nombre}
-                            descripcion={escultura.descripcion}
-                            fechaCreacion={escultura.fechaCreacion}
-                            tematica={escultura.tematica}
-                            id={escultura.id}
-                            imagen={escultura.imagen} // Agregado para mostrar la imagen
-                        />
-                    </div>
-                ))
-            ) : (
-                <p className="text-center text-gray-500">No hay esculturas disponibles</p>
-            )}
+        <div className="overflow-y-auto h-full">
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 p-4">
+                {esculturas && esculturas.length > 0 ? (
+                    esculturas.map((escultura: any) => (
+                        <div key={escultura.id} className="bg-white shadow-lg rounded-lg p-4 flex flex-col items-center">
+                            <SculptureCard
+                                nombre={escultura.nombre}
+                                autor={escultura.autor}
+                                puntuacion={escultura.puntuacion}
+                                nombreEvento={escultura.nombreEvento}
+                                imagenFinal={escultura.imagenFinal}
+                            />
+                        </div>
+                    ))
+                ) : (
+                    <p className="text-center text-gray-500">No hay esculturas disponibles</p>
+                )}
+            </div>
         </div>
     );
 };

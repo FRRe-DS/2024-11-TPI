@@ -41,12 +41,6 @@ const SculptureListHome: React.FC<SculptureListHomeProps> = ({ eventoId }) => {
                     <h2 className="text-3xl sm:text-4xl font-bold text-white text-center drop-shadow-lg">
                         Esculturas Destacadas
                     </h2>
-                    <Link
-                        to="/Esculturas"
-                        className="bg-blue-600 hover:bg-blue-700 text-white text-lg font-semibold px-6 py-3 rounded-lg shadow-md transition-transform transform hover:scale-105"
-                    >
-                        Ver todas las esculturas
-                    </Link>
                 </div>
                 {/* Contenedor dinámico de esculturas */}
                 <div className="space-y-10">
@@ -67,6 +61,14 @@ const SculptureListHome: React.FC<SculptureListHomeProps> = ({ eventoId }) => {
                             ))}
                         </div>
                     ))}
+                </div>
+                <div className="mt-10"> {/* Added margin-top to create space */}
+                    <Link
+                        to="/Esculturas"
+                        className="bg-gradient-to-r from-purple-500 via-pink-500 to-red-500 hover:from-pink-500 hover:to-yellow-500 text-white font-bold py-4 px-8 rounded-full shadow-lg transform transition-transform duration-300 hover:scale-110"
+                    >
+                        Ver todas las esculturas
+                    </Link>
                 </div>
             </div>
 
