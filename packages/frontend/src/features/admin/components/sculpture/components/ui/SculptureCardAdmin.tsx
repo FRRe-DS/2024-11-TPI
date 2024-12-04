@@ -82,7 +82,7 @@ const SculptureCardAdmin: React.FC<SculptureCardAdminProps> = ({
     };
 
     return (
-        <div className="border p-6 rounded-lg shadow-lg bg-white flex flex-col justify-between max-w-md mx-auto">
+        <div className="border p-6 rounded-lg shadow-lg bg-white flex flex-col justify-between max-w-md mx-auto sculpture-container">
             {editing ? (
                 <div>
                     <input
@@ -137,7 +137,7 @@ const SculptureCardAdmin: React.FC<SculptureCardAdminProps> = ({
                     {/* Imágen de plano */}
                     <div className="mb-4">
                         <h4 className="text-lg font-semibold mb-2">Plano:</h4>
-                        {plano ? (
+                        {editedSculpture.plano ? (
                             <ul>
                                 <span className="text-sm text-gray-600 truncate">{editedSculpture.plano}</span>
                                 <button
@@ -176,7 +176,7 @@ const SculptureCardAdmin: React.FC<SculptureCardAdminProps> = ({
                     {/* Imágen final */}
                     <div className="mb-4">
                         <h4 className="text-lg font-semibold mb-2">Imagen Final:</h4>
-                        {plano ? (
+                        {editedSculpture.imagenFinal ? (
                             <ul>
                                 <span className="text-sm text-gray-600 truncate">{editedSculpture.imagenFinal}</span>
                                 <button
