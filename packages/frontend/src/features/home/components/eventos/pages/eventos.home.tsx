@@ -37,17 +37,21 @@ const EventosHome: React.FC = () => {
     };
 
     return (
+        // Contenedor principal
+        // Fondo de pantalla con imagen de fondo
         <div
-            className="relative w-full h-full flex flex-col items-center justify-center overflow-hidden"
+            className="relative w-full h-full overflow-hidden"
             style={{
                 backgroundImage: `url(${currentBg})`,
                 backgroundSize: 'cover',
                 backgroundPosition: 'center',
             }}
         >
+            {/* Fondo oscuro */}
             <div className="absolute inset-0 bg-black bg-opacity-50"></div>
 
-            <div className="relative w-full h-full flex flex-col items-center justify-center z-10 px-4 ">
+            {/* Contenido */}
+            <div className="relative w-full h-full flex flex-col justify-center">
                 {loading ? (
                     <p className="text-center text-gray-300 text-2xl z-10 ">Cargando eventos...</p>
                 ) : error ? (
@@ -65,10 +69,10 @@ const EventosHome: React.FC = () => {
                         loop
                         autoHeight={true}  // Ensure this property is enabled
                         onSlideChange={handleSlideChange}
-                        className="relative w-full max-w-6xl pt-16 z-10 flex-grow rounded-3xl overflow-hidden"
+                        className="relative w-full pt-36 flex-grow rounded-3xl overflow-hidden"
                     >
                         {eventos.map((evento) => (
-                            <SwiperSlide key={evento.id} className="flex justify-center items-center">
+                            <SwiperSlide key={evento.id}>
                                 <EventoCardHome {...evento} />
                             </SwiperSlide>
                         ))}
@@ -80,10 +84,10 @@ const EventosHome: React.FC = () => {
                 )}
 
                 <div
-                    className="absolute bottom-2 left-1/2 transform -translate-x-1/2 z-20 w-full px-4 flex justify-center">
+                    className="relative bottom-10 left-1/2 transform -translate-x-1/2 z-20 w-full flex justify-center">
                     <Link
                         to="/Eventos"
-                        className="relative flex items-center justify-center aspect-[6/1] cursor-pointer rounded-md border-2 border-gray-800 bg-gradient-to-r from-purple-500 via-pink-500 to-red-500 text-white p-4 text-md font-bold shadow-2xl transition-transform duration-300 ease-in-out hover:scale-110 hover:bg-gradient-to-br hover:from-yellow-500 hover:to-red-500"
+                        className="flex items-center justify-center aspect-[6/1] cursor-pointer rounded-md border-2 border-gray-800 bg-gradient-to-r from-purple-500 via-pink-500 to-red-500 text-white p-4 text-md font-bold shadow-2xl transition-transform duration-300 ease-in-out hover:scale-110 hover:bg-gradient-to-br hover:from-yellow-500 hover:to-red-500"
                     >
                         <svg
                             xmlns="http://www.w3.org/2000/svg"

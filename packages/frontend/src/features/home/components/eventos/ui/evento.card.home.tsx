@@ -45,7 +45,7 @@ const EventoCardHome: React.FC<EventCardHomeProps> = ({
                     </p>
 
                     <p className="mt-6 text-gray-300 text-xl md:text-2xl leading-relaxed mb-6">
-                        Desde {fechaInc} hasta {fechaFin}
+                        Desde {new Date(fechaInc).toLocaleDateString('es-ES', { day: '2-digit', month: '2-digit', year: 'numeric' })} hasta {new Date(fechaFin).toLocaleDateString('es-ES', { day: '2-digit', month: '2-digit', year: 'numeric' })}
                     </p>
 
                     <a

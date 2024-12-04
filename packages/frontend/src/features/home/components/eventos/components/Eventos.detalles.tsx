@@ -3,9 +3,19 @@ import { useParams } from 'react-router-dom';
 import { getEventoById } from '../../../../../services/EventService.ts';
 import SculptureList from "../../esculturas/components/SculptureList.tsx";
 
+interface Evento {
+    id: string;
+    nombre: string;
+    descripcion: string;
+    tematica: string;
+    fechaInc: string;
+    fechaFin: string;
+    imagen: string;
+}
+
 const EventosDetalles: React.FC = () => {
     const { id = '' } = useParams<{ id: string }>();
-    const [evento, setEvento] = useState<any>(null);
+    const [evento, setEvento] = useState<Evento | null>(null);
     const [error, setError] = useState<string | null>(null);
     const [loading, setLoading] = useState<boolean>(true);
 
@@ -13,23 +23,19 @@ const EventosDetalles: React.FC = () => {
         const fetchEvento = async () => {
             try {
                 const data = await getEventoById(id);
-                if (data) {
+                if (data && data.evento) {
                     setEvento(data.evento);
-                    console.log(data.evento.id);
                 } else {
                     setError('Evento no encontrado');
                 }
-            } catch (error: any) {
+            } catch (e) {
                 setError('No se pudo obtener el evento. Intenta nuevamente.');
-                console.error('Error al obtener el evento:', error);
             } finally {
                 setLoading(false);
             }
         };
 
-        if (id) {
-            fetchEvento();
-        }
+        if (id) fetchEvento();
     }, [id]);
 
     if (loading) {
@@ -45,20 +51,75 @@ const EventosDetalles: React.FC = () => {
     }
 
     return (
-        <div className="flex flex-col min-h-screen p-6 bg-gray-100">
-            <div className="max-w-4xl mx-auto bg-white shadow-lg rounded-lg overflow-hidden">
-                <img src={evento.imagen} alt={evento.nombre} className="w-full h-64 object-cover" />
-                <div className="p-6">
-                    <h1 className="text-4xl font-bold text-gray-800">{evento.nombre}</h1>
-                    <p className="text-xl mt-4 text-gray-600">{evento.descripcion}</p>
-                    <p className="text-lg mt-2 text-gray-600">Temática: {evento.tematica}</p>
-                    <p className="text-lg mt-2 text-gray-600">Fecha de
-                        inicio: {new Date(evento.fechaInc).toLocaleDateString()}</p>
-                    <p className="text-lg mt-2 text-gray-600">Fecha de
-                        finalización: {new Date(evento.fechaFin).toLocaleDateString()}</p>
+        // Contenedor principal
+        // Fondo de pantalla con imagen de fondo
+        <div
+            className="relative w-full h-full overflow-hidden"
+            style={{
+                backgroundColor: 'rgba(0, 0, 0, 0.5)',
+                backgroundSize: 'cover',
+                backgroundPosition: 'center',
+            }}
+        >
+            {/* Fondo oscuro */}
+            <div className="absolute inset-0 bg-black bg-opacity-30"></div>
+
+            {/* Contenido */}
+            <div className="relative w-full h-full overflow-hidden p-10">
+
+                {/* Detalles del evento */}
+                <div
+                    className="max-w-6xl mx-auto bg-gradient-to-br from-purple-600 via-indigo-500 to-blue-500 shadow-xl rounded-xl overflow-hidden transform hover:scale-105 transition-transform duration-300 ease-in-out text-white"
+                >
+                    {/* Imagen del evento */}
+                    <div className="relative">
+                        <img
+                            src={evento.imagen}
+                            alt={`Imagen del evento ${evento.nombre}`}
+                            className="w-full h-96 object-cover"
+                        />
+                        <div
+                            className="absolute inset-0 bg-black bg-opacity-50 flex items-center justify-center text-4xl font-bold text-white">
+                            {evento.nombre}
+                        </div>
+                    </div>
+
+                    {/* Información */}
+                    <div className="p-10">
+                        <h1 className="text-5xl font-extrabold text-white drop-shadow-md text-center">
+                            {evento.nombre}
+                        </h1>
+                        <p className="text-lg mt-6 text-gray-200 leading-relaxed text-center">
+                            {evento.descripcion}
+                        </p>
+                        <div className="mt-8 space-y-4 text-lg">
+                            <p className="flex items-center">
+                                <span className="font-semibold">🎨 Temática:</span>{' '}
+                                <span className="ml-2">{evento.tematica}</span>
+                            </p>
+                            <p className="flex items-center">
+                                <span className="font-semibold">📅 Fecha de inicio:</span>{' '}
+                                <span className="ml-2">
+                    {new Date(evento.fechaInc).toLocaleDateString('es-ES')}
+                </span>
+                            </p>
+                            <p className="flex items-center">
+                                <span className="font-semibold">🏁 Fecha de finalización:</span>{' '}
+                                <span className="ml-2">
+                    {new Date(evento.fechaFin).toLocaleDateString('es-ES')}
+                </span>
+                            </p>
+                        </div>
+                    </div>
+                </div>
+
+
+                {/* Lista de esculturas relacionadas */}
+                <div className="relative w-full h-full overflow-hidden p-10">
+                    <SculptureList eventoId={evento.id}/>
                 </div>
             </div>
-            <SculptureList eventoId={evento.id} />
+
         </div>
     );
 };

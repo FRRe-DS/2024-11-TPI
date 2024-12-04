@@ -1,7 +1,16 @@
+import { motion } from 'framer-motion';
 import React from "react";
 import logo2 from "../../assets/images/b24-slide-principal-nuevo-logo-gobierno.png";
+const jumpAnimation = {
+    0: { transform: 'translateY(0)' },
+    25: { transform: 'translateY(-30px)' },
+    50: { transform: 'translateY(0)' },
+    75: { transform: 'translateY(30px)' },
+    100: { transform: 'translateY(0)' }
+};
 
 const Hero: React.FC = () => {
+
     return (
         <section className="relative w-full h-screen">
             {/* Background Video */}
@@ -12,48 +21,56 @@ const Hero: React.FC = () => {
                     loop
                     muted
                     className="w-full h-full object-cover"
-                    style={{
-                        objectPosition: "right center",
-                    }}
+                    style={{ objectPosition: 'right center' }}
                 />
             </div>
-            {/* Overlay para oscurecer el video y mejorar la visibilidad del texto */}
-            <div className="absolute inset-0 bg-black bg-opacity-30"></div> {/* Aumentamos la opacidad para mejor contraste */}
+
+            {/* Overlay */}
+            <div className="absolute inset-0 bg-black bg-opacity-15"></div>
+
             {/* Content */}
-            <div
-                className="relative flex flex-col items-center justify-center w-full h-full text-center sm:space-y-10 px-4">
-
-                {/* Logo secundario con efecto de blur */}
-                <div className="relative bottom-0 left-0 m-4">
-                    <div
-                        className=" absolute inset-0 backdrop-blur-2xl rounded-3xl bg-gradient-to-r from-blue-100 via-indigo-100 to-purple-100"></div>
-                    <img
-                        src={logo2}
-                        alt="Gobierno Logo"
-                        className="relative z-10 max-w-[315px] sm:max-w-[400px] lg:max-w-[500px] animate-fadeInUp delay-200"
-                    />
+            <div className="absolute flex flex-col items-center justify-center w-full h-full text-center sm:space-y-10">
+                {/* Logo */}
+                <div className="relative m-4 -mt-14 md:m-20 md:-mt-3">
+                    <div className="absolute inset-0 rounded-3xl bg-gradient-to-r from-red-200 via-indigo-100 to-purple-100"></div>
+                    <img src={logo2} alt="Gobierno Logo" className="relative" />
                 </div>
-                {/* Título principal */}
-                <div className="relative bottom-0 left-0 m-4">
-                    <h1 className="text-balance text-5xl sm:text-9xl font-semibold tracking-tight text-white animate-text-gradient animate-fadeInUp delay-600">
-                        Bienal del Chaco 2024 <br/> del 12 al 21 de Julio
+
+                {/* Title */}
+                <div className="relative m-10 md:m-28">
+                    <h1 className="text-balance text-5xl md:text-9xl font-semibold tracking-tight animate-text-gradient animate-fadeInUp delay-1000">
+                        Bienal del Chaco 2024 <br /> del 12 al 21 de Julio
                     </h1>
-                </div >
-                    {/* Descripción */}
-                    <p className="text-balance text-2xl sm:text-3xl text-white font-extralight sm:font-medium tracking-wider max-w-xl leading-relaxed">
-                        Donde el arte y la cultura convergen para crear algo único.
-                    </p>
-
-                    {/* Mensaje "Desplázame" con flecha animada, solo en pantallas grandes */}
-                    <div className="hidden lg:flex flex-col items-center justify-center space-y-4 animate-bounce mt-10">
-                        <p className="text-xl animate-text-gradient animate-fadeInUp delay-600 font-semibold">Desplázame</p>
-                        <div
-                            className="w-8 h-8 border-4 border-t-4 border-white border-solid rounded-full animate-bounce"></div>
-                        {/* Flecha animada */}
-                    </div>
                 </div>
+
+                {/* Description */}
+                <p className="text-pretty text-2xl md:text-5xl bg-gradient-to-r from-gray-300 via-yellow-300 to-gray-800 bg-clip-text text-transparent tracking-wider sm:bg-gradient-to-r sm:from-gray-800 sm:via-blue-400 sm:to-gray-300">
+    Donde el arte y la cultura convergen para crear algo único.
+</p>
+
+                {/* Scroll message */}
+                <motion.div
+                    className="flex flex-col items-center justify-center animate-bounce"
+                    animate={jumpAnimation}
+                    transition={{ duration: 2, repeat: Infinity, ease: 'ease-in-out' }}
+                >
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 200" width="80" height="80">
+                        <rect x="30" y="150" width="140" height="10" fill="#8b4513" />
+                        <circle cx="100" cy="80" r="10" fill="peachpuff" />
+                        <line x1="100" y1="90" x2="100" y2="120" stroke="black" strokeWidth="2" />
+                        <line x1="100" y1="95" x2="85" y2="110" stroke="black" strokeWidth="2" />
+                        <line x1="100" y1="95" x2="115" y2="110" stroke="black" strokeWidth="2" />
+                        <line x1="100" y1="120" x2="85" y2="135" stroke="black" strokeWidth="2" />
+                        <line x1="100" y1="120" x2="115" y2="135" stroke="black" strokeWidth="2" />
+                    </svg>
+
+                    <p className="text-xl bg-gradient-to-r from-gray-800 via-blue-400 to-red-700 bg-clip-text text-transparent tracking-wider font-semibold">
+                        Desplázame
+                    </p>
+                </motion.div>
+            </div>
         </section>
-);
+    );
 };
 
 export default Hero;
