@@ -44,7 +44,7 @@ const SculptureCard: React.FC<SculptureCardProps> = ({ nombre, descripcion, fech
                 {/* Descripción */}
                 {descripcion && (
                     <p className="text-sm text-gray-700 mb-2">
-                        {showFullDescription ? descripcion : descripcion.substring(0, 100) + '...'}
+                        {showFullDescription ? descripcion : `${descripcion.substring(0, 100)}...`}
                         {descripcion.length > 100 && (
                             <button
                                 onClick={() => setShowFullDescription(!showFullDescription)}
