@@ -2,7 +2,7 @@ import React from "react";
 
 interface EsculturaCardProps {
     nombre: string;
-    autor: string;
+    escultor: string;
     puntuacion: number;
     nombreEvento: string;
     imagenFinal: string;
@@ -10,7 +10,7 @@ interface EsculturaCardProps {
 
 const EsculturaCard: React.FC<EsculturaCardProps> = ({
                                                                   nombre,
-                                                                  autor,
+                                                                  escultor,
                                                                   puntuacion,
                                                                   nombreEvento,
                                                                   imagenFinal,
@@ -26,7 +26,7 @@ const EsculturaCard: React.FC<EsculturaCardProps> = ({
         >
             <div className="flex flex-col justify-end h-full p-4 bg-gradient-to-t from-black via-transparent to-transparent">
                 <h3 className="text-lg font-bold text-white">{nombre}</h3>
-                <p className="text-sm text-gray-300 mt-1">{autor}</p>
+                <p className="text-sm text-gray-300 mt-1">{escultor}</p>
                 <p className="text-sm text-yellow-400 mt-1">Puntuación: {puntuacion}</p>
                 <p className="text-xs text-gray-300 mt-2 line-clamp-2">{nombreEvento}</p>
             </div>

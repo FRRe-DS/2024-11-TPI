@@ -15,6 +15,7 @@ const SculptureList: React.FC<SculptureListProps> = ({ eventoId }) => {
             try {
                 setLoading(true);
                 const data = eventoId ? await getEsculturasByEvent(eventoId) : await getEsculturas();
+                console.log('Fetched esculturas:', data.esculturas); // Log the fetched data
                 setEsculturas(data.esculturas);
             } catch (error) {
                 console.error('Error al obtener las esculturas:', error);
@@ -22,7 +23,6 @@ const SculptureList: React.FC<SculptureListProps> = ({ eventoId }) => {
                 setLoading(false);
             }
         };
-
         fetchEsculturas();
     }, [eventoId]);
 
@@ -35,15 +35,17 @@ const SculptureList: React.FC<SculptureListProps> = ({ eventoId }) => {
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 p-4">
                 {esculturas && esculturas.length > 0 ? (
                     esculturas.map((escultura: any) => (
-                        <div key={escultura.id} className="bg-white shadow-lg rounded-lg p-4 flex flex-col items-center">
-                            <SculptureCard
-                                nombre={escultura.nombre}
-                                autor={escultura.autor}
-                                puntuacion={escultura.puntuacion}
-                                nombreEvento={escultura.nombreEvento}
-                                imagenFinal={escultura.imagenFinal}
-                            />
-                        </div>
+                        escultura && escultura.nombre && escultura.escultor && escultura.escultor.usuario && (
+                            <div key={escultura.id} className="bg-white shadow-lg rounded-lg p-4 flex flex-col items-center">
+                                <SculptureCard
+                                    nombre={escultura.nombre}
+                                    escultor={escultura.escultor.usuario.nombre}
+                                    puntuacion={escultura.puntuacion}
+                                    nombreEvento={escultura.nombreEvento}
+                                    imagenFinal={escultura.imagenFinal}
+                                />
+                            </div>
+                        )
                     ))
                 ) : (
                     <p className="text-center text-gray-500">No hay esculturas disponibles</p>
