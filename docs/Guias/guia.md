@@ -20,6 +20,5 @@ La configuración de la base de datos y otras variables de entorno se encuentra 
 
 Puedes consultar la documentación de la API en [Documentación de API](../pre-code/postman.md).
 
-Puedes consultar la documentación en [Documentos](docs.md)
 
-Puedes consultar el proposito de los archivos en [Propositos](iam.md)
+

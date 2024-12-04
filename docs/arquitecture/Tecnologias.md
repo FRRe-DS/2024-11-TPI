@@ -64,14 +64,3 @@
 
 - **daisyUI**:  
   Plugin de Tailwind CSS que proporciona componentes UI listos para usar, acelerando el desarrollo de interfaces sin escribir CSS desde cero.
-
-## Resumen de Tecnologías
-
-### 1. **Frontend:**
-- **React**, **TypeScript**, **Tailwind CSS**, **Vite**, **Framer Motion**, **Swiper**, **React Router Dom**, **GSAP**.
-
-### 2. **Backend:**
-- **Node.js**, **Express**, **Sequelize**, **PostgreSQL**, **bcryptjs**, **jsonwebtoken**, **dotenv**, **node-schedule**.
-
-### 3. **Herramientas de Desarrollo:**
-- **Yarn**, **Git**, **Concurrently**, **PostCSS**, **daisyUI**.
