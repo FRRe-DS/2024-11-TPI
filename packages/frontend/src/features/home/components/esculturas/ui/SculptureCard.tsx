@@ -61,3 +61,4 @@ const SculptureCard: React.FC<SculptureCardProps> = ({ nombre, descripcion, fech
 };
 
 export default SculptureCard;
+

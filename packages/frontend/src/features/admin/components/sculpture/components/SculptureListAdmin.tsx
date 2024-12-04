@@ -12,6 +12,7 @@ interface Escultura {
 }
 
 const SculptureListAdmin: React.FC = () => {
+
     const [esculturas, setEsculturas] = useState<Escultura[]>([]);
 
     // Obtener las esculturas al montar el componente
