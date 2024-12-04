@@ -9,3 +9,15 @@ export const GenerarQr = async (esculturaId: string): Promise<void> => {
         throw new Error ('Error al crear qr de escultura');
     }
 }
+
+export const ValidarQr = async (Qrcode: any): Promise<any> => {
+    try {
+        console.log(Qrcode)
+        const response = await api.get(`/qr/validate/${Qrcode}`);
+        console.log(response.data);
+        return response.data
+    }
+    catch (error) {
+        throw new Error ('Error desconocido al validar el qr');
+    }
+}

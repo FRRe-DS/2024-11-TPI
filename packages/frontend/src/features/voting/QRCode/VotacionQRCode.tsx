@@ -4,8 +4,7 @@ import ReactQR from 'react-qr-code';
 import { getUser } from "../../../services/AuthService.ts";
 import { getEsculturas } from "../../../services/SculptureService.ts";
 
-
-const VotacionQRCode: React.FC = ({ }) => {
+const VotacionQRCode: React.FC = () => {
     const [qrCode, setQrCode] = useState<any>('');  // Estado para almacenar el código QR
     const [esculturaId, setEsculturaId] = useState<string | undefined>(undefined);
     const [error, setError] = useState<string>(''); // Para manejar el error si no hay escultura
@@ -23,10 +22,10 @@ const VotacionQRCode: React.FC = ({ }) => {
                 if (esculturas.esculturas.length === 0) {
                     setError('No tiene una escultura');
                 } else {
-                    console.log('Esto es:',esculturas.esculturas[0].id)
-                    setEsculturaId(String(esculturas.esculturas[0].id));// Establecer el ID de la escultura
+                    console.log('Esto es:', esculturas.esculturas[0].id);
+                    setEsculturaId(String(esculturas.esculturas[0].id)); // Establecer el ID de la escultura
                     const qrData = await GenerarQr(esculturas.esculturas[0].id);
-                    console.log('Info que mando',qrData);
+                    console.log('Info que mando', qrData);
                     setQrCode(qrData); // Establecer el código QR
                 }
             } catch (err) {
@@ -35,7 +34,16 @@ const VotacionQRCode: React.FC = ({ }) => {
             }
         };
 
+        // Llamada inicial
         fetchQr();
+
+        // Configurar el intervalo para recargar el QR cada 1 minuto
+        const intervalId = setInterval(fetchQr, 60000); // 60000ms = 1 minuto
+
+        // Limpiar el intervalo cuando el componente se desmonte
+        return () => {
+            clearInterval(intervalId);
+        };
     }, []);  // Dependencia vacía: solo se ejecuta una vez cuando se monta el componente
 
     // Si hay un error o no hay escultura, mostrar mensaje de error
@@ -71,3 +79,4 @@ const VotacionQRCode: React.FC = ({ }) => {
 };
 
 export default VotacionQRCode;
+

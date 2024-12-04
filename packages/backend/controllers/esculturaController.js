@@ -34,7 +34,7 @@ const crearEscultura = async (req, res, next) => {
             nombre,
             userId, // Asociar la escultura al usuario a través de `userId`
         });
-
+        console.log(nuevaEscultura);
         res.status(201).json(nuevaEscultura);
     } catch (error) {
         console.error("Error al crear la escultura:", error); // Registrar el error en el servidor
