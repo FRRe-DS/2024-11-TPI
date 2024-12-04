@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 import { getEventoById } from '../../../../../services/EventService.ts';
+import SculptureList from "../../esculturas/components/SculptureList.tsx";
 
 const EventosDetalles: React.FC = () => {
     const { id = '' } = useParams<{ id: string }>();
@@ -13,7 +14,8 @@ const EventosDetalles: React.FC = () => {
             try {
                 const data = await getEventoById(id);
                 if (data) {
-                    setEvento(data);
+                    setEvento(data.evento);
+                    console.log(data.evento.id);
                 } else {
                     setError('Evento no encontrado');
                 }
@@ -50,10 +52,13 @@ const EventosDetalles: React.FC = () => {
                     <h1 className="text-4xl font-bold text-gray-800">{evento.nombre}</h1>
                     <p className="text-xl mt-4 text-gray-600">{evento.descripcion}</p>
                     <p className="text-lg mt-2 text-gray-600">Temática: {evento.tematica}</p>
-                    <p className="text-lg mt-2 text-gray-600">Fecha: {new Date(evento.fecha).toLocaleDateString()}</p>
-                    <p className="text-lg mt-2 text-gray-600">Ubicación: {evento.ubicacion}</p>
+                    <p className="text-lg mt-2 text-gray-600">Fecha de
+                        inicio: {new Date(evento.fechaInc).toLocaleDateString()}</p>
+                    <p className="text-lg mt-2 text-gray-600">Fecha de
+                        finalización: {new Date(evento.fechaFin).toLocaleDateString()}</p>
                 </div>
             </div>
+            <SculptureList eventoId={evento.id} />
         </div>
     );
 };
