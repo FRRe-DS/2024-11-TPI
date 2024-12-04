@@ -7,6 +7,7 @@ interface SculptureCardAdminProps {
     fechaCreacion: string | null;
     plano: string | null;
     imagenFinal?: string | null;
+    imagenes?: string[]; // Nuevo atributo
     onSave: (updatedSculpture: any) => void;
 }
 
@@ -17,6 +18,7 @@ const SculptureCardAdmin: React.FC<SculptureCardAdminProps> = ({
                                                                    fechaCreacion,
                                                                    plano,
                                                                    imagenFinal,
+                                                                   imagenes = [], // Valor predeterminado
                                                                    onSave,
                                                                }) => {
     const [editing, setEditing] = useState(false);
@@ -27,66 +29,55 @@ const SculptureCardAdmin: React.FC<SculptureCardAdminProps> = ({
         fechaCreacion,
         plano,
         imagenFinal,
+        imagenes, // Inicialización
     });
     const [showFullDescription, setShowFullDescription] = useState(false);
-
-    // Nuevos estados para manejar el tipo de entrada de imagen (URL o archivo)
-    const [imageInputType, setImageInputType] = useState<'url' | 'file'>('url'); // Controla si es URL o archivo
-    const [imageFile, setImageFile] = useState<File | null>(null); // Para manejar el archivo de imagen
-    const [imageURL, setImageURL] = useState<string>(''); // Para manejar la URL de la imagen
-
-    // Nuevos estados para manejar el tipo de entrada del plano (URL o archivo)
-    const [planInputType, setPlanInputType] = useState<'url' | 'file'>('url'); // Controla si es URL o archivo
-    const [planFile, setPlanFile] = useState<File | null>(null); // Para manejar el archivo del plano
-    const [planURL, setPlanURL] = useState<string>(''); // Para manejar la URL del plano
-
-    // Validación de imagen (solo acepta imágenes)
-    const handleImageChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-        const file = e.target.files ? e.target.files[0] : null;
-        if (file) {
-            if (file.type.startsWith('image/')) {
-                setImageFile(file);
-                setImageURL(''); // Limpiar la URL si se elige un archivo
-            } else {
-                alert('Por favor, selecciona un archivo de imagen.');
-                setImageFile(null); // Limpiar el archivo si no es una imagen
-            }
-        }
-    };
-
-    // Validación de URL de imagen (solo acepta URLs de imágenes válidas)
-    const handleImageURLChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-        const url = e.target.value;
-        setImageURL(url);
-        setImageFile(null); // Limpiar el archivo si se ingresa una URL
-    };
-
-    // Validación de plano (solo acepta imágenes o documentos)
-    const handlePlanChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-        const file = e.target.files ? e.target.files[0] : null;
-        if (file) {
-            setPlanFile(file);
-            setPlanURL(''); // Limpiar la URL si se elige un archivo
-        }
-    };
-
-    // Validación de URL del plano (acepta URLs de archivos o imágenes)
-    const handlePlanURLChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-        const url = e.target.value;
-        setPlanURL(url);
-        setPlanFile(null); // Limpiar el archivo si se ingresa una URL
-    };
+    const [newMediaType, setNewMediaType] = useState<string>('imagenFinal'); // Tipo de medio a añadir, por defecto 'imagenFinal'
+    const [newMediaURL, setNewMediaURL] = useState<string>(''); // Para añadir nuevas imágenes/planos/finales
 
     const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
         const { name, value } = e.target;
         setEditedSculpture((prev) => ({ ...prev, [name]: value || null }));
     };
 
+    const handleAddMedia = () => {
+        if (newMediaURL.trim()) {
+            if (newMediaType === 'image') {
+                setEditedSculpture((prev) => ({
+                    ...prev,
+                    imagenes: [...prev.imagenes, newMediaURL],
+                }));
+            } else if (newMediaType === 'plano') {
+                setEditedSculpture((prev) => ({ ...prev, plano: newMediaURL }));
+            } else if (newMediaType === 'imagenFinal') {
+                setEditedSculpture((prev) => ({ ...prev, imagenFinal: newMediaURL }));
+            }
+            setNewMediaURL('');
+        }
+    };
+
+    const handleRemoveImage = (index: number) => {
+        setEditedSculpture((prev) => ({
+            ...prev,
+            imagenes: prev.imagenes.filter((_, i) => i !== index),
+        }));
+    };
+
+    const handleRemoveImagenF = () => {
+        setEditedSculpture((prev) => ({
+            ...prev,
+            plano: null,
+        }));
+    };
+    const handleRemovePlano = () => {
+        setEditedSculpture((prev) => ({
+            ...prev,
+            imagenFinal: null,
+        }));
+    };
+
     const handleSave = () => {
-        // Si el tipo de entrada es un archivo, usamos la imagen como archivo (deberías cargarla en un servidor)
-        const finalImageURL = imageFile ? URL.createObjectURL(imageFile) : imageURL;
-        const finalPlanURL = planFile ? URL.createObjectURL(planFile) : planURL;
-        onSave({ ...editedSculpture, imagenFinal: finalImageURL, plano: finalPlanURL });
+        onSave(editedSculpture);
         setEditing(false);
     };
 
@@ -116,90 +107,101 @@ const SculptureCardAdmin: React.FC<SculptureCardAdminProps> = ({
                         className="border p-2 mb-2 w-full rounded"
                     />
 
-                    {/* Plano: Opción de elegir entre cargar un plano desde archivo o URL */}
+                    {/* Campo para añadir nuevo medio */}
                     <div className="mb-4">
-                        <label className="block mb-2">Seleccionar plano</label>
+                        <label className="block mb-2">Añadir una nueva imagen</label>
                         <select
-                            value={planInputType}
-                            onChange={(e) => setPlanInputType(e.target.value as 'url' | 'file')}
-                            className="border p-2 w-full rounded"
+                            value={newMediaType}
+                            onChange={(e) => setNewMediaType(e.target.value)}
+                            className="border p-2 mb-2 w-full rounded"
                         >
-                            <option value="url">URL del plano</option>
-                            <option value="file">Subir plano desde archivo</option>
+                            <option value="image">Imagen adicional</option>
+                            <option value="plano">Plano</option>
+                            <option value="imagenFinal">Imagen final</option>
                         </select>
+                        <input
+                            type="text"
+                            value={newMediaURL}
+                            onChange={(e) => setNewMediaURL(e.target.value)}
+                            className="border p-2 mb-2 w-full rounded"
+                            placeholder="URL del nuevo medio"
+                        />
+                        <button
+                            onClick={handleAddMedia}
+                            className="bg-green-500 text-white px-4 py-2 rounded w-full mb-2"
+                        >
+                            Añadir
+                        </button>
                     </div>
 
-                    {/* Mostrar el campo adecuado según la opción seleccionada para el plano */}
-                    {planInputType === 'url' ? (
-                        <input
-                            name="plano"
-                            value={planURL}
-                            onChange={handlePlanURLChange}
-                            className="border p-2 mb-2 w-full rounded"
-                            placeholder="URL del plano"
-                        />
-                    ) : (
-                        <input
-                            type="file"
-                            onChange={handlePlanChange}
-                            className="border p-2 mb-2 w-full rounded"
-                        />
-                    )}
-                    {planFile && planInputType !== 'url' && planFile.type.startsWith('image') && (
-                        <div className="mt-2">
-                            <img
-                                src={URL.createObjectURL(planFile)}
-                                alt="Vista previa"
-                                className="w-24 h-24 object-cover"
-                            />
-                        </div>
-                    )}
-                    {/* Opción para elegir entre cargar una imagen desde archivo o URL */}
+                    {/* Imágen de plano */}
                     <div className="mb-4">
-                        <label className="block mb-2">Seleccionar imagen</label>
-                        <select
-                            value={imageInputType}
-                            onChange={(e) => setImageInputType(e.target.value as 'url' | 'file')}
-                            className="border p-2 w-full rounded"
-                        >
-                            <option value="url">URL de imagen</option>
-                            <option value="file">Subir imagen desde archivo</option>
-                        </select>
+                        <h4 className="text-lg font-semibold mb-2">Plano:</h4>
+                        {plano ? (
+                            <ul>
+                                <span className="text-sm text-gray-600 truncate">{editedSculpture.plano}</span>
+                                <button
+                                    onClick={() => handleRemovePlano()}
+                                    className="text-red-500 text-sm"
+                                >
+                                    Eliminar
+                                </button>
+                            </ul>
+                        ) : (
+                            <span className="text-sm text-gray-600 italic">No tiene plano </span>
+                        )}
                     </div>
 
-                    {/* Mostrar el campo adecuado según la opción seleccionada para la imagen */}
-                    {imageInputType === 'url' ? (
-                        <input
-                            name="imagenFinal"
-                            value={imageURL}
-                            onChange={handleImageURLChange}
-                            className="border p-2 mb-2 w-full rounded"
-                            placeholder="URL de la imagenFinal"
-                        />
-                    ) : (
-                        <input
-                            type="file"
-                            onChange={handleImageChange}
-                            className="border p-2 mb-2 w-full rounded"
-                        />
-                    )}
-
-                    {/* Vista previa de la imagen seleccionada */}
-                    {imageFile && imageInputType !== 'url' && imageFile.type.startsWith('image') && (
-                        <div className="mt-2">
-                            <img
-                                src={URL.createObjectURL(imageFile)}
-                                alt="Vista previa"
-                                className="w-24 h-24 object-cover"
-                            />
-                        </div>
-                    )}
+                    {/* Imágenes adicionales */}
+                    <div className="mb-4">
+                        <h4 className="text-lg font-semibold mb-2">Imágenes adicionales:</h4>
+                        {editedSculpture.imagenes.length > 0 ? (
+                            <ul>
+                                {editedSculpture.imagenes.map((img, index) => (
+                                    <li key={index} className="flex items-center justify-between mb-2">
+                                        <span className="text-sm text-gray-600 truncate">{img}</span>
+                                        <button
+                                            onClick={() => handleRemoveImage(index)}
+                                            className="text-red-500 text-sm"
+                                        >
+                                            Eliminar
+                                        </button>
+                                    </li>
+                                ))}
+                            </ul>
+                        ) : (
+                            <span className="text-sm text-gray-600 italic">No hay imágenes adicionales</span>
+                        )}
+                    </div>
+                    {/* Imágen final */}
+                    <div className="mb-4">
+                        <h4 className="text-lg font-semibold mb-2">Imagen Final:</h4>
+                        {plano ? (
+                            <ul>
+                                <span className="text-sm text-gray-600 truncate">{editedSculpture.imagenFinal}</span>
+                                <button
+                                    onClick={() => handleRemoveImagenF()}
+                                    className="text-red-500 text-sm"
+                                >
+                                    Eliminar
+                                </button>
+                            </ul>
+                        ) : (
+                            <span className="text-sm text-gray-600 italic">No tiene imagen final </span>
+                        )}
+                    </div>
 
                     <button
                         onClick={handleSave}
                         className="bg-blue-500 text-white px-4 py-2 rounded mt-2 w-full"
                     >
                         Guardar
+                    </button>
+                    <button
+                        onClick={() => setEditing(false)}
+                        className="bg-blue-500 text-white px-4 py-2 rounded mt-2 w-full"
+                    >
+                        Cerrar
                     </button>
                 </div>
             ) : (
@@ -213,7 +215,7 @@ const SculptureCardAdmin: React.FC<SculptureCardAdminProps> = ({
                         />
                     ) : (
                         <div className="w-full h-64 bg-gray-200 flex items-center justify-center text-gray-500 mb-4 rounded">
-                            Sin imagenFinal
+                            Sin imagen final
                         </div>
                     )}
                     <p className="text-sm mb-2">
@@ -230,6 +232,7 @@ const SculptureCardAdmin: React.FC<SculptureCardAdminProps> = ({
                         )}
                     </p>
                     <p className="text-sm text-gray-600 mb-2">Fecha de creación: {fechaCreacion || 'N/A'}</p>
+
                     <button
                         onClick={() => setEditing(true)}
                         className="bg-gray-500 text-white px-4 py-2 rounded w-full"
