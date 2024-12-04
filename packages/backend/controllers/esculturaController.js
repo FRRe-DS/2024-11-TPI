@@ -3,7 +3,7 @@ const { Evento, Escultura, Escultor, User } = require("../models");
 // Crear una escultura
 const crearEscultura = async (req, res, next) => {
     try {
-        const { nombre, escultorId } = req.body;
+        const { nombre, escultorId, eventoId } = req.body;
         const userId= escultorId;
         // Verificar si el escultor existe y pertenece al usuario
         const escultor = await Escultor.findOne({
@@ -32,7 +32,8 @@ const crearEscultura = async (req, res, next) => {
         // Crear la nueva escultura
         const nuevaEscultura = await Escultura.create({
             nombre,
-            userId, // Asociar la escultura al usuario a través de `userId`
+            userId,
+            eventoId,// Asociar la escultura al usuario a través de `userId`
         });
         console.log(nuevaEscultura);
         res.status(201).json(nuevaEscultura);

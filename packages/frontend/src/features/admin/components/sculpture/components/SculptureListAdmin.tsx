@@ -7,7 +7,7 @@ interface Escultura {
     descripcion: string;
     nombre: string;
     fechaCreacion: string ;
-    tematica: string;
+    plano: string;
     imagenFinal?: string;
 }
 
@@ -50,9 +50,10 @@ const SculptureListAdmin: React.FC = () => {
     };
 
     return (
-        <div className="px-8 py-6">
+        <div className="px-8 py-6 pb-12"> {/* Añadido padding-bottom al contenedor */}
             <h2 className="text-2xl font-bold text-center mb-8">Lista de Esculturas</h2>
-            <div className="grid gap-8 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 overflow-y-auto max-h-96" >
+            <div
+                className="grid gap-8 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 overflow-y-auto max-h-96">
                 {esculturas.length > 0 ? (
                     esculturas.map((escultura) => (
                         <SculptureCardAdmin
@@ -60,8 +61,8 @@ const SculptureListAdmin: React.FC = () => {
                             id={escultura.id}
                             nombre={escultura.nombre}
                             descripcion={escultura.descripcion}
+                            plano={escultura.plano}
                             fechaCreacion={escultura.fechaCreacion}
-                            tematica={escultura.tematica}
                             imagenFinal={escultura.imagenFinal}
                             onSave={handleSaveSculpture}
                         />
@@ -73,6 +74,7 @@ const SculptureListAdmin: React.FC = () => {
                 )}
             </div>
         </div>
+
     );
 };
 

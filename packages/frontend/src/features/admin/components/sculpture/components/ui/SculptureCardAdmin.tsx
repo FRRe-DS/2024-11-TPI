@@ -5,7 +5,7 @@ interface SculptureCardAdminProps {
     nombre: string;
     descripcion: string | null;
     fechaCreacion: string | null;
-    tematica: string | null;
+    plano: string | null;
     imagenFinal?: string | null;
     onSave: (updatedSculpture: any) => void;
 }
@@ -15,7 +15,7 @@ const SculptureCardAdmin: React.FC<SculptureCardAdminProps> = ({
                                                                    nombre,
                                                                    descripcion,
                                                                    fechaCreacion,
-                                                                   tematica,
+                                                                   plano,
                                                                    imagenFinal,
                                                                    onSave,
                                                                }) => {
@@ -25,23 +25,79 @@ const SculptureCardAdmin: React.FC<SculptureCardAdminProps> = ({
         nombre,
         descripcion,
         fechaCreacion,
-        tematica,
+        plano,
         imagenFinal,
     });
     const [showFullDescription, setShowFullDescription] = useState(false);
 
+    // Nuevos estados para manejar el tipo de entrada de imagen (URL o archivo)
+    const [imageInputType, setImageInputType] = useState<'url' | 'file'>('url'); // Controla si es URL o archivo
+    const [imageFile, setImageFile] = useState<File | null>(null); // Para manejar el archivo de imagen
+    const [imageURL, setImageURL] = useState<string>(''); // Para manejar la URL de la imagen
+
+    // Nuevos estados para manejar el tipo de entrada del plano (URL o archivo)
+    const [planInputType, setPlanInputType] = useState<'url' | 'file'>('url'); // Controla si es URL o archivo
+    const [planFile, setPlanFile] = useState<File | null>(null); // Para manejar el archivo del plano
+    const [planURL, setPlanURL] = useState<string>(''); // Para manejar la URL del plano
+
+    // Validación de imagen (solo acepta imágenes)
+    const handleImageChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+        const file = e.target.files ? e.target.files[0] : null;
+        if (file) {
+            if (file.type.startsWith('image/')) {
+                setImageFile(file);
+                setImageURL(''); // Limpiar la URL si se elige un archivo
+            } else {
+                alert('Por favor, selecciona un archivo de imagen.');
+                setImageFile(null); // Limpiar el archivo si no es una imagen
+            }
+        }
+    };
+
+    // Validación de URL de imagen (solo acepta URLs de imágenes válidas)
+    const handleImageURLChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+        const url = e.target.value;
+        const imagePattern = /\.(jpg|jpeg|png|gif|bmp|svg)$/i; // Expresión regular para verificar si la URL es una imagen
+        if (imagePattern.test(url)) {
+            setImageURL(url);
+            setImageFile(null); // Limpiar el archivo si se ingresa una URL
+        } else {
+            alert('Por favor, ingresa una URL válida de imagen.');
+            setImageURL(''); // Limpiar la URL si no es válida
+        }
+    };
+
+    // Validación de plano (solo acepta imágenes o documentos)
+    const handlePlanChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+        const file = e.target.files ? e.target.files[0] : null;
+        if (file) {
+            setPlanFile(file);
+            setPlanURL(''); // Limpiar la URL si se elige un archivo
+        }
+    };
+
+    // Validación de URL del plano (acepta URLs de archivos o imágenes)
+    const handlePlanURLChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+        const url = e.target.value;
+        setPlanURL(url);
+        setPlanFile(null); // Limpiar el archivo si se ingresa una URL
+    };
+
     const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
         const { name, value } = e.target;
-        setEditedSculpture((prev) => ({ ...prev, [name]: value || null })); // Cambio aquí para asignar null si el valor es vacío
+        setEditedSculpture((prev) => ({ ...prev, [name]: value || null }));
     };
 
     const handleSave = () => {
-        onSave(editedSculpture);
+        // Si el tipo de entrada es un archivo, usamos la imagen como archivo (deberías cargarla en un servidor)
+        const finalImageURL = imageFile ? URL.createObjectURL(imageFile) : imageURL;
+        const finalPlanURL = planFile ? URL.createObjectURL(planFile) : planURL;
+        onSave({ ...editedSculpture, imagenFinal: finalImageURL, plano: finalPlanURL });
         setEditing(false);
     };
 
     return (
-        <div className="border p-6 rounded-lg shadow-lg bg-white flex flex-col justify-between max-w-sm mx-auto">
+        <div className="border p-6 rounded-lg shadow-lg bg-white flex flex-col justify-between max-w-md mx-auto">
             {editing ? (
                 <div>
                     <input
@@ -65,20 +121,86 @@ const SculptureCardAdmin: React.FC<SculptureCardAdminProps> = ({
                         onChange={handleInputChange}
                         className="border p-2 mb-2 w-full rounded"
                     />
-                    <input
-                        name="tematica"
-                        value={editedSculpture.tematica || ''}
-                        onChange={handleInputChange}
-                        className="border p-2 mb-2 w-full rounded"
-                        placeholder="Temática"
-                    />
-                    <input
-                        name="imagenFinal"
-                        value={editedSculpture.imagenFinal || ''}
-                        onChange={handleInputChange}
-                        className="border p-2 mb-2 w-full rounded"
-                        placeholder="URL de la imagenFinal"
-                    />
+
+                    {/* Plano: Opción de elegir entre cargar un plano desde archivo o URL */}
+                    <div className="mb-4">
+                        <label className="block mb-2">Seleccionar plano</label>
+                        <select
+                            value={planInputType}
+                            onChange={(e) => setPlanInputType(e.target.value as 'url' | 'file')}
+                            className="border p-2 w-full rounded"
+                        >
+                            <option value="url">URL del plano</option>
+                            <option value="file">Subir plano desde archivo</option>
+                        </select>
+                    </div>
+
+                    {/* Mostrar el campo adecuado según la opción seleccionada para el plano */}
+                    {planInputType === 'url' ? (
+                        <input
+                            name="plano"
+                            value={planURL}
+                            onChange={handlePlanURLChange}
+                            className="border p-2 mb-2 w-full rounded"
+                            placeholder="URL del plano"
+                        />
+                    ) : (
+                        <input
+                            type="file"
+                            onChange={handlePlanChange}
+                            className="border p-2 mb-2 w-full rounded"
+                        />
+                    )}
+                    {planFile && planInputType !== 'url' && planFile.type.startsWith('image') && (
+                        <div className="mt-2">
+                            <img
+                                src={URL.createObjectURL(planFile)}
+                                alt="Vista previa"
+                                className="w-24 h-24 object-cover"
+                            />
+                        </div>
+                    )}
+                    {/* Opción para elegir entre cargar una imagen desde archivo o URL */}
+                    <div className="mb-4">
+                        <label className="block mb-2">Seleccionar imagen</label>
+                        <select
+                            value={imageInputType}
+                            onChange={(e) => setImageInputType(e.target.value as 'url' | 'file')}
+                            className="border p-2 w-full rounded"
+                        >
+                            <option value="url">URL de imagen</option>
+                            <option value="file">Subir imagen desde archivo</option>
+                        </select>
+                    </div>
+
+                    {/* Mostrar el campo adecuado según la opción seleccionada para la imagen */}
+                    {imageInputType === 'url' ? (
+                        <input
+                            name="imagenFinal"
+                            value={imageURL}
+                            onChange={handleImageURLChange}
+                            className="border p-2 mb-2 w-full rounded"
+                            placeholder="URL de la imagenFinal"
+                        />
+                    ) : (
+                        <input
+                            type="file"
+                            onChange={handleImageChange}
+                            className="border p-2 mb-2 w-full rounded"
+                        />
+                    )}
+
+                    {/* Vista previa de la imagen seleccionada */}
+                    {imageFile && imageInputType !== 'url' && imageFile.type.startsWith('image') && (
+                        <div className="mt-2">
+                            <img
+                                src={URL.createObjectURL(imageFile)}
+                                alt="Vista previa"
+                                className="w-24 h-24 object-cover"
+                            />
+                        </div>
+                    )}
+
                     <button
                         onClick={handleSave}
                         className="bg-blue-500 text-white px-4 py-2 rounded mt-2 w-full"
@@ -114,7 +236,6 @@ const SculptureCardAdmin: React.FC<SculptureCardAdminProps> = ({
                         )}
                     </p>
                     <p className="text-sm text-gray-600 mb-2">Fecha de creación: {fechaCreacion || 'N/A'}</p>
-                    <p className="text-sm text-gray-600 mb-4">Temática: {tematica || 'N/A'}</p>
                     <button
                         onClick={() => setEditing(true)}
                         className="bg-gray-500 text-white px-4 py-2 rounded w-full"
