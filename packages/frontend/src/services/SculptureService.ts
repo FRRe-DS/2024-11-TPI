@@ -46,7 +46,7 @@ export const getEsculturasByEvent = async (eventoID: any) => {
         throw new Error('Evento ID no proporcionado');
     }
     try {
-        const response = await api.get(`/esculturas/${eventoID}`);
+        const response = await api.get(`/esculturas/evento/${eventoID}`);
         return response.data; // Devuelve las esculturas del evento
     } catch (error: unknown) {
         if (error instanceof Error) {

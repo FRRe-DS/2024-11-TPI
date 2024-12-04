@@ -49,7 +49,7 @@ const SculptureForm: React.FC = () => {
     const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
 
-        if (!nombre || !eventoID || !escultoresID) {
+        if (!nombre || !eventoID || !escultoresID ) {
             setError('Por favor, completa todos los campos obligatorios.');
             return;
         }
@@ -63,17 +63,11 @@ const SculptureForm: React.FC = () => {
         console.log('Datos enviados:', nuevaEscultura);
 
         try {
-            const response = await createEscultura(nuevaEscultura);
-
-            if (response?.status === 201) {
-                alert('Escultura creada con éxito');
-                setNombre('');
-                setEventoID('');
-                setEscultoresID('');
-                setError('');
-            } else {
-                setError('Hubo un error al crear la escultura.');
-            }
+            await createEscultura(nuevaEscultura);
+            setNombre('');
+            setEventoID('');
+            setEscultoresID('');
+            alert('Escultura creada con éxito');
         } catch (error) {
             console.error('Error al crear escultura:', error);
             setError('No se pudo crear la escultura. Inténtalo de nuevo.');

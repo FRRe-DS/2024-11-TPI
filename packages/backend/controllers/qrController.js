@@ -20,7 +20,6 @@ const generateQr = async (req, res, next) => {
 const validateQr = async (req, res) => {
     try {
         const { uniqueCode } = req.params; // Extraemos el código único del QR de los parámetros de la solicitud
-
         // Buscamos el registro del QR en la base de datos usando el código único
         const qrRecord = await Qr.findOne({ where: { uniqueCode } });
 
@@ -30,10 +29,9 @@ const validateQr = async (req, res) => {
         }
 
         // Comprobamos si el QR ha expirado comparando la fecha de expiración con la fecha actual
-        if (Date.now() > new Date(qrRecord.expiration)) {
+        if (Date.now() > new Date(qrRecord.dataValues.expiration).getTime()) {
             return res.status(400).json({ message: "El código QR ha expirado" });
         }
-
         // Obtenemos la escultura asociada al QR usando el ID de la escultura
         const escultura = await Escultura.findByPk(qrRecord.esculturaId);
 

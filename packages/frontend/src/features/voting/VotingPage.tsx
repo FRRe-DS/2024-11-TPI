@@ -1,7 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom'; // Para obtener los parámetros de la URL
 import { getEsculturaporId } from '../../services/SculptureService.ts';
-import {registerVote} from "../../services/VotingService.ts"; // Asumimos que tienes un servicio para obtener la info de la escultura y votar
+import {registerVote} from "../../services/VotingService.ts";
+import {ValidarQr} from "../../services/QrService.ts"; // Asumimos que tienes un servicio para obtener la info de la escultura y votar
 
 
 interface Escultura {
@@ -27,11 +28,12 @@ const VotingPage: React.FC = () => {
         // Función para obtener la información de la escultura usando el esculturaId
         const fetchEscultura = async () => {
             try {
+                await ValidarQr(QrCode);
                 const data = await getEsculturaporId(esculturaId);  // Asumiendo que tienes una función para obtener la info de la escultura
                 console.log(data.escultura);
                 setEscultura(data.escultura);
             } catch (err) {
-                setError('No se pudo obtener la información de la escultura.');
+                setError('No se pudo obtener la información. El Qr está expirado.');
             } finally {
                 setLoading(false);
             }
