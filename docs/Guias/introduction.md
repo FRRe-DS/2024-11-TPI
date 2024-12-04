@@ -8,7 +8,7 @@ El proyecto Bienal del Chaco 2024 es un sistema destinado a gestionar el evento 
 - **Gestión de Dependencias:** Yarn
 - **Control de Versiones:** Git
 
-Para más detalles, consulta [Tecnologías](../arquitecture/Tecnologias.md) .
+Para más detalles, consulta [Tecnologías](../arquitectura/Tecnologias.md) .
 Para más detalles sobre el TPI, consulta [Trabajo Práctico Final - Año 2024](tpi.md) .
 
 # Explicación y Relación con SOLID:
