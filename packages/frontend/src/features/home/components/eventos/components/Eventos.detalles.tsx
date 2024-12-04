@@ -52,17 +52,9 @@ const EventosDetalles: React.FC = () => {
 
     return (
         // Contenedor principal
-        // Fondo de pantalla con imagen de fondo
         <div
-            className="relative w-full h-full overflow-hidden"
-            style={{
-                backgroundColor: 'rgba(0, 0, 0, 0.5)',
-                backgroundSize: 'cover',
-                backgroundPosition: 'center',
-            }}
+            className="relative w-full h-full overflow-hidden bg-gradient-to-r from-blue-100 via-indigo-100 to-purple-100"
         >
-            {/* Fondo oscuro */}
-            <div className="absolute inset-0 bg-black bg-opacity-30"></div>
 
             {/* Contenido */}
             <div className="relative w-full h-full overflow-hidden p-10">

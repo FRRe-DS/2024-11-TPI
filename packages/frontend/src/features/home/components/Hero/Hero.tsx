@@ -31,13 +31,13 @@ const Hero: React.FC = () => {
             {/* Content */}
             <div className="absolute flex flex-col items-center justify-center w-full h-full text-center sm:space-y-10">
                 {/* Logo */}
-                <div className="relative m-4 -mt-14 md:m-20 md:-mt-3">
+                <div className="relative m-1 -mt-4 md:m-20 md:-mt-3">
                     <div className="absolute inset-0 rounded-3xl bg-gradient-to-r from-red-200 via-indigo-100 to-purple-100"></div>
                     <img src={logo2} alt="Gobierno Logo" className="relative" />
                 </div>
 
                 {/* Title */}
-                <div className="relative m-10 md:m-28">
+                <div className="relative m-4 md:m-28">
                     <h1 className="text-balance text-5xl md:text-9xl font-semibold tracking-tight animate-text-gradient animate-fadeInUp delay-1000">
                         Bienal del Chaco 2024 <br /> del 12 al 21 de Julio
                     </h1>

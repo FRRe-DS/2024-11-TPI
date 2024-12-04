@@ -4,7 +4,7 @@ import 'swiper/css';
 import 'swiper/css/free-mode';
 import 'swiper/css/navigation';
 import 'swiper/css/thumbs';
-import { FreeMode, Navigation, Thumbs } from 'swiper/modules';
+import {Autoplay, FreeMode, Navigation, Thumbs} from 'swiper/modules';
 import EventCard from '../ui/EventCard.tsx';
 import { getEventos } from '../../../../../services/EventService.ts';
 
@@ -26,17 +26,17 @@ const EventList: React.FC = () => {
     }, []);
 
     return (
-        <div className="flex flex-col justify-center items-center min-h-screen overflow-hidden py-8">
+        <div className="flex flex-col justify-center items-center min-h-screen overflow-hidden py-8 bg-gradient-to-tr from-purple-600 via-indigo-500 to-blue-500">
             {eventos.length > 0 ? (
                 <>
                     {/* Swiper principal */}
                     <Swiper
-                        loop={true}
+                        modules={[FreeMode, Thumbs]}
                         spaceBetween={10}
-                        navigation={true}
+                        slidesPerView={1}
+
                         thumbs={{ swiper: thumbsSwiper }}
-                        modules={[FreeMode, Navigation, Thumbs]}
-                        className="mySwiper2 w-full max-w-7xl"
+                        className="relative w-full pt-36 flex-grow rounded-3xl overflow-hidden"
                     >
                         {eventos.map((evento) => (
                             <SwiperSlide key={evento.id} className="flex justify-center items-center">
@@ -47,7 +47,6 @@ const EventList: React.FC = () => {
                                     fecha={evento.fecha}
                                     tematica={evento.tematica}
                                     id={evento.id}
-                                    // Asegúrate de ajustar los estilos dentro del componente EventCard para una tarjeta más grande.
                                 />
                             </SwiperSlide>
                         ))}
@@ -55,21 +54,26 @@ const EventList: React.FC = () => {
 
                     {/* Swiper de miniaturas */}
                     <Swiper
+                        modules={[FreeMode, Navigation, Autoplay, Thumbs]}
                         onSwiper={setThumbsSwiper}
                         loop={true}
+                        autoplay={{
+                            delay: 20000,
+                            disableOnInteraction: false,
+                        }}
                         spaceBetween={10}
                         slidesPerView={4}
                         freeMode={true}
                         watchSlidesProgress={true}
-                        modules={[FreeMode, Navigation, Thumbs]}
-                        className="mySwiper w-full max-w-7xl mt-8"
+
+                       className="flex justify-center  w-full max-w-7xl mt-8"
                     >
                         {eventos.map((evento) => (
                             <SwiperSlide key={evento.id}>
                                 <img
                                     src={evento.imagen}
                                     alt={evento.nombre}
-                                    className="w-full h-full object-cover"
+                                    className="flex justify-center w-full h-full object-cover"
                                 />
                             </SwiperSlide>
                         ))}
