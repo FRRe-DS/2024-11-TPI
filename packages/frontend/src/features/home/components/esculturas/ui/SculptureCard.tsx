@@ -4,21 +4,20 @@ interface SculptureCardProps {
     nombre: string;
     descripcion?: string;
     fechaCreacion?: string;
-    tematica?: string;
-    id: string;
-    imagen?: string; // La imagen es opcional
+    imagenFinal?: string;  // Usamos solo una imagen final
+    escultor?: string; // Agregamos el nombre del escultor
 }
 
-const SculptureCard: React.FC<SculptureCardProps> = ({ nombre, descripcion, tematica, fechaCreacion, id, imagen }) => {
+const SculptureCard: React.FC<SculptureCardProps> = ({ nombre, descripcion, fechaCreacion, imagenFinal, escultor }) => {
     const [showFullDescription, setShowFullDescription] = useState(false);
-
+    console.log(descripcion)
     return (
         <div className="shadow-lg bg-white rounded-lg border border-gray-200 overflow-hidden hover:shadow-xl transition-shadow duration-300">
-            {/* Imagen */}
-            {imagen && (
-                <div className="w-full h-40 overflow-hidden">
+            {/* Imagen Final */}
+            {imagenFinal && (
+                <div className="w-full h-60 overflow-hidden">
                     <img
-                        src={imagen}
+                        src={imagenFinal}
                         alt={nombre}
                         className="w-full h-full object-cover hover:scale-105 transition-transform duration-300"
                     />
@@ -33,13 +32,12 @@ const SculptureCard: React.FC<SculptureCardProps> = ({ nombre, descripcion, tema
                 {/* Información adicional */}
                 {fechaCreacion && (
                     <p className="text-sm text-gray-600 mb-1">
-                        <span
-                            className="font-semibold">Fecha de creación:</span> {new Date(fechaCreacion).toLocaleDateString()}
+                        <span className="font-semibold">Fecha de creación:</span> {new Date(fechaCreacion).toLocaleDateString()}
                     </p>
                 )}
-                {tematica && (
+                {escultor && (
                     <p className="text-sm text-gray-600 mb-1">
-                        <span className="font-semibold">Temática:</span> {tematica}
+                        <span className="font-semibold">Escultor:</span> {escultor}
                     </p>
                 )}
 
@@ -57,14 +55,10 @@ const SculptureCard: React.FC<SculptureCardProps> = ({ nombre, descripcion, tema
                         )}
                     </p>
                 )}
-
-                {/* Footer */}
-                <div className="text-right">
-                    <span className="text-xs text-gray-500 italic">ID: {id}</span>
-                </div>
             </div>
         </div>
     );
 };
 
 export default SculptureCard;
+

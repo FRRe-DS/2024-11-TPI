@@ -41,9 +41,8 @@ const SculptureList: React.FC<SculptureListProps> = ({ eventoId }) => {
                             nombre={escultura.nombre}
                             descripcion={escultura.descripcion}
                             fechaCreacion={escultura.fechaCreacion}
-                            tematica={escultura.tematica}
-                            id={escultura.id}
-                            imagen={escultura.imagen} // Agregado para mostrar la imagen
+                            escultor={escultura.escultor.usuario.nombre}
+                            imagenFinal={escultura.imagenFinal} // Agregado para mostrar la imagen
                         />
                     </div>
                 ))

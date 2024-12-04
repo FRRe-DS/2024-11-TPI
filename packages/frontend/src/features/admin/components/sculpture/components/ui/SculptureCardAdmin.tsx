@@ -57,14 +57,8 @@ const SculptureCardAdmin: React.FC<SculptureCardAdminProps> = ({
     // Validación de URL de imagen (solo acepta URLs de imágenes válidas)
     const handleImageURLChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         const url = e.target.value;
-        const imagePattern = /\.(jpg|jpeg|png|gif|bmp|svg)$/i; // Expresión regular para verificar si la URL es una imagen
-        if (imagePattern.test(url)) {
-            setImageURL(url);
-            setImageFile(null); // Limpiar el archivo si se ingresa una URL
-        } else {
-            alert('Por favor, ingresa una URL válida de imagen.');
-            setImageURL(''); // Limpiar la URL si no es válida
-        }
+        setImageURL(url);
+        setImageFile(null); // Limpiar el archivo si se ingresa una URL
     };
 
     // Validación de plano (solo acepta imágenes o documentos)
