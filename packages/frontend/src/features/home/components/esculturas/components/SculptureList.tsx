@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { getEsculturas } from '../../../../../services/SculptureService.ts';
+import {getEsculturas, getEsculturasByEvent} from '../../../../../services/SculptureService.ts';
 import SculptureCard from '../ui/SculptureCard.tsx';
 
 interface SculptureListProps {
@@ -15,7 +15,7 @@ const SculptureList: React.FC<SculptureListProps> = ({ eventoId }) => {
             try {
                 setLoading(true);
                 console.log(eventoId)
-                const data = eventoId ? await getEsculturas(eventoId) : await getEsculturas();
+                const data = eventoId ? await getEsculturasByEvent(eventoId) : await getEsculturas();
                 console.log(data)
                 setEsculturas(data.esculturas);
             } catch (error) {

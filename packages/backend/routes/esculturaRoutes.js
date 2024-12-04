@@ -5,6 +5,7 @@ const {
     crearEscultura,
     obtenerEsculturas,
     obtenerEsculturaPorId,
+    obtenerEsculturasPorEvento,
     actualizarEscultura,
     eliminarEscultura,
 } = require("../controllers/esculturaController");
@@ -62,6 +63,16 @@ router.get("/:id", async (req, res) => {
     } catch (error) {
         // Error general, mínimo pero necesario
         res.status(500).json({ error: "Error al obtener la escultura por ID" });
+    }
+});
+
+router.get("/evento/:eventoId", async (req, res) => {
+    try {
+        // Llamada al controlador para obtener una escultura por ID
+        await obtenerEsculturasPorEvento(req, res);
+    } catch (error) {
+        // Error general, mínimo pero necesario
+        res.status(500).json({ error: "Error al obtener la escultura por evento" });
     }
 });
 
