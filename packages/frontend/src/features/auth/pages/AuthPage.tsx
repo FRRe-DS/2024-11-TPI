@@ -7,7 +7,6 @@ import 'swiper/css/navigation';
 import { EffectFlip } from 'swiper/modules';
 import Login from "../components/Login";
 import RegisterForm from "../components/RegisterForm";
-import UserRoleIndicator from "../components/UserRoleIndicator.tsx";
 import { useRef } from "react";
 
 export default function LoginPage() {
@@ -20,7 +19,6 @@ export default function LoginPage() {
                     "url('https://www.bienaldelchaco.org/2024/wp-content/uploads/2024/03/Fondo-escultores-invitados.jpg')",
             }}
         >
-            <UserRoleIndicator/>
             <div className="w-full flex justify-center p-7">
                 <Swiper
                     effect={'flip'}

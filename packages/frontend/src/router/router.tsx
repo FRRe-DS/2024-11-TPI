@@ -13,6 +13,7 @@ import LoginPage from "../features/auth/pages/AuthPage.tsx";
 import Ranking from "../features/home/components/ranking/Ranking.tsx";
 import VotingPage from "../features/voting/VotingPage.tsx";
 import EventosDetalles from "../features/home/components/eventos/components/Eventos.detalles.tsx";
+import EsculturasDetalles from "../features/home/components/esculturas/components/EsculturasDetalles.tsx";
 
 // Componente que maneja las rutas de la aplicación
 function AppRouter() {
@@ -45,6 +46,7 @@ function AppRouter() {
                 />
 
                 <Route path="/events/:id" element={<EventosDetalles />} />
+                <Route path="/escultura/:esculturaId" element={<EsculturasDetalles />} />
 
                 {/* VA A USARSE PARA ESCULTORES QR Ruta para el QR de votación de una escultura */}
                 <Route path="/codigo-qr/:esculturaID" element={<VotacionQRCodeWrapper />} />

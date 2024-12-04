@@ -35,7 +35,6 @@ const crearEscultura = async (req, res, next) => {
             userId,
             eventoId,// Asociar la escultura al usuario a través de `userId`
         });
-        console.log(nuevaEscultura);
         res.status(201).json(nuevaEscultura);
     } catch (error) {
         console.error("Error al crear la escultura:", error); // Registrar el error en el servidor
@@ -49,21 +48,31 @@ const obtenerEsculturas = async (req, res) => {
         // Extraer los parámetros de consulta
         const { escultorId } = req.query;  // Obtener tanto escultorId como eventoId
         const where = {}; // Definir el filtro para la consulta
-
         // Si se recibe el escultorId, agregarlo al filtro
         if (escultorId) {
             where['userId'] = escultorId;  // Filtrar por userId
         }
 
-        // Verificar el objeto `where` antes de hacer la consulta
-        console.log('Filtro:', where);
-
         // Obtener las esculturas, filtrando por userId y eventoId si están presentes
         const esculturas = await Escultura.findAll({
             where, // Aplicamos el filtro
             include: [
-                { model: Escultor, as: "escultor", attributes: ["userId"] },  // Información de Escultor
-                { model: Evento, as: "evento", attributes: ["id"] }  // Información de Evento
+                {
+                    model: Escultor,
+                    as: "escultor",
+                    include: [
+                        {
+                            model: User,
+                            as: "usuario",  // Asegúrate de usar el alias correcto
+                            attributes: ["id", "nombre"],  // Selecciona los campos del Usuario
+                        }
+                    ]
+                },
+                {
+                    model: Evento,
+                    as: "evento",
+                    attributes: ["id", "nombre", "tematica"],
+                },
             ],
         });
 
@@ -71,9 +80,6 @@ const obtenerEsculturas = async (req, res) => {
         if (esculturas.length === 0) {
             return res.status(404).json({ message: "No se encontraron esculturas con los parámetros dados" });
         }
-
-        // Verificar las esculturas obtenidas en la consola (opcional)
-        console.log('Esculturas encontradas:', esculturas);
 
         // Responder con las esculturas encontradas
         res.status(200).json({ esculturas });
@@ -119,7 +125,6 @@ const obtenerEsculturaPorId = async (req, res) => {
 
         // Si no se encuentra la escultura, devolver un error
         if (!escultura) {
-            console.log('no la encuentra')
             return res.status(404).json({ message: "Escultura no encontrada" });
         }
 
@@ -127,7 +132,6 @@ const obtenerEsculturaPorId = async (req, res) => {
         res.status(200).json({ escultura });
     } catch (error) {
         // En caso de error, enviar mensaje genérico
-        console.log(error)
         res.status(500).json({ message: "Error interno del servidor" });
     }
 };
@@ -171,7 +175,6 @@ const obtenerEsculturasPorEvento = async (req, res) => {
         res.status(200).json({ esculturas });
     } catch (error) {
         // En caso de error, enviar mensaje genérico
-        console.log(error);
         res.status(500).json({ message: "Error interno del servidor" });
     }
 };

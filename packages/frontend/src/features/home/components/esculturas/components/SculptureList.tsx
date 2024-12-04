@@ -16,7 +16,6 @@ const SculptureList: React.FC<SculptureListProps> = ({ eventoId }) => {
                 setLoading(true);
                 console.log(eventoId)
                 const data = eventoId ? await getEsculturasByEvent(eventoId) : await getEsculturas();
-                console.log(data)
                 setEsculturas(data.esculturas);
             } catch (error) {
                 console.error('Error al obtener las esculturas:', error);
@@ -27,6 +26,10 @@ const SculptureList: React.FC<SculptureListProps> = ({ eventoId }) => {
 
         fetchEsculturas();
     }, [eventoId]);
+    const handleClick = (id: string) => {
+        // Redirige a la página de detalles de la escultura usando window.location.href
+        window.location.href = `/escultura/${id}`;
+    };
 
     if (loading) {
         return <p className="text-center text-gray-500">Cargando esculturas...</p>;
@@ -36,12 +39,12 @@ const SculptureList: React.FC<SculptureListProps> = ({ eventoId }) => {
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 p-4">
             {esculturas && esculturas.length > 0 ? (
                 esculturas.map((escultura: any) => (
-                    <div key={escultura.id} className="bg-white shadow-lg rounded-lg p-4 flex flex-col items-center">
+                    <div key={escultura.id} className="bg-white shadow-lg rounded-lg p-4 flex flex-col items-center" onClick={() => handleClick(escultura.id)}>
                         <SculptureCard
                             nombre={escultura.nombre}
                             descripcion={escultura.descripcion}
                             fechaCreacion={escultura.fechaCreacion}
-                            escultor={escultura.escultor.usuario.nombre}
+                            escultor={escultura.escultor.usuario?.nombre}
                             imagenFinal={escultura.imagenFinal} // Agregado para mostrar la imagen
                         />
                     </div>

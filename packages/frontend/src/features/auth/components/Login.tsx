@@ -15,7 +15,6 @@ const Login: React.FC<LoginProps> = ({ onSwitchToRegister }) => {
     const handleLogin = async (username: string, password: string) => {
         setLoading(true);
         setError(null);
-        console.log('Intentando iniciar sesión con:', { username, password });
 
         try {
             const user = await login(username, password);
