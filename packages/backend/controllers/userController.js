@@ -1,17 +1,21 @@
 const { User } = require("../models");
 const { processUserData } = require("../middlewares/userMiddleware");
 
+
+
 // Obtener todos los usuarios
 const getUsers = async (req, res) => {
     const limit = parseInt(req.query.limit) || 10; // Número de usuarios por página
     const offset = parseInt(req.query.offset) || 0; // Página actual
     try {
+        // Buscar todos los usuarios con los atributos necesarios
         const users = await User.findAll({
             attributes: ["id", "username", "email", "role", "isActive", "expiryDate"],
         });
+        // Responder con los usuarios obtenidos
         res.status(200).json({ users });
     } catch (error) {
-        console.error("Error al obtener usuarios:", error);
+        // Manejo de errores con mensaje genérico para evitar filtración de detalles
         res.status(500).json({ error: "Error interno del servidor" });
     }
 };
@@ -33,18 +37,19 @@ const createUser = async (req, res) => {
             email,
             password,
             role: role || "user", // Valor predeterminado
-            isActive: isActive !== undefined ? isActive : true,
+            isActive: isActive !== undefined ? isActive : true, // Valor predeterminado
         });
 
-        // Procesar datos del usuario (encriptar contraseña, etc.)
+        // Procesar los datos del usuario (ej. encriptar la contraseña)
         await processUserData(user);
 
         // Guardar el usuario en la base de datos
         user = await user.save();
 
+        // Responder con el mensaje de éxito y el usuario creado
         res.status(201).json({ message: "Usuario creado con éxito", user });
     } catch (error) {
-        console.error("Error al crear usuario:", error);
+        // Manejo de errores con mensaje genérico
         res.status(500).json({ message: "Error al crear el usuario" });
     }
 };
@@ -54,17 +59,20 @@ const getUserById = async (req, res) => {
     try {
         const { id } = req.params;
 
+        // Buscar un usuario por su ID
         const user = await User.findByPk(id, {
             attributes: ["id", "username", "email", "role", "isActive", "expiryDate"],
         });
 
+        // Si no se encuentra el usuario, devolver error 404
         if (!user) {
             return res.status(404).json({ message: "Usuario no encontrado" });
         }
 
+        // Responder con el usuario encontrado
         res.status(200).json({ user });
     } catch (error) {
-        console.error("Error al obtener usuario:", error);
+        // Manejo de errores con mensaje genérico
         res.status(500).json({ error: "Error interno del servidor" });
     }
 };
@@ -75,19 +83,22 @@ const updateUser = async (req, res) => {
         const { id } = req.params;
         const { role, isActive, password } = req.body;
 
+        // Buscar el usuario por su ID
         const user = await User.findByPk(id);
         if (!user) {
             return res.status(404).json({ message: "Usuario no encontrado" });
         }
 
+        // Actualizar los campos si se proporcionan
         if (role) user.role = role;
         if (isActive !== undefined) user.isActive = isActive;
         if (password) user.password = password;
 
+        // Guardar los cambios en el usuario
         await user.save();
         res.status(200).json({ message: "Usuario actualizado correctamente", user });
     } catch (error) {
-        console.error("Error al actualizar usuario:", error);
+        // Manejo de errores con mensaje genérico
         res.status(500).json({ error: "Error interno del servidor" });
     }
 };
@@ -97,15 +108,17 @@ const deleteUser = async (req, res) => {
     try {
         const { id } = req.params;
 
+        // Buscar el usuario por su ID
         const user = await User.findByPk(id);
         if (!user) {
             return res.status(404).json({ message: "Usuario no encontrado" });
         }
 
+        // Eliminar el usuario
         await user.destroy();
         res.status(200).json({ message: "Usuario eliminado exitosamente" });
     } catch (error) {
-        console.error("Error al eliminar usuario:", error);
+        // Manejo de errores con mensaje genérico
         res.status(500).json({ message: "Error interno del servidor" });
     }
 };

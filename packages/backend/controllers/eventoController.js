@@ -3,25 +3,28 @@ const { Evento, Escultura } = require("../models");
 // Crear un evento
 const crearEvento = async (req, res) => {
     try {
-        const { nombre, tematica, descripcion, fechaInc, fechaFin, imagen} = req.body;
+        // Desestructurar los datos del cuerpo de la solicitud
+        const { nombre, tematica, descripcion, fechaInc, fechaFin, imagen } = req.body;
 
         // Validar que los campos obligatorios estén presentes
-        if (!nombre || !tematica ) {
-            return res.status(400).json({ message: 'Faltan campos requeridos: nombre, tematica, o lugar' });
+        if (!nombre || !tematica) {
+            return res.status(400).json({ message: 'Faltan campos requeridos: nombre, tematica' });
         }
 
+        // Crear un nuevo evento con los datos proporcionados
         const evento = await Evento.create({
             nombre,
             tematica,
-            descripcion: descripcion || null,
-            fechaInc: fechaInc || null,
-            fechaFin: fechaFin || null,
-            imagen: imagen || null,
+            descripcion: descripcion || null,  // Si no se proporciona, se asigna null
+            fechaInc: fechaInc || null,        // Si no se proporciona, se asigna null
+            fechaFin: fechaFin || null,        // Si no se proporciona, se asigna null
+            imagen: imagen || null,            // Si no se proporciona, se asigna null
         });
 
+        // Enviar respuesta exitosa con el evento creado
         res.status(201).json({ message: "Evento creado exitosamente", evento });
     } catch (error) {
-        console.error("Error al crear evento:", error);
+        // Capturar cualquier error y devolver una respuesta con el mensaje adecuado
         res.status(500).json({ message: "Error interno del servidor", error: error.message });
     }
 };
@@ -29,18 +32,21 @@ const crearEvento = async (req, res) => {
 // Obtener todos los eventos
 const obtenerEventos = async (req, res) => {
     try {
+        // Obtener todos los eventos, incluyendo las esculturas asociadas
         const eventos = await Evento.findAll({
             include: [
                 {
                     model: Escultura,
-                    as: "esculturas",
-                    attributes: ["id", "nombre"],
+                    as: "esculturas",  // Nombre del alias de la relación
+                    attributes: ["id", "nombre"],  // Incluir solo el ID y nombre de las esculturas
                 },
             ],
         });
+
+        // Enviar los eventos obtenidos en la respuesta
         res.status(200).json({ eventos });
     } catch (error) {
-        console.error("Error al obtener eventos:", error);
+        // Capturar cualquier error y devolver una respuesta con el mensaje adecuado
         res.status(500).json({ message: "Error interno del servidor" });
     }
 };
@@ -48,25 +54,28 @@ const obtenerEventos = async (req, res) => {
 // Obtener un evento por ID
 const obtenerEventoPorId = async (req, res) => {
     try {
-        const { id } = req.params;
+        const { id } = req.params;  // Obtener el ID del evento desde los parámetros de la URL
 
+        // Buscar el evento por ID, incluyendo las esculturas asociadas
         const evento = await Evento.findByPk(id, {
             include: [
                 {
                     model: Escultura,
-                    as: "esculturas",
-                    attributes: ["id", "nombre", "descripcion"],
+                    as: "esculturas",  // Nombre del alias de la relación
+                    attributes: ["id", "nombre", "descripcion"],  // Incluir más detalles de las esculturas
                 },
             ],
         });
 
+        // Verificar si el evento fue encontrado
         if (!evento) {
             return res.status(404).json({ message: "Evento no encontrado" });
         }
 
+        // Enviar el evento encontrado en la respuesta
         res.status(200).json({ evento });
     } catch (error) {
-        console.error("Error al obtener evento:", error);
+        // Capturar cualquier error y devolver una respuesta con el mensaje adecuado
         res.status(500).json({ message: "Error interno del servidor" });
     }
 };
@@ -74,32 +83,31 @@ const obtenerEventoPorId = async (req, res) => {
 // Actualizar un evento
 const actualizarEvento = async (req, res) => {
     try {
-        const { id } = req.params;
-        const { nombre, tematica, descripcion, fechaInc, fechaFin, imagen } = req.body; // Ahora recibimos las fechas también
+        const { id } = req.params;  // Obtener el ID del evento desde los parámetros de la URL
+        const { nombre, tematica, descripcion, fechaInc, fechaFin, imagen } = req.body;  // Obtener los datos del cuerpo de la solicitud
 
-        // Buscamos el evento por su ID
+        // Buscar el evento por ID
         const evento = await Evento.findByPk(id);
 
-        // Si el evento no existe, respondemos con un error
+        // Verificar si el evento existe
         if (!evento) {
             return res.status(404).json({ message: "Evento no encontrado" });
         }
 
-        // Actualizamos el evento con los nuevos datos
+        // Actualizar el evento con los nuevos datos proporcionados
         await evento.update({
             nombre,
             tematica,
             descripcion,
-            fechaInc, // Se actualiza la fecha de inicio
-            fechaFin, // Se actualiza la fecha de fin
-            imagen
+            fechaInc, // Actualizar la fecha de inicio
+            fechaFin, // Actualizar la fecha de fin
+            imagen,
         });
 
-        // Respondemos con el mensaje de éxito y los datos del evento actualizado
+        // Enviar respuesta exitosa con el evento actualizado
         res.status(200).json({ message: "Evento actualizado exitosamente", evento });
     } catch (error) {
-        // Si ocurre un error, lo registramos y respondemos con un error interno del servidor
-        console.error("Error al actualizar evento:", error);
+        // Capturar cualquier error y devolver una respuesta con el mensaje adecuado
         res.status(500).json({ message: "Error interno del servidor" });
     }
 };
@@ -107,17 +115,23 @@ const actualizarEvento = async (req, res) => {
 // Eliminar un evento
 const eliminarEvento = async (req, res) => {
     try {
-        const { id } = req.params;
+        const { id } = req.params;  // Obtener el ID del evento desde los parámetros de la URL
 
+        // Buscar el evento por ID
         const evento = await Evento.findByPk(id);
+
+        // Verificar si el evento existe
         if (!evento) {
             return res.status(404).json({ message: "Evento no encontrado" });
         }
 
+        // Eliminar el evento
         await evento.destroy();
+
+        // Enviar respuesta exitosa
         res.status(200).json({ message: "Evento eliminado exitosamente" });
     } catch (error) {
-        console.error("Error al eliminar evento:", error);
+        // Capturar cualquier error y devolver una respuesta con el mensaje adecuado
         res.status(500).json({ message: "Error interno del servidor" });
     }
 };

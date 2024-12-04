@@ -16,4 +16,4 @@ const VoteButton: React.FC<VoteButtonProps> = ({ onVote }) => {
     );
 };
 
-export default VoteButton; // Exporta el componente para su uso en otros components
+export default VoteButton; // Exporta el componente para su uso en otros pages

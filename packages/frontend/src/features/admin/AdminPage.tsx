@@ -12,9 +12,9 @@ import SculptureManagement from "./components/sculpture/SculptureManagement";
 import SculptorManagement from "./components/sculptor/SculptorManagement";
 import UserManagement from "./components/user/UserManagement";
 import Home from "../home/Home.tsx";
-import Events from "../events/Events.tsx";
-import Sculptures from "../sculptures/Sculptures.tsx";
-import Sculptors from "../sculptors/Sculptors.tsx";
+import Events from "../home/components/eventos/pages/Events.tsx";
+import Sculptures from "../home/components/esculturas/pages/Sculptures.tsx";
+import Sculptors from "../home/components/escultores/pages/Sculptors.tsx";
 import LoginPage from "../auth/pages/AuthPage.tsx";
 
 const AdminPage: React.FC = () => {
@@ -56,7 +56,7 @@ const AdminPage: React.FC = () => {
     };
 
     return (
-        <div className="w-full h-screen flex">
+        <div className="w-full h-screen flex bg-gray-100">
             {/* Menú lateral */}
             <div className="w-1/4 bg-gradient-to-r from-blue-100 via-indigo-100 to-purple-100 rounded-lg p-4 text-gray-900 flex flex-col justify-between shadow-lg">
                 <div>
@@ -138,7 +138,7 @@ const AdminPage: React.FC = () => {
             </div>
 
             {/* Databoard con efecto Swiper */}
-            <div className="w-3/4 bg-gray-100 p-6 flex flex-col">
+            <div className="w-3/4  bg-gray-100 p-6 flex flex-col">
                 <Swiper
                     grabCursor={true}
                     effect="creative"
@@ -160,7 +160,7 @@ const AdminPage: React.FC = () => {
                     </SwiperSlide>
 
                     {/* Contenido de los módulos de gestión */}
-                    <SwiperSlide className="flex items-center justify-center bg-gradient-to-r from-blue-100  to-purple-100 via-red-100 rounded-lg shadow-2xl">
+                    <SwiperSlide className="flex items-center justify-center bg-gradient-to-r from-blue-100  to-purple-100 via-red-100 rounded-lg shadow-2xl overflow-y-scroll">
                         {renderDataboardContent()}
                     </SwiperSlide>
                 </Swiper>

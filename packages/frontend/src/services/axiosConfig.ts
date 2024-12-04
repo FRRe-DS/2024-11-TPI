@@ -2,61 +2,37 @@ import axios from 'axios';
 
 // Crear una instancia de Axios con baseURL configurada
 const api = axios.create({
-    baseURL: import.meta.env.VITE_API_URL || 'http://localhost:3000/api',
+    baseURL: import.meta.env.VITE_API_URL || 'http://localhost:3000/api', // Usamos la URL base del entorno, si no está, usamos localhost
 });
-
-// Confirmar que la baseURL está configurada correctamente
-console.log('Base URL configurada:', api.defaults.baseURL);
 
 // Interceptor para agregar el token a las solicitudes
 api.interceptors.request.use(
     (config) => {
-        const token = localStorage.getItem("token");
-
-        // Verificar si el token está en localStorage
-        console.log('Token en localStorage:', token);
-
+        const token = localStorage.getItem("token"); // Recuperamos el token del almacenamiento local
+        // Si el token existe, se agrega al encabezado de autorización
         if (token) {
-            // Si el token está presente, configurarlo en los encabezados
-            config.headers.Authorization = `Bearer ${token}`;
-            console.log('Encabezado Authorization configurado:', config.headers.Authorization);
-        } else {
-            console.log('No se encontró token en localStorage');
+            config.headers.Authorization = `Bearer ${token}`; // Configuramos el encabezado de autorización con el token
         }
-
-        // Verificar los detalles completos de la solicitud antes de enviarla
-        console.log('Configuración de solicitud antes de enviarla:', config);
+        // Devolvemos la configuración de la solicitud para que continúe con el flujo normal
         return config;
     },
     (error) => {
-        console.error('Error en interceptor de solicitud:', error);
-        return Promise.reject(error);
+        // En caso de error en la solicitud, lo manejamos aquí
+        // Se captura cualquier error en el interceptor de la solicitud
+        return Promise.reject(error); // Devolvemos el error para que pueda ser manejado posteriormente
     }
 );
 
 // Interceptor para manejar la respuesta
 api.interceptors.response.use(
     (response) => {
-        // Verificar la respuesta del servidor
-        console.log('Respuesta de la API:', response);
-        return response;
+        // Si la respuesta es exitosa, simplemente la devolvemos
+        return response; // Aquí podemos procesar la respuesta si es necesario
     },
     (error) => {
-        // Capturar cualquier error en la respuesta
-        console.error('Error en la respuesta de la API:', error.response ? error.response : error);
-        return Promise.reject(error);
-    }
-);
-
-// Interceptor para manejar errores generales de la API
-api.interceptors.response.use(
-    (response) => {
-        console.log('Respuesta exitosa recibida:', response);
-        return response;
-    },
-    (error) => {
-        console.error('Error al recibir la respuesta:', error);
-        return Promise.reject(error);
+        // Capturamos cualquier error en la respuesta de la API
+        // Manejamos el error de la respuesta sin mostrar el mensaje completo para evitar exponer detalles
+        return Promise.reject(error); // Devolvemos el error para que pueda ser manejado en el lugar adecuado
     }
 );
 

@@ -1,66 +1,71 @@
 const { Escultor, User } = require("../models");
 
-// Crear un escultor
+// Función para crear un escultor
 const crearEscultor = async (req, res) => {
     try {
+        // Desestructurar los datos de la solicitud
         const { userId, biografia, imagen, instagram, facebook, youtube, linkedin } = req.body;
 
-        // Verifica si el usuario existe
+        // Verificar si el usuario existe en la base de datos
         const user = await User.findByPk(userId);
         if (!user) {
             return res.status(404).json({ message: "Usuario no encontrado" });
         }
 
-        // Crea el escultor asociado al usuario
+        // Crear un escultor asociado al usuario
         const escultor = await Escultor.create({
-            userId: user.id, // Asociamos el `userId` al escultor
+            userId: user.id, // Asociamos el userId al escultor
             biografia,
-            imagen: imagen || "https://example.com/imagen-defecto.png", // Imagen por defecto si no se envía
-            puntuacionTotal: 0,
+            imagen: imagen || "https://example.com/imagen-defecto.png", // Imagen por defecto si no se proporciona
+            puntuacionTotal: 0, // Puntuación inicial
             instagram,
             facebook,
             youtube,
             linkedin,
         });
 
+        // Responder con éxito
         res.status(201).json({ message: "Escultor creado exitosamente", escultor });
     } catch (error) {
-        console.error("Error al crear escultor:", error);
+        // Manejo de errores mínimo
         res.status(500).json({ message: "Error interno del servidor" });
     }
 };
 
-// Obtener todos los escultores
-async function obtenerEscultores(req, res) {
+// Función para obtener todos los escultores
+const obtenerEscultores = async (req, res) => {
     try {
+        // Obtener todos los escultores con los detalles del usuario relacionado
         const escultores = await Escultor.findAll({
             include: [{
                 model: User,
                 as: 'usuario',
                 attributes: ['id', 'nombre', 'username', 'email', 'role'],
             }],
-            raw: true,
+            raw: true, // Evitar que Sequelize transforme la respuesta a objetos anidados
         });
 
-        return res.json(escultores);
+        // Devolver la lista de escultores
+        res.json(escultores);
     } catch (error) {
-        console.error('Error al obtener escultores:', error);
-        return res.status(500).json({ message: 'Error al obtener escultores', error: error.message });
+        // Manejo de errores mínimo
+        res.status(500).json({ message: 'Error al obtener escultores' });
     }
-}
+};
 
-// Obtener un escultor por ID
+// Función para obtener un escultor por su ID
 const obtenerEscultorPorId = async (req, res) => {
     try {
-        const { id } = req.params; // Aquí `id` se debe cambiar a `userId`
+        // Obtener el ID del parámetro de la solicitud
+        const { id } = req.params;
 
-        // Encontrar el escultor por el userId
+        // Buscar el escultor por userId
         const escultor = await Escultor.findOne({
-            where: { userId: id },  // Cambiar de `id` a `userId`
+            where: { userId: id },
             include: [{
                 model: User,
                 as: 'usuario',
-                attributes: ['nombre', 'username', 'email', 'role'],  // Ajusta los atributos según sea necesario
+                attributes: ['nombre', 'username', 'email', 'role'],
             }],
         });
 
@@ -68,26 +73,28 @@ const obtenerEscultorPorId = async (req, res) => {
             return res.status(404).json({ message: 'Escultor no encontrado' });
         }
 
-        return res.json(escultor);  // Devolver el escultor encontrado
+        // Devolver el escultor encontrado
+        res.json(escultor);
     } catch (error) {
-        console.error('Error al obtener escultor:', error);
-        return res.status(500).json({ message: 'Error interno del servidor', error: error.message });
+        // Manejo de errores mínimo
+        res.status(500).json({ message: 'Error interno del servidor' });
     }
 };
 
-
-
-// Actualizar un escultor por id
+// Función para actualizar un escultor por su ID
 const actualizarEscultor = async (req, res) => {
     try {
+        // Obtener el ID del parámetro y los datos de la solicitud
         const { id } = req.params;
         const { biografia, imagen, puntuacionTotal, instagram, facebook, youtube, linkedin } = req.body;
 
+        // Buscar el escultor por userId
         const escultor = await Escultor.findOne({ where: { userId: id } });
         if (!escultor) {
             return res.status(404).json({ message: "Escultor no encontrado" });
         }
 
+        // Actualizar los datos del escultor
         await escultor.update({
             biografia,
             imagen,
@@ -98,27 +105,31 @@ const actualizarEscultor = async (req, res) => {
             linkedin,
         });
 
+        // Responder con éxito
         res.status(200).json({ message: "Escultor actualizado exitosamente", escultor });
     } catch (error) {
-        console.error("Error al actualizar escultor:", error);
+        // Manejo de errores mínimo
         res.status(500).json({ message: "Error interno del servidor" });
     }
 };
 
-// Eliminar un escultor por id
+// Función para eliminar un escultor por su ID
 const eliminarEscultor = async (req, res) => {
     try {
+        // Obtener el ID del parámetro de la solicitud
         const { id } = req.params;
 
+        // Buscar el escultor por userId
         const escultor = await Escultor.findOne({ where: { userId: id } });
         if (!escultor) {
             return res.status(404).json({ message: "Escultor no encontrado" });
         }
 
+        // Eliminar el escultor de la base de datos
         await escultor.destroy();
         res.status(200).json({ message: "Escultor eliminado exitosamente" });
     } catch (error) {
-        console.error("Error al eliminar escultor:", error);
+        // Manejo de errores mínimo
         res.status(500).json({ message: "Error interno del servidor" });
     }
 };

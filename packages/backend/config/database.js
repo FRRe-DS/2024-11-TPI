@@ -7,28 +7,36 @@ const sequelize = new Sequelize(
     process.env.POSTGRES_USER, // Usuario de la base de datos
     process.env.POSTGRES_PASSWORD, // Contraseña del usuario
     {
-        host: process.env.DB_HOST, // Host (solo el hostname)
-        port: process.env.DB_PORT, // Puerto (5432 por defecto)
-        dialect: 'postgres', // Dialecto de base de datos
+        host: process.env.DB_HOST, // Host de la base de datos
+        port: process.env.DB_PORT, // Puerto de la base de datos
+        dialect: 'postgres', // Dialecto de la base de datos
         dialectOptions: {
             ssl: {
-                require: true, // SSL obligatorio para Render
-                rejectUnauthorized: false, // Evita errores con certificados autofirmados
+                require: true, // SSL obligatorio para conexiones seguras
+                rejectUnauthorized: false, // Evitar errores con certificados autofirmados
             },
         },
         logging: false, // Desactivar logs de Sequelize
         pool: {
             max: 5, // Máximo de conexiones
             min: 0, // Mínimo de conexiones
-            acquire: 30000, // Tiempo máximo de conexión
-            idle: 10000, // Tiempo máximo de inactividad
+            acquire: 30000, // Tiempo máximo para adquirir una conexión
+            idle: 10000, // Tiempo máximo de inactividad antes de liberar la conexión
         },
     }
 );
 
 // Probar conexión a la base de datos
-sequelize.authenticate()
-    .then(() => console.log('Conexión a la base de datos establecida con éxito.'))
-    .catch((error) => console.error('Error en la conexión a la base de datos:', error));
+const testConnection = async () => {
+    try {
+        await sequelize.authenticate(); // Intentar conectar a la base de datos
+        console.log('Conexión a la base de datos establecida con éxito.');
+    } catch (error) {
+        // Manejo básico de errores
+        console.error('Error en la conexión a la base de datos:', error.message);
+    }
+};
+
+testConnection(); // Llamar a la función para probar la conexión
 
 module.exports = sequelize;

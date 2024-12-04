@@ -1,5 +1,5 @@
 {
-  "name": "Bienal",
+  "name": "bienal-del-chaco",
   "version": "1.0.0",
   "private": true,
   "workspaces": [
@@ -15,6 +15,7 @@
     "dev": "concurrently \"yarn dev:frontend\" \"yarn dev:backend\""
   },
   "dependencies": {
-    "concurrently": "^9.1.0"
+    "concurrently": "^9.1.0",
+    "yarn": "^1.22.22"
   }
 }

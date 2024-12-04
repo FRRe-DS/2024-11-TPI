@@ -1,6 +1,8 @@
+// Importamos el framework Express y creamos un router
 const express = require('express');
 const router = express.Router();
 
+// Importamos las funciones del controlador de escultores
 const {
     crearEscultor,
     obtenerEscultores,
@@ -8,22 +10,33 @@ const {
     actualizarEscultor,
     eliminarEscultor,
 } = require("../controllers/escultorController");
+
+// Importamos los middleware para autenticación y autorización
 const authenticateToken = require("../middlewares/authMiddleware");
 const roleMiddleware = require("../middlewares/roleMiddleware");
 
-// Crear un escultor (solo accesible para admin)
+// Ruta para crear un escultor. Solo accesible para usuarios con rol 'admin'
+// El middleware 'authenticateToken' verifica si el usuario está autenticado.
+// El middleware 'roleMiddleware' asegura que solo los administradores puedan crear escultores.
 router.post("/", authenticateToken, roleMiddleware("admin"), crearEscultor);
 
-// Obtener todos los escultores
-router.get("/", authenticateToken, obtenerEscultores);
+// Ruta para obtener todos los escultores. Solo accesible para usuarios autenticados.
+// El middleware 'authenticateToken' verifica si el usuario está autenticado.
+router.get("/", obtenerEscultores);
 
-// Obtener un escultor por id
+// Ruta para obtener un escultor por su ID. Solo accesible para usuarios autenticados.
+// El middleware 'authenticateToken' verifica si el usuario está autenticado.
 router.get("/:id", authenticateToken, obtenerEscultorPorId);
 
-// Actualizar un escultor (por id) - Solo admins
+// Ruta para actualizar un escultor por su ID. Solo accesible para usuarios con rol 'admin'.
+// El middleware 'authenticateToken' verifica si el usuario está autenticado.
+// El middleware 'roleMiddleware' asegura que solo los administradores puedan actualizar escultores.
 router.put("/:id", authenticateToken, roleMiddleware("admin"), actualizarEscultor);
 
-// Eliminar un escultor (por id) - Solo admins
+// Ruta para eliminar un escultor por su ID. Solo accesible para usuarios con rol 'admin'.
+// El middleware 'authenticateToken' verifica si el usuario está autenticado.
+// El middleware 'roleMiddleware' asegura que solo los administradores puedan eliminar escultores.
 router.delete("/:id", authenticateToken, roleMiddleware("admin"), eliminarEscultor);
 
+// Exportamos el router para que pueda ser utilizado en otras partes de la aplicación.
 module.exports = router;

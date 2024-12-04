@@ -15,7 +15,7 @@ export default defineConfig({
         },
         proxy: {
             '/api': {
-                target: 'http://localhost:3000', // Backend URL para desarrollo
+                target: 'https://two024-11-tpi.onrender.com', // Backend URL para desarrollo
                 changeOrigin: true,
                 rewrite: (path) => path.replace(/^\/api/, ''), // Opcional
             },
