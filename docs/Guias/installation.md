@@ -18,11 +18,10 @@ Para más detalles, consulta [Pre Condiciones](Guias/precondicion.md).
 
 ## Instalación de Dependencias
 
-1. **Instalar Yarn y Lerna:**
+1. **Instalar Yarn
 
     ```bash
     npm install -g yarn
-    npm install -g lerna
     ```
 
 2. **Navegar al Directorio del Frontend:**
@@ -40,8 +39,6 @@ Para más detalles, consulta [Pre Condiciones](Guias/precondicion.md).
    yarn add axios
 
     ```
-   
-
 
 4. **Instalar Tailwind CSS y Herramientas Relacionadas:**
 
