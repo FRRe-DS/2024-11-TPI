@@ -1,6 +1,6 @@
 // Importa el componente de rutas y el proveedor del contexto de eventos
 import AppRouter from './router/router.tsx';
-import { EventProvider } from './features/events/context/EventContext';
+import { EventProvider } from './features/home/components/eventos/context/EventContext';
 
 // Componente principal de la aplicación
 function App() {

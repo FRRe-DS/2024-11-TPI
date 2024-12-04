@@ -25,7 +25,7 @@ export const getEventoById = async (id: string): Promise<any> => {
     try {
         // Realiza la solicitud GET para obtener un evento por ID.
         const response = await api.get(`/eventos/${id}`);
-        return response.data.eventos; // Devuelve el evento del cuerpo de la respuesta.
+        return response.data; // Devuelve el evento del cuerpo de la respuesta.
     } catch (error) {
         throw new Error(`Error al obtener el evento con ID: ${id}`);
     }

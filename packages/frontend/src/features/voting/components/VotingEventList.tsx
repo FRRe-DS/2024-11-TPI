@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import EventCard from '../../events/components/ui/EventCard.tsx';
+import EventCard from '../../home/components/eventos/ui/EventCard.tsx';
 import { getEventos } from '../../../services/EventService.ts';
 
 const VotingEventList: React.FC = () => {

@@ -3,15 +3,15 @@ import { Swiper, SwiperSlide } from "swiper/react";
 import "swiper/css";
 import "swiper/css/pagination";
 
-import Hero from "./components/Hero.tsx";
-import EventListHome from "./components/EventListHome";
-import SculptureListHome from "./components/SculptureListHome";
-import Maps from "./components/Maps";
+import Hero from "./components/Hero/Hero.tsx";
+import EventosHome from "./components/eventos/pages/eventos.home.tsx";
+import SculptureListHome from "./components/esculturas/pages/SculptureListHome.tsx";
+import Maps from "./components/Maps/pages/Maps.tsx";
 import { Pagination } from "swiper/modules";
 import Navigation from "../../layout/Navbar/Navigation.tsx";
 import { INavbarLink } from "../../layout/Navbar/components/interfaces/INavigationLink.ts";
-import SculptorListHome from "./components/SculptorListHome.tsx";
-import Ranking from "../ranking/Ranking.tsx";
+import SculptorListHome from "./components/escultores/pages/SculptorListHome.tsx";
+import Ranking from "./components/ranking/Ranking.tsx";
 
 // Definimos los enlaces de la barra de navegación
 const navbarLinks: INavbarLink[] = [
@@ -81,7 +81,7 @@ const Home: React.FC = () => {
 
                 {/* Event List Slide */}
                 <SwiperSlide className="w-full h-full bg-gradient-to-b from-blue-400 to-blue-600 flex items-center justify-center">
-                    <EventListHome />
+                    <EventosHome />
                 </SwiperSlide>
 
                 {/* Sculpture List Slide */}
