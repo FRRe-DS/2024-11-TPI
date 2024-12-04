@@ -10,7 +10,6 @@ interface SculptureCardProps {
 
 const SculptureCard: React.FC<SculptureCardProps> = ({ nombre, descripcion, fechaCreacion, imagenFinal, escultor }) => {
     const [showFullDescription, setShowFullDescription] = useState(false);
-    console.log(descripcion)
     return (
         <div className="shadow-lg bg-white rounded-lg border border-gray-200 overflow-hidden hover:shadow-xl transition-shadow duration-300">
             {/* Imagen Final */}
