@@ -1,4 +1,4 @@
-// src/features/user/components/UserLoggedInMenu.tsx
+// src/features/user/pages/UserLoggedInMenu.tsx
 
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';

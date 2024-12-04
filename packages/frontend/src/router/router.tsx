@@ -1,24 +1,23 @@
-// Importaciones necesarias de React y React Router
+// Objetivo: Define las rutas de la aplicación para que los usuarios puedan navegar entre las diferentes páginas.
+// Crea un componente AppRouter que defina las rutas de la aplicación.
+// Debe tener las siguientes rutas:
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
-
-// Importación de las páginas y componentes necesarios para las rutas
 import Home from '../features/home/Home.tsx';
-import Events from '../features/events/Events.tsx';
+import Events from '../features/home/components/eventos/pages/Events.tsx';
 import AdminPage from '../features/admin/AdminPage.tsx';
-import ProtectedRoute from './ProtectedRoute.tsx'; // Componente para protección de rutas
-//import EventDetail from '../features/events/components/EventDetail.tsx';
-//import VotingEventList from '../features/voting/components/VotingEventList.tsx';
+import ProtectedRoute from './ProtectedRoute.tsx';
 import VotacionQRCodeWrapper from '../features/voting/QRCode/VotacionQRCodeWrapper.tsx';
-import Sculptures from "../features/sculptures/Sculptures.tsx";
-import Sculptors from "../features/sculptors/Sculptors.tsx";
+import Sculptures from "../features/home/components/esculturas/pages/Sculptures.tsx";
+import Sculptors from "../features/home/components/escultores/pages/Sculptors.tsx";
 import LoginPage from "../features/auth/pages/AuthPage.tsx";
-import Ranking from "../features/ranking/Ranking.tsx";
+import Ranking from "../features/home/components/ranking/Ranking.tsx";
 import VotingPage from "../features/voting/VotingPage.tsx";
+import EventosDetalles from "../features/home/components/eventos/components/Eventos.detalles.tsx";
 
 // Componente que maneja las rutas de la aplicación
 function AppRouter() {
     return (
-        <Router> {/* Configura el Router para manejar las rutas */}
+        <Router future={{ v7_startTransition: true, v7_relativeSplatPath: true }}>
             <Routes> {/* Define las rutas de la aplicación */}
                 {/* Ruta principal (home) */}
                 <Route path="/" element={<Home />} />
@@ -45,11 +44,7 @@ function AppRouter() {
                     }
                 />
 
-                {/* NO SE USA CREO Ruta para ver los detalles de un evento */}
-                {/*<Route path="/events/:id" element={<EventDetail />} />*/}
-
-                {/* NO SE USA Ruta para la página de votación de un escultor */}
-                {/*<Route path="/votacion/:eventoId" element={<VotingPage />} />*/}
+                <Route path="/events/:id" element={<EventosDetalles />} />
 
                 {/* VA A USARSE PARA ESCULTORES QR Ruta para el QR de votación de una escultura */}
                 <Route path="/codigo-qr/:esculturaID" element={<VotacionQRCodeWrapper />} />
@@ -61,7 +56,7 @@ function AppRouter() {
                 <Route path="/ranking" element={<Ranking />} />
             </Routes>
         </Router>
-    );
+);
 }
 
 export default AppRouter;

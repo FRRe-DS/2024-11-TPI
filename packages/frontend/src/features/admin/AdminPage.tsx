@@ -12,9 +12,9 @@ import SculptureManagement from "./components/sculpture/SculptureManagement";
 import SculptorManagement from "./components/sculptor/SculptorManagement";
 import UserManagement from "./components/user/UserManagement";
 import Home from "../home/Home.tsx";
-import Events from "../events/Events.tsx";
-import Sculptures from "../sculptures/Sculptures.tsx";
-import Sculptors from "../sculptors/Sculptors.tsx";
+import Events from "../home/components/eventos/pages/Events.tsx";
+import Sculptures from "../home/components/esculturas/pages/Sculptures.tsx";
+import Sculptors from "../home/components/escultores/pages/Sculptors.tsx";
 import LoginPage from "../auth/pages/AuthPage.tsx";
 
 const AdminPage: React.FC = () => {
