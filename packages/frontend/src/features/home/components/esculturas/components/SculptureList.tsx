@@ -36,10 +36,10 @@ const SculptureList: React.FC<SculptureListProps> = ({ eventoId }) => {
     }
 
     return (
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 p-4">
+        <div className="grid sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6 p-4 bg-gradient-to-tr from-blue-600 via-indigo-500 to-violet-500">
             {esculturas && esculturas.length > 0 ? (
                 esculturas.map((escultura: any) => (
-                    <div key={escultura.id} className="bg-white shadow-lg rounded-lg p-4 flex flex-col items-center" onClick={() => handleClick(escultura.id)}>
+                    <div key={escultura.id} className="bg-white shadow-lg rounded-lg p-4 flex flex-col items-center bg-gradient-to-tr from-blue-100 via-indigo-500 to-purple-300" onClick={() => handleClick(escultura.id)}>
                         <SculptureCard
                             nombre={escultura.nombre}
                             descripcion={escultura.descripcion}

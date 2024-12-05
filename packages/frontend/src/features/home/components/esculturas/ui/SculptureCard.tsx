@@ -10,44 +10,47 @@ interface SculptureCardProps {
 
 const SculptureCard: React.FC<SculptureCardProps> = ({ nombre, descripcion, fechaCreacion, imagenFinal, escultor }) => {
     const [showFullDescription, setShowFullDescription] = useState(false);
+
     return (
-        <div className="shadow-lg bg-white rounded-lg border border-gray-200 overflow-hidden hover:shadow-xl transition-shadow duration-300">
+        <div className="max-w-xs w-full bg-white rounded-xl shadow-lg border border-gray-300 overflow-hidden hover:shadow-2xl transform hover:scale-105 transition-transform duration-300">
             {/* Imagen Final */}
             {imagenFinal && (
-                <div className="w-full h-60 overflow-hidden">
+                <div className="w-full h-64 overflow-hidden rounded-t-xl">
                     <img
                         src={imagenFinal}
                         alt={nombre}
-                        className="w-full h-full object-cover hover:scale-105 transition-transform duration-300"
+                        className="w-full h-full object-cover transform hover:scale-110 transition-transform duration-300"
                     />
                 </div>
             )}
 
             {/* Contenido */}
-            <div className="p-4">
+            <div className="p-6 space-y-4">
                 {/* Título */}
-                <h2 className="text-lg font-bold text-gray-800 truncate mb-2">{nombre}</h2>
+                <h2 className="text-xl font-semibold text-gray-800 truncate">{nombre}</h2>
 
                 {/* Información adicional */}
-                {fechaCreacion && (
-                    <p className="text-sm text-gray-600 mb-1">
-                        <span className="font-semibold">Fecha de creación:</span> {new Date(fechaCreacion).toLocaleDateString()}
-                    </p>
-                )}
-                {escultor && (
-                    <p className="text-sm text-gray-600 mb-1">
-                        <span className="font-semibold">Escultor:</span> {escultor}
-                    </p>
-                )}
+                <div className="text-sm text-gray-600 space-y-1">
+                    {fechaCreacion && (
+                        <p>
+                            <span className="font-medium text-gray-800">Fecha de creación:</span> {new Date(fechaCreacion).toLocaleDateString()}
+                        </p>
+                    )}
+                    {escultor && (
+                        <p>
+                            <span className="font-medium text-gray-800">Escultor:</span> {escultor}
+                        </p>
+                    )}
+                </div>
 
                 {/* Descripción */}
                 {descripcion && (
-                    <p className="text-sm text-gray-700 mb-2">
-                        {showFullDescription ? descripcion : `${descripcion.substring(0, 100)}...`}
-                        {descripcion.length > 100 && (
+                    <p className="text-gray-700 ">
+                        {showFullDescription ? descripcion : `${descripcion.substring(0, 150)}...`}
+                        {descripcion.length > 150 && (
                             <button
                                 onClick={() => setShowFullDescription(!showFullDescription)}
-                                className="text-blue-500 text-sm underline ml-1"
+                                className="text-blue-600 hover:text-blue-800 text-sm font-medium ml-1 underline"
                             >
                                 {showFullDescription ? 'Ver menos' : 'Ver más'}
                             </button>
@@ -60,4 +63,3 @@ const SculptureCard: React.FC<SculptureCardProps> = ({ nombre, descripcion, fech
 };
 
 export default SculptureCard;
-

@@ -31,7 +31,7 @@ const Hero: React.FC = () => {
             {/* Content */}
             <div className="absolute flex flex-col items-center justify-center w-full h-full text-center sm:space-y-10">
                 {/* Logo */}
-                <div className="relative m-1 -mt-4 md:m-20 md:-mt-3">
+                <div className="relative sm:m-1 sm:-mt-4 md:m-20 md:-mt-3 lg:m-20 lg:-mt-3">
                     <div className="absolute inset-0 rounded-3xl bg-gradient-to-r from-red-200 via-indigo-100 to-purple-100"></div>
                     <img src={logo2} alt="Gobierno Logo" className="relative" />
                 </div>
