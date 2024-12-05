@@ -4,18 +4,18 @@ Bienvenido al proyecto Bienal del Chaco 2024. Aquí encontrarás toda la informa
 
 ## Contenido
 
-- [Introducción](../docs/Guias/introduction.md)
-- [Pre Condición](../docs/Guias/precondition.md)
-- [Instalación](../docs/Guias/installation.md)
-- [Arquitectura del Proyecto](../docs/arquitectura/arquitectura.md)
-- [Documentación de API](../docs/Guias/doc_api.md)
+- [Introducción](./docs/Guias/introduction.md)
+- [Pre Condición](./docs/Guias/precondition.md)
+- [Instalación](./docs/Guias/installation.md)
+- [Arquitectura del Proyecto](./docs/arquitectura/arquitectura.md)
+- [Documentación de API](./docs/Guias/doc_api.md)
 
 ## Trabajo Práctico
-- [TPI](../docs/Guias/tpi.md)
+- [TPI](./docs/Guias/tpi.md)
 
 ## Guia de Git y Tailwind
-- [Guia de Git](../docs/Guias/github_guide.md)
-- [Guia de Tailwind CSS](../docs/Guias/Tailiwind.md)
+- [Guia de Git](./docs/Guias/github_guide.md)
+- [Guia de Tailwind CSS](./docs/Guias/Tailiwind.md)
 
 ## Licencia
 
