@@ -5,6 +5,8 @@ import { getEsculturaporId } from '../../../../../services/SculptureService.ts';
 
 interface Escultura {
     imagenFinal: any;
+    plano: any;
+    imagenes: Array<any>;
     escultor: any;
     id: string;
     nombre: string;
@@ -21,6 +23,10 @@ const EsculturasDetalles: React.FC = () => {
     const [escultura, setEscultura] = useState<Escultura | null>(null);
     const [loading, setLoading] = useState<boolean>(true);
     const [error, setError] = useState<string>('');
+    const [selectedImage, setSelectedImage] = useState(
+        "https://flowbite.s3.amazonaws.com/docs/gallery/featured/image.jpg"
+    );
+
 
     useEffect(() => {
         // Función para obtener la información de la escultura usando el esculturaId
@@ -67,6 +73,39 @@ const EsculturasDetalles: React.FC = () => {
                     <p className="text-center text-gray-700">
                         <strong>Autor:</strong> {escultura.escultor.usuario.nombre}
                     </p>
+                    <div className="flex justify-center mt-6">
+                        <img
+                            src={escultura.plano}
+                            alt={`Escultura: ${escultura.nombre}`}
+                            className="max-w-full h-auto rounded-lg shadow-lg"
+                        />
+                    </div>
+
+                    <div className="grid gap-4">
+                        {/* Imagen seleccionada arriba */}
+                        <div className="flex justify-center items-center">
+                            <img
+                                className="h-auto max-w-full rounded-lg"
+                                src={selectedImage}
+                                alt="Selected"
+                            />
+                        </div>
+
+                        {/* Lista de imágenes para seleccionar */}
+                        <div className="flex gap-4 overflow-x-scroll">
+                            {escultura.imagenes.map((url, index) => (
+                                <div key={index} className="flex-shrink-0">
+                                    <img
+                                        className="w-50 h-32 object-cover rounded-lg cursor-pointer"
+                                        src={url}
+                                        alt={`Image ${index + 1}`}
+                                        onClick={() => setSelectedImage(url)} // Actualiza la imagen seleccionada
+                                    />
+                                </div>
+                            ))}
+                        </div>
+                    </div>
+
                     <div className="flex justify-center mt-6">
                         <img
                             src={escultura.imagenFinal}
