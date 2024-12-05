@@ -1,7 +1,8 @@
 import React, { useState, useEffect } from 'react';
-import { useParams} from 'react-router-dom';
+import { useParams } from 'react-router-dom';
 import { getEventoById } from '../../../../../services/EventService.ts';
 import EsculturasMovileEventos from "./EsculturasMovileEventos.tsx";
+import SculptureListeventos from "./EsculturasEventos.tsx";
 
 
 interface Evento {
@@ -53,17 +54,13 @@ const EventosDetalles: React.FC = () => {
 
     return (
         // Contenedor principal
-        <div
-            className="relative w-full h-full overflow-hidden bg-gradient-to-r from-blue-100 via-indigo-100 to-purple-100"
-        >
-
+        <div className="relative w-full h-full overflow-hidden bg-gradient-to-r from-blue-100 via-indigo-100 to-purple-100">
             {/* Contenido */}
-            <div className="relative w-full h-full overflow-hidden p-10">
+            <div className="relative w-full h-full overflow-hidden p-14">
 
                 {/* Detalles del evento */}
                 <div
-                    className="max-w-6xl mx-auto place-items-center bg-gradient-to-br from-purple-600 via-indigo-500 to-blue-500 shadow-xl rounded-xl overflow-hidden transform hover:scale-105 transition-transform duration-300 ease-in-out text-white "
-                >
+                    className="max-w-6xl mx-auto place-items-center bg-gradient-to-br from-purple-600 via-indigo-500 to-blue-500 shadow-xl rounded-xl overflow-hidden transform hover:scale-105 transition-transform duration-300 ease-in-out text-white ">
                     {/* Imagen del evento */}
                     <div className="relative">
                         <img
@@ -79,7 +76,7 @@ const EventosDetalles: React.FC = () => {
 
                     {/* Información */}
                     <div className="p-10 flex flex-col place-items-center">
-                        <h1 className=" text-5xl font-extrabold text-white drop-shadow-md text-center">
+                        <h1 className="text-5xl font-extrabold text-white drop-shadow-md text-center">
                             {evento.nombre}
                         </h1>
                         <p className="text-lg mt-6 text-gray-200 leading-relaxed text-center">
@@ -93,27 +90,32 @@ const EventosDetalles: React.FC = () => {
                             <p className="flex items-center">
                                 <span className="font-semibold">📅 Fecha de inicio:</span>{' '}
                                 <span className="ml-2">
-                    {new Date(evento.fechaInc).toLocaleDateString('es-ES')}
-                </span>
+                                    {new Date(evento.fechaInc).toLocaleDateString('es-ES')}
+                                </span>
                             </p>
                             <p className="flex items-center">
                                 <span className="font-semibold">🏁 Fecha de finalización:</span>{' '}
                                 <span className="ml-2">
-                    {new Date(evento.fechaFin).toLocaleDateString('es-ES')}
-                </span>
+                                    {new Date(evento.fechaFin).toLocaleDateString('es-ES')}
+                                </span>
                             </p>
                         </div>
                     </div>
                 </div>
 
-
                 {/* Lista de esculturas relacionadas */}
-                <div className="relative w-full h-full overflow-hidden p-10 rounded-xl place-items-center">
-                    <EsculturasMovileEventos eventoId={evento.id}/>
+                <div className="relative w-full h-full overflow-hidden p-0 rounded-xl place-items-center block md:hidden p-4">
+                    {/* Mostrar EsculturasMovileEventos solo en pantallas pequeñas */}
+                    <EsculturasMovileEventos eventoId={evento.id} />
+                </div>
+                <div className="relative w-full h-full overflow-hidden p-0 rounded-xl place-items-center hidden md:block p-4">
+                    {/* Mostrar EsculturasMovileEventos solo en pantallas grndes */}
+                    <SculptureListeventos eventoId={evento.id}/>
                 </div>
 
-            </div>
 
+
+            </div>
         </div>
     );
 };
