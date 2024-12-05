@@ -4,7 +4,7 @@ Sigue estos pasos para configurar el proyecto en tu entorno local.
 
 ## Requisitos Previos 
 
-Para más detalles, consulta [Pre Condiciones](Guias/precondicion.md).
+Para más detalles, consulta [Pre Condiciones](precondicion.md).
 
 ## Clonar el Repositorio
 
@@ -12,7 +12,7 @@ Para más detalles, consulta [Pre Condiciones](Guias/precondicion.md).
 2. **Terminal:** Abre la terminal o consola de comandos.
 3. **Cambiar el Directorio:** Navega a la carpeta que creaste usando el comando: `cd RUTA_DE_ACCESO` (Reemplaza `RUTA_DE_ACCESO` con la ruta de la carpeta que creaste).
 4. **Inicializar Git:** Si no has inicializado Git en esa carpeta, puedes hacerlo con: `git init`
-5. **Clonar el Repositorio:** `https://github.com/FRRe-DS/2024-11-TPI.git`
+5. **Clonar el Repositorio:** `git clone https://github.com/FRRe-DS/2024-11-TPI.git`
 
 # Ejecutar el Proyecto
 
@@ -82,7 +82,9 @@ Para más detalles, consulta [Pre Condiciones](Guias/precondicion.md).
    yarn install
     ```
 
-## Configuración del Entorno(Esto esta ya hecho)
+## Configuración del Entorno
+
+Estas configuraciones deberían estar realizadas automáticamente, pero es importante verificarlas:
 
 1. **Configurar Tailwind CSS:**
 
