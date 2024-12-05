@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from 'react';
-import { useParams } from 'react-router-dom'; // Para obtener los parámetros de la URL
+import { useParams } from 'react-router-dom';
 import { getEsculturaporId } from '../../../../../services/SculptureService.ts';
-
 
 interface Escultura {
     imagenFinal: any;
@@ -12,24 +11,21 @@ interface Escultura {
     nombre: string;
     descripcion: string;
     autor: string;
-    puntuacion: number; // Agregar el campo puntuacion a la escultura
+    puntuacion: number;
 }
 
 const EsculturasDetalles: React.FC = () => {
-    // Obtener los parámetros de la URL
     const { esculturaId } = useParams<{ esculturaId: string }>();
 
     const [escultura, setEscultura] = useState<Escultura | null>(null);
     const [loading, setLoading] = useState<boolean>(true);
     const [error, setError] = useState<string>('');
-    const [selectedImage, setSelectedImage] = useState();
-
+    const [selectedImage, setSelectedImage] = useState<string | null>(null);
 
     useEffect(() => {
-        // Función para obtener la información de la escultura usando el esculturaId
         const fetchEscultura = async () => {
             try {
-                const data = await getEsculturaporId(esculturaId);  // Asumiendo que tienes una función para obtener la info de la escultura
+                const data = await getEsculturaporId(esculturaId);
                 setSelectedImage(data.escultura.imagenes[0]);
                 setEscultura(data.escultura);
             } catch (err) {
@@ -42,7 +38,7 @@ const EsculturasDetalles: React.FC = () => {
         if (esculturaId) {
             fetchEscultura();
         }
-    }, [esculturaId]); // Solo se vuelve a ejecutar si el esculturaId cambia
+    }, [esculturaId]);
 
     if (loading) {
         return (
@@ -61,58 +57,86 @@ const EsculturasDetalles: React.FC = () => {
     }
 
     return (
-        <div className="min-h-screen flex flex-col items-center bg-gradient-to-r from-blue-100 via-indigo-100 to-purple-100 text-white p-4">
+        <div className="min-h-screen flex flex-col items-center bg-gradient-to-r from-blue-100 via-indigo-100 to-purple-100 text-white p-6">
             {escultura ? (
-                <div className="w-full max-w-6xl bg-white text-gray-800 rounded-lg shadow-lg p-6">
-                    <h1 className="text-3xl font-bold text-center mb-4">{escultura.nombre}</h1>
-                    <p className="text-center text-gray-600 mb-6">{escultura.descripcion}</p>
-                    <p className="text-center text-gray-700">
-                        <strong>Autor:</strong> {escultura.escultor.usuario.nombre}
-                    </p>
-                    <div className="flex justify-center mt-6">
-                        <img
-                            src={escultura.plano}
-                            alt={`Escultura: ${escultura.nombre}`}
-                            className="max-w-full h-auto rounded-lg shadow-lg"
-                        />
+                <div className="w-full max-w-6xl bg-white text-gray-800 bg-gradient-to-r from-gray-100 via-indigo-100 to-rose-100 rounded-lg shadow-lg p-8">
+                    {/* Título principal */}
+                    <h1 className="text-4xl font-extrabold text-center mb-6 text-gray-900">{escultura.nombre}</h1>
+                    <p className="text-center text-gray-600 mb-8">{escultura.descripcion}</p>
+
+                    {/* Autor */}
+                    <div className="mb-10">
+                        <h2 className="text-2xl font-bold mb-4">Información del autor</h2>
+                        <p className="text-lg text-gray-700">
+                            <strong>Escultor:</strong> {escultura.escultor.usuario.nombre}
+                        </p>
                     </div>
 
-                    <div className="grid gap-4">
-                        {/* Imagen seleccionada arriba */}
-                        <div className="flex justify-center items-center">
+                    {/* Imagen seleccionada */}
+                    <div className="mb-10">
+                        <h2 className="text-2xl font-bold mb-4">Vista previa de la escultura</h2>
+                        <div className="flex justify-center">
                             <img
-                                className="h-auto max-w-full rounded-lg"
-                                src={selectedImage}
-                                alt="Selected"
+                                className="max-w-full h-auto rounded-lg shadow-lg"
+                                src={selectedImage || escultura.plano}
+                                alt={`Escultura: ${escultura.nombre}`}
                             />
                         </div>
+                    </div>
 
-                        {/* Lista de imágenes para seleccionar */}
-                        <div className="flex gap-4 overflow-x-scroll">
+                    {/* Galería de imágenes */}
+                    <div className="mb-10">
+                        <h2 className="text-2xl font-bold mb-4">Galería de imágenes</h2>
+                        <div className="flex gap-4 overflow-x-auto">
                             {escultura.imagenes.map((url, index) => (
-                                <div key={index} className="flex-shrink-0">
+                                <div
+                                    key={index}
+                                    className={`flex-shrink-0 border-2 rounded-lg cursor-pointer p-1 ${
+                                        selectedImage === url ? 'border-indigo-500' : 'border-gray-300'
+                                    }`}
+                                    onClick={() => setSelectedImage(url)}
+                                >
                                     <img
-                                        className="w-50 h-32 object-cover rounded-lg cursor-pointer"
+                                        className="w-40 h-24 object-cover rounded-lg"
                                         src={url}
-                                        alt={`Image ${index + 1}`}
-                                        onClick={() => setSelectedImage(url)} // Actualiza la imagen seleccionada
+                                        alt={`Vista ${index + 1}`}
                                     />
                                 </div>
                             ))}
                         </div>
                     </div>
 
-                    <div className="flex justify-center mt-6">
-                        <img
-                            src={escultura.imagenFinal}
-                            alt={`Escultura: ${escultura.nombre}`}
-                            className="max-w-full h-auto rounded-lg shadow-lg"
-                        />
+                    {/* Plano */}
+                    <div className="mb-10">
+                        <h2 className="text-2xl font-bold mb-4">Plano de la escultura</h2>
+                        <div className="flex justify-center">
+                            <img
+                                className="max-w-full h-auto rounded-lg shadow-lg"
+                                src={escultura.plano}
+                                alt={`Plano de la escultura: ${escultura.nombre}`}
+                            />
+                        </div>
                     </div>
-                    <p className="text-center text-gray-700 mb-4">
-                        <strong>Puntuación actual:</strong> {escultura.puntuacion}
-                    </p>
 
+                    {/* Imagen final */}
+                    <div className="mb-10">
+                        <h2 className="text-2xl font-bold mb-4">Imagen final de la escultura</h2>
+                        <div className="flex justify-center">
+                            <img
+                                className="max-w-full h-auto rounded-lg shadow-lg"
+                                src={escultura.imagenFinal}
+                                alt={`Imagen final: ${escultura.nombre}`}
+                            />
+                        </div>
+                    </div>
+
+                    {/* Puntuación */}
+                    <div className="text-center">
+                        <h2 className="text-2xl font-bold mb-2">Puntuación</h2>
+                        <p className="text-lg text-gray-700">
+                            <strong>Puntuación actual:</strong> {escultura.puntuacion} / 5
+                        </p>
+                    </div>
                 </div>
             ) : (
                 <p className="text-lg font-medium">No se encontró la escultura.</p>
@@ -122,4 +146,3 @@ const EsculturasDetalles: React.FC = () => {
 };
 
 export default EsculturasDetalles;
-

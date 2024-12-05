@@ -82,13 +82,16 @@ const VotingPage: React.FC = () => {
     return (
         <div className="min-h-screen flex flex-col items-center bg-gradient-to-r from-blue-100 via-indigo-100 to-purple-100 text-white p-4">
             {escultura ? (
-                <div className="w-full max-w-6xl bg-white text-gray-800 rounded-lg shadow-lg p-6">
+                <div className="w-full max-w-6xl text-gray-800 bg-gradient-to-r from-gray-100 via-indigo-100 to-rose-100 rounded-lg shadow-lg p-6">
                     <h1 className="text-3xl font-bold text-center mb-4">{escultura.nombre}</h1>
                     <p className="text-center text-gray-600 mb-6">{escultura.descripcion}</p>
                     <p className="text-center text-gray-700">
                         <strong>Autor:</strong> {escultura.escultor.usuario.nombre}
                     </p>
+
+                    {/* Vista previa de la escultura */}
                     <div className="flex justify-center mt-6">
+                        <h2 className="text-2xl font-bold mb-4">Vista previa de la escultura</h2>
                         <img
                             src={escultura.plano}
                             alt={`Escultura: ${escultura.nombre}`}
@@ -107,6 +110,7 @@ const VotingPage: React.FC = () => {
 
                         {/* Lista de imágenes para seleccionar */}
                         <div className="flex gap-4 overflow-x-scroll">
+                            <h2 className="text-2xl font-bold mb-4">Galería de imágenes</h2>
                             {escultura.imagenes.map((url, index) => (
                                 <div key={index} className="flex-shrink-0">
                                     <img
@@ -120,16 +124,19 @@ const VotingPage: React.FC = () => {
                         </div>
                     </div>
                     <div className="flex justify-center mt-6">
+                        <h2 className="text-2xl font-bold mb-4">Imagen final de la escultura</h2>
                         <img
                             src={escultura.imagenFinal}
                             alt={`Escultura: ${escultura.nombre}`}
                             className="max-w-full h-auto rounded-lg shadow-lg"
                         />
                     </div>
-                    <p className="text-center text-gray-700 mb-4">
-                        <strong>Puntuación actual:</strong> {escultura.puntuacion}
-                    </p>
-
+                    <div className="text-center">
+                        <h2 className="text-2xl font-bold mb-2">Puntuación</h2>
+                        <p className="text-center text-gray-700 mb-4">
+                            <strong>Puntuación actual:</strong> {escultura.puntuacion}
+                        </p>
+                    </div>
 
                     <div className="text-center">
                         <p className="text-lg font-medium mb-2">Vota por esta escultura:</p>
