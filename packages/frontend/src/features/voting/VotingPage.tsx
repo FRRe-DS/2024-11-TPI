@@ -7,6 +7,8 @@ import {ValidarQr} from "../../services/QrService.ts"; // Asumimos que tienes un
 
 interface Escultura {
     imagenFinal: any;
+    plano: any;
+    imagenes: Array<any>;
     escultor: any;
     id: string;
     nombre: string;
@@ -14,6 +16,7 @@ interface Escultura {
     autor: string;
     puntuacion: number; // Agregar el campo puntuacion a la escultura
 }
+
 
 const VotingPage: React.FC = () => {
     // Obtener los parámetros de la URL
@@ -23,6 +26,7 @@ const VotingPage: React.FC = () => {
     const [loading, setLoading] = useState<boolean>(true);
     const [error, setError] = useState<string>('');
     const [puntuacionSeleccionada, setPuntuacionSeleccionada] = useState<number | null>(null); // Estado para la puntuación seleccionada
+    const [selectedImage, setSelectedImage] = useState();
 
     useEffect(() => {
         // Función para obtener la información de la escultura usando el esculturaId
@@ -30,7 +34,7 @@ const VotingPage: React.FC = () => {
             try {
                 await ValidarQr(QrCode);
                 const data = await getEsculturaporId(esculturaId);  // Asumiendo que tienes una función para obtener la info de la escultura
-                console.log(data.escultura);
+                setSelectedImage(data.escultura.imagenes[0]);
                 setEscultura(data.escultura);
             } catch (err) {
                 setError('No se pudo obtener la información. El Qr está expirado.');
@@ -86,6 +90,37 @@ const VotingPage: React.FC = () => {
                     </p>
                     <div className="flex justify-center mt-6">
                         <img
+                            src={escultura.plano}
+                            alt={`Escultura: ${escultura.nombre}`}
+                            className="max-w-full h-auto rounded-lg shadow-lg"
+                        />
+                    </div>
+                    <div className="grid gap-4">
+                        {/* Imagen seleccionada arriba */}
+                        <div className="flex justify-center items-center">
+                            <img
+                                className="h-auto max-w-full rounded-lg"
+                                src={selectedImage}
+                                alt="Selected"
+                            />
+                        </div>
+
+                        {/* Lista de imágenes para seleccionar */}
+                        <div className="flex gap-4 overflow-x-scroll">
+                            {escultura.imagenes.map((url, index) => (
+                                <div key={index} className="flex-shrink-0">
+                                    <img
+                                        className="w-50 h-32 object-cover rounded-lg cursor-pointer"
+                                        src={url}
+                                        alt={`Image ${index + 1}`}
+                                        onClick={() => setSelectedImage(url)} // Actualiza la imagen seleccionada
+                                    />
+                                </div>
+                            ))}
+                        </div>
+                    </div>
+                    <div className="flex justify-center mt-6">
+                        <img
                             src={escultura.imagenFinal}
                             alt={`Escultura: ${escultura.nombre}`}
                             className="max-w-full h-auto rounded-lg shadow-lg"
@@ -95,12 +130,6 @@ const VotingPage: React.FC = () => {
                         <strong>Puntuación actual:</strong> {escultura.puntuacion}
                     </p>
 
-                    <div className="text-center mb-6">
-                        <p className="text-lg font-medium">Escanea este código QR para más detalles:</p>
-                        <div className="inline-block bg-gray-100 p-4 rounded-lg shadow-md mt-2">
-                            <p className="font-mono text-xs">{QrCode}</p>
-                        </div>
-                    </div>
 
                     <div className="text-center">
                         <p className="text-lg font-medium mb-2">Vota por esta escultura:</p>

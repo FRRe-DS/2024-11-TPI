@@ -4,6 +4,7 @@ import { fetchEscultores, deleteEscultor, setEscultorToUser } from "../../../../
 interface Escultor {
     userId: number;
     biografia: string | null;
+    'usuario.nombre': string;
     imagen: string;
     puntuacionTotal: number;
     instagram?: string;
@@ -22,7 +23,8 @@ const EscultorDelete: React.FC = () => {
         const fetchData = async () => {
             try {
                 const data = await fetchEscultores();
-                setEscultores(Array.isArray(data) ? data : []); // Ajusta según el formato de la respuesta
+                setEscultores(Array.isArray(data) ? data : []);
+                console.log(data)// Ajusta según el formato de la respuesta
             } catch (err) {
                 setError("Error al cargar la lista de escultores");
             } finally {
@@ -44,6 +46,7 @@ const EscultorDelete: React.FC = () => {
 
             // Eliminar el escultor de la lista localmente después de la eliminación
             setEscultores(escultores.filter((escultor) => escultor.userId !== userId));
+            alert('Escultor borrado con éxito')
         } catch (err) {
             setError("Error al eliminar el escultor");
         }
@@ -54,26 +57,26 @@ const EscultorDelete: React.FC = () => {
     if (error) return <p className="text-center text-red-500">{error}</p>;
 
     return (
-        <div className="w-full max-w-7xl mx-auto p-6 bg-white rounded-lg shadow-lg">
-            <h3 className="text-3xl font-bold text-center text-gray-800 mb-6">Lista de Escultores</h3>
+        <div className="w-full max-w-7xl mx-auto p-4 bg-white rounded-lg shadow-lg mt-4">
+            <h3 className="text-3xl font-bold text-center text-gray-800 mb-4">Lista de Escultores</h3>
 
             {escultores.length > 0 ? (
-                <div className="overflow-y-auto max-h-96"> {/* Agregado scroll y altura máxima */}
-                    <div className="space-y-4">
+                <div className="overflow-y-auto max-h-80"> {/* Ajustado altura máxima */ }
+                    <div className="space-y-3">
                         {escultores.map((escultor) => (
                             <div
                                 key={escultor.userId}
-                                className="flex justify-between items-center p-4 border-b border-gray-200"
+                                className="flex justify-between items-center p-3 border-b border-gray-200"
                             >
                                 <div className="flex items-center">
                                     <img
                                         src={escultor.imagen || "/default-image.jpg"}
                                         alt={escultor.biografia || "Escultor"}
-                                        className="w-16 h-16 object-cover rounded-full"
+                                        className="w-14 h-14 object-cover rounded-full"
                                     />
-                                    <div className="ml-4">
+                                    <div className="ml-3">
                                         <h4 className="text-lg font-semibold text-gray-800">
-                                            {escultor.biografia || "Biografía no disponible"}
+                                            {escultor['usuario.nombre'] || "Biografía no disponible"}
                                         </h4>
                                         <p className="text-gray-600">Puntuación: {escultor.puntuacionTotal}</p>
                                     </div>
@@ -81,7 +84,7 @@ const EscultorDelete: React.FC = () => {
 
                                 <button
                                     onClick={() => handleDelete(escultor.userId)}
-                                    className="bg-red-500 text-white py-2 px-4 rounded-lg hover:bg-red-600"
+                                    className="bg-red-500 text-white py-2 px-3 rounded-lg hover:bg-red-600 text-sm"
                                 >
                                     Borrar
                                 </button>

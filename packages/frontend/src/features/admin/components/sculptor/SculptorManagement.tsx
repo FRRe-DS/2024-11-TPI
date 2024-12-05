@@ -1,6 +1,6 @@
 import React from 'react';
 
-import SculptorListAdmin from "./components/SculptorListAdmin";
+import EscultorForm from "./components/EscultorForm.tsx";
 import EscultorDelete from "./components/EscultorDelete";
 import EscultorEdit from "./components/EscultorEdit.tsx";
 
@@ -10,7 +10,7 @@ const SculptorManagement: React.FC = () => {
     const renderContent = () => {
         switch (selectedAction) {
             case 'list':
-                return <SculptorListAdmin />;
+                return <EscultorForm />;
             case 'edit':
                 return <EscultorEdit />;
             case 'delete':
@@ -33,7 +33,7 @@ const SculptorManagement: React.FC = () => {
                     >
                         <span
                             className="w-full py-4 absolute inset-0 flex items-center justify-center text-2xl z-10 backdrop-blur-lg rounded-md">
-                            Ver Escultores
+                            Añadir escultores
                         </span>
                         {/* Blobs de fondo */}
                         <span

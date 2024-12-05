@@ -3,6 +3,7 @@ const { Evento, Escultura, Escultor, User } = require("../models");
 // Crear una escultura
 const crearEscultura = async (req, res, next) => {
     try {
+
         const { nombre, escultorId, eventoId } = req.body;
         const userId= escultorId;
         // Verificar si el escultor existe y pertenece al usuario
@@ -22,11 +23,6 @@ const crearEscultura = async (req, res, next) => {
         });
         if (!escultor) {
             return res.status(404).json({ message: "Escultor no encontrado." });
-        }
-
-        // Verificar si ya tiene una escultura asociada
-        if (escultor.escultura) {
-            return res.status(400).json({ message: "El escultor ya tiene una escultura asociada." });
         }
 
         // Crear la nueva escultura
@@ -228,15 +224,26 @@ const eliminarEscultura = async (req, res) => {
             return res.status(404).json({ message: "Escultura no encontrada" });
         }
 
+        // Buscar al escultor asociado a la escultura
+        const escultor = await Escultor.findByPk(escultura.userId);
+        if (escultor) {
+            // Si el escultor existe, eliminar su atributo escultura
+            // Suponiendo que el escultor tiene un atributo llamado 'escultura' que hace referencia a la escultura
+            escultor.escultura = null;
+            await escultor.save();
+        }
+
         // Eliminar la escultura de la base de datos
         await escultura.destroy();
+
         // Responder con éxito
         res.status(200).json({ message: "Escultura eliminada exitosamente" });
     } catch (error) {
         // En caso de error, enviar mensaje genérico
-        res.status(500).json({ message: "Error interno del servidor" });
+        res.status(500).json({ message: "Error interno del servidor", error: error.message });
     }
 };
+
 
 module.exports = {
     crearEscultura,
