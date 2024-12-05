@@ -31,7 +31,7 @@ El sistema sigue una arquitectura monolítica basada en cliente-servidor. El fro
 ### Base de Datos:
 - **PostgreSQL:** Sistema de gestión de bases de datos relacional utilizado para almacenar datos del evento y las esculturas.
 
-  ## 4. Flujo de Datos
+## 4. Flujo de Datos
 El flujo de datos es el siguiente:
 1. El usuario interactúa con el frontend.
 2. El frontend hace una solicitud HTTP al backend.
