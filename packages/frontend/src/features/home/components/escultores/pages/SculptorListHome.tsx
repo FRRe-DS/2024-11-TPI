@@ -5,6 +5,7 @@ import { Swiper, SwiperSlide } from 'swiper/react';
 import 'swiper/css';
 import 'swiper/css/pagination';
 import { Pagination, Navigation } from 'swiper/modules';
+import {Link} from "react-router-dom";
 
 const SculptorListHome: React.FC = () => {
     const [escultores, setEscultores] = useState<any[]>([]);
@@ -33,6 +34,8 @@ const SculptorListHome: React.FC = () => {
             }}
         >
             <div className="absolute inset-0 bg-black opacity-40"></div>
+
+
             <div className="relative z-10 flex flex-col items-center pt-24 px-4 w-full h-full overflow-y-auto">
                 <h2 className="text-3xl sm:text-4xl font-bold text-white text-center mb-24 drop-shadow-lg">
                     Escultores Destacados
@@ -41,7 +44,7 @@ const SculptorListHome: React.FC = () => {
                 {loading ? (
                     <p className="text-white text-lg">Cargando escultores...</p>
                 ) : escultores.length > 0 ? (
-                    <div className="flex justify-center items-center w-full p-6">
+                    <div className="flex justify-center items-center w-full">
                         <Swiper
                             slidesPerView={1}
                             spaceBetween={10}
@@ -72,7 +75,7 @@ const SculptorListHome: React.FC = () => {
                         >
                             {escultores.map((escultor, id) => (
                                 <SwiperSlide key={id}>
-                                    <div className="flex justify-center items-center p-6">
+                                    <div className="flex justify-center items-center">
                                         <SculptorCardHome
                                             nombre={escultor["usuario.nombre"]}
                                             biografia={escultor.biografia}
@@ -91,7 +94,17 @@ const SculptorListHome: React.FC = () => {
                 ) : (
                     <p className="text-white text-lg">No hay escultores disponibles.</p>
                 )}
+
             </div>
+            <div className=""> {/* Added margin-top to create space */}
+                <Link
+                    to="/Escultores"
+                    className="bg-gradient-to-r from-purple-500 via-pink-500 to-red-500 hover:from-pink-500 hover:to-yellow-500 text-white font-bold py-4 px-8 rounded-full shadow-lg transform transition-transform duration-300 hover:scale-110"
+                >
+                    Ver todos los escultores
+                </Link>
+            </div>
+
         </div>
     );
 };

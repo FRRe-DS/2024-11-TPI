@@ -16,10 +16,6 @@ const SculptorCardHome: React.FC<SculptorCardHomeProps> = ({
     biografia = '',
     puntuacionTotal,
     imagen,
-    instagram,
-    facebook,
-    youtube,
-    linkedin,
 }) => {
     const [showFullBio, setShowFullBio] = useState(false);
 
@@ -56,68 +52,6 @@ const SculptorCardHome: React.FC<SculptorCardHomeProps> = ({
                         )}
                     </p>
                 )}
-                <div className="flex justify-center space-x-6 mt-5">
-                    {instagram && (
-                        <a
-                            href={instagram}
-                            target="_blank"
-                            rel="noopener noreferrer"
-                            className="w-8 h-8 flex items-center justify-center bg-gray-200 hover:bg-gray-300 rounded-full transition"
-                            aria-label="Instagram"
-                        >
-                            <img
-                                src="/path/to/instagram.svg"
-                                alt="Instagram"
-                                className="w-5 h-5"
-                            />
-                        </a>
-                    )}
-                    {facebook && (
-                        <a
-                            href={facebook}
-                            target="_blank"
-                            rel="noopener noreferrer"
-                            className="w-8 h-8 flex items-center justify-center bg-gray-200 hover:bg-gray-300 rounded-full transition"
-                            aria-label="Facebook"
-                        >
-                            <img
-                                src="/path/to/facebook.svg"
-                                alt="Facebook"
-                                className="w-5 h-5"
-                            />
-                        </a>
-                    )}
-                    {youtube && (
-                        <a
-                            href={youtube}
-                            target="_blank"
-                            rel="noopener noreferrer"
-                            className="w-8 h-8 flex items-center justify-center bg-gray-200 hover:bg-gray-300 rounded-full transition"
-                            aria-label="YouTube"
-                        >
-                            <img
-                                src="/path/to/youtube.svg"
-                                alt="YouTube"
-                                className="w-5 h-5"
-                            />
-                        </a>
-                    )}
-                    {linkedin && (
-                        <a
-                            href={linkedin}
-                            target="_blank"
-                            rel="noopener noreferrer"
-                            className="w-8 h-8 flex items-center justify-center bg-gray-200 hover:bg-gray-300 rounded-full transition"
-                            aria-label="LinkedIn"
-                        >
-                            <img
-                                src="/path/to/linkedin.svg"
-                                alt="LinkedIn"
-                                className="w-5 h-5"
-                            />
-                        </a>
-                    )}
-                </div>
             </div>
         </div>
     );
