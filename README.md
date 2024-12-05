@@ -5,7 +5,7 @@ Bienvenido al proyecto Bienal del Chaco 2024. Aquí encontrarás toda la informa
 ## Contenido
 
 - [Introducción](./docs/Guias/introduction.md)
-- [Pre Condición](./docs/Guias/precondition.md)
+- [Pre Condición](./docs/Guias/precondicion.md)
 - [Instalación](./docs/Guias/installation.md)
 - [Arquitectura del Proyecto](./docs/arquitectura/arquitectura.md)
 - [Documentación de API](./docs/Guias/doc_api.md)
