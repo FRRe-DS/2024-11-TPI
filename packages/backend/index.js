@@ -59,7 +59,7 @@ app.use((err, req, res, next) => {
 
 // Inicializar el servidor
 // Aquí es donde se define el puerto. Si el backend está en Render, no necesitas definirlo manualmente.
-const PORT = process.env.PORT || 3000; // Si no está en producción, el puerto será 3000 en local
+const PORT = process.env.PORT; // Si no está en producción, el puerto será 3000 en local
 app.listen(PORT, () => {
     // Solo mostramos mensaje al iniciar el servidor
 });

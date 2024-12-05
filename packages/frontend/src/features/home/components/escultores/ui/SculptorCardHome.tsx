@@ -12,46 +12,88 @@ interface SculptorCardHomeProps {
 }
 
 const SculptorCardHome: React.FC<SculptorCardHomeProps> = ({
-    nombre,
-    biografia = '',
-    puntuacionTotal,
-    imagen,
-}) => {
+                                                               nombre,
+                                                               biografia = '',
+                                                               puntuacionTotal,
+                                                               imagen,
+                                                               instagram,
+                                                               facebook,
+                                                               youtube,
+                                                               linkedin,
+                                                           }) => {
     const [showFullBio, setShowFullBio] = useState(false);
 
     return (
-        <div className="w-96 h-112 bg-white rounded-2xl shadow-lg overflow-hidden transform transition-transform hover:scale-105 mb-6 mx-auto sm:mx-4">
-            <div className="relative h-56">
+        <div className="flex items-center p-4 bg-white shadow-lg rounded-xl w-full max-w-lg mx-auto hover:shadow-xl transition-shadow duration-300">
+            {/* Imagen del escultor */}
+            <div className="w-24 h-24 flex-shrink-0 rounded-full overflow-hidden border-2 border-gray-300">
                 <img
                     src={imagen}
-                    alt={nombre}
-                    className="w-full h-full object-cover object-center"
+                    alt={`Imagen de ${nombre}`}
+                    className="w-full h-full object-cover"
                     loading="lazy"
                 />
-                <div className="absolute inset-0 bg-gradient-to-t from-black via-transparent to-transparent opacity-80"></div>
-                <h2 className="absolute bottom-4 left-4 text-white text-xl font-semibold">
-                    {nombre}
-                </h2>
             </div>
-            <div className="p-5 h-56 overflow-hidden">
-                <div className="flex items-center justify-between mb-4">
-                    <p className="text-gray-600 font-medium">
-                        Puntuación: <span className="font-bold text-lg">{puntuacionTotal}</span>
-                    </p>
+            {/* Información del escultor */}
+            <div className="ml-4 flex flex-col justify-between">
+                <h2 className="text-xl font-semibold text-gray-800">{nombre}</h2>
+                <p className="text-sm text-gray-600">
+                    {showFullBio ? biografia : `${biografia?.substring(0, 60)}...`}
+                    {biografia && biografia.length > 60 && (
+                        <button
+                            onClick={() => setShowFullBio(!showFullBio)}
+                            className="ml-1 text-blue-500 hover:underline"
+                        >
+                            {showFullBio ? 'Ver menos' : 'Ver más'}
+                        </button>
+                    )}
+                </p>
+                <p className="mt-2 text-sm text-gray-500">
+                    <span className="font-medium">Puntuación:</span> {puntuacionTotal}
+                </p>
+                {/* Redes sociales */}
+                <div className="flex mt-3 space-x-2">
+                    {instagram && (
+                        <a
+                            href={instagram}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="text-pink-500 hover:text-pink-600"
+                        >
+                            <i className="fab fa-instagram text-xl"></i>
+                        </a>
+                    )}
+                    {facebook && (
+                        <a
+                            href={facebook}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="text-blue-500 hover:text-blue-600"
+                        >
+                            <i className="fab fa-facebook text-xl"></i>
+                        </a>
+                    )}
+                    {youtube && (
+                        <a
+                            href={youtube}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="text-red-500 hover:text-red-600"
+                        >
+                            <i className="fab fa-youtube text-xl"></i>
+                        </a>
+                    )}
+                    {linkedin && (
+                        <a
+                            href={linkedin}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="text-blue-700 hover:text-blue-800"
+                        >
+                            <i className="fab fa-linkedin text-xl"></i>
+                        </a>
+                    )}
                 </div>
-                {biografia && (
-                    <p className="text-sm text-gray-500">
-                        {showFullBio ? biografia : `${biografia.substring(0, 100)}...`}
-                        {biografia.length > 100 && (
-                            <button
-                                onClick={() => setShowFullBio(!showFullBio)}
-                                className="text-blue-500 ml-2 focus:outline-none"
-                            >
-                                {showFullBio ? 'Ver menos' : 'Ver más'}
-                            </button>
-                        )}
-                    </p>
-                )}
             </div>
         </div>
     );
