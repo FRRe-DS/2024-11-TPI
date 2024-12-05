@@ -36,10 +36,10 @@ const EventList: React.FC = () => {
                         slidesPerView={1}
 
                         thumbs={{ swiper: thumbsSwiper }}
-                        className="relative w-full pt-36 flex-grow rounded-3xl overflow-hidden"
+                        className="relative w-full pt-2 flex-grow rounded-3xl overflow-hidden"
                     >
                         {eventos.map((evento) => (
-                            <SwiperSlide key={evento.id} className="flex justify-center items-center">
+                            <SwiperSlide key={evento.id} className="justify-center items-center">
                                 <EventCard
                                     nombre={evento.nombre}
                                     descripcion={evento.descripcion}
@@ -66,7 +66,7 @@ const EventList: React.FC = () => {
                         freeMode={true}
                         watchSlidesProgress={true}
 
-                       className="flex justify-center  w-full max-w-7xl mt-8"
+                       className="flex justify-center w-full max-w-7xl mt-8"
                     >
                         {eventos.map((evento) => (
                             <SwiperSlide key={evento.id}>
