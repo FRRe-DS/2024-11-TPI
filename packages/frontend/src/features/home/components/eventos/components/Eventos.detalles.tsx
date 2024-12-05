@@ -107,9 +107,10 @@ const EventosDetalles: React.FC = () => {
 
 
                 {/* Lista de esculturas relacionadas */}
-                <div className="relative w-full h-full overflow-hidden p-10">
+                <div className="relative w-full h-full overflow-hidden p-10 rounded-xl">
                     <SculptureList eventoId={evento.id}/>
                 </div>
+
             </div>
 
         </div>
