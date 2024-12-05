@@ -73,7 +73,7 @@ const EscultorEdit: React.FC = () => {
 
     return (
         <div
-            className="w-[calc(100%+20px)] mx-[-10px] p-6 bg-gradient-to-r from-blue-100 via-indigo-100 to-purple-100 rounded-lg shadow-2xl overflow-y-auto max-h-[620px]">
+            className="w-full p-4 bg-gradient-to-r from-blue-100 via-indigo-100 to-purple-100 rounded-lg shadow-lg overflow-y-auto max-h-[400px]">
             <h3 className="text-4xl font-semibold text-center text-gray-800 mb-8">Editar Escultor</h3>
 
             {/* Si no se ha seleccionado un escultor, mostrar la lista */}
@@ -84,11 +84,19 @@ const EscultorEdit: React.FC = () => {
                         <ul className="space-y-4">
                             {escultores.map((escultor) => (
                                 <li key={escultor.userId} className="py-2">
-                                    <button
-                                        onClick={() => handleSelectEscultor(escultor.userId)}
-                                        className="w-full text-left text-lg text-blue-500 hover:text-blue-700 font-medium transition-all duration-300">
-                                        {escultor['usuario.nombre']}
-                                    </button>
+                                    <div className="flex items-center">
+                                        <img
+                                            src={escultor.imagen }
+                                            alt={escultor.biografia }
+                                            className="w-14 h-14 object-cover rounded-full"
+                                        />
+                                        <button
+                                            onClick={() => handleSelectEscultor(escultor.userId)}
+                                            className="text-left text-lg text-blue-500 hover:text-blue-700 font-medium transition-all duration-300 ml-4">
+                                            {escultor['usuario.nombre']}
+                                        </button>
+                                    </div>
+
                                 </li>
                             ))}
                         </ul>

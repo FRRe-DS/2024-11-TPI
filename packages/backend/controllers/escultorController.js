@@ -14,23 +14,24 @@ const crearEscultor = async (req, res) => {
 
         // Crear un escultor asociado al usuario
         const escultor = await Escultor.create({
-            userId: user.id, // Asociamos el userId al escultor
-            biografia,
+            userId: user.id, // Este campo es obligatorio
+            biografia: biografia || null, // Opcional, se establece en null si no se proporciona
             imagen: imagen || "https://example.com/imagen-defecto.png", // Imagen por defecto si no se proporciona
-            puntuacionTotal: 0, // Puntuación inicial
-            instagram,
-            facebook,
-            youtube,
-            linkedin,
+            puntuacionTotal: 0, // Puntuación inicial fija
+            instagram: instagram || null, // Opcional
+            facebook: facebook || null, // Opcional
+            youtube: youtube || null, // Opcional
+            linkedin: linkedin || null, // Opcional
         });
 
         // Responder con éxito
         res.status(201).json({ message: "Escultor creado exitosamente", escultor });
     } catch (error) {
         // Manejo de errores mínimo
-        res.status(500).json({ message: "Error interno del servidor" });
+        res.status(500).json({ message: "Error interno del servidor", error: error.message });
     }
 };
+
 
 // Función para obtener todos los escultores
 const obtenerEscultores = async (req, res) => {

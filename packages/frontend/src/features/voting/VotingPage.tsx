@@ -130,12 +130,6 @@ const VotingPage: React.FC = () => {
                         <strong>Puntuación actual:</strong> {escultura.puntuacion}
                     </p>
 
-                    <div className="text-center mb-6">
-                        <p className="text-lg font-medium">Escanea este código QR para más detalles:</p>
-                        <div className="inline-block bg-gray-100 p-4 rounded-lg shadow-md mt-2">
-                            <p className="font-mono text-xs">{QrCode}</p>
-                        </div>
-                    </div>
 
                     <div className="text-center">
                         <p className="text-lg font-medium mb-2">Vota por esta escultura:</p>
