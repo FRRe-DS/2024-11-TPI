@@ -1,6 +1,6 @@
 import autoprefixer from 'autoprefixer';
 import tailwindcss from 'tailwindcss';
-
+/** @type {import('tailwindcss').Config} */
 export default {
   // Activar el modo oscuro utilizando clases (útil para usarlo con un botón que cambie el tema)
   darkMode: 'class', // o 'media' si prefieres basarte en la preferencia del sistema

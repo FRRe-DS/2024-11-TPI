@@ -3,6 +3,9 @@ import react from '@vitejs/plugin-react';
 
 export default defineConfig({
     plugins: [react()],
+    css: {
+        postcss: './postcss.config.js', // Esto conecta PostCSS (incluyendo Tailwind CSS)
+    },
     server: {
         host: '0.0.0.0',
         port: 5173,
