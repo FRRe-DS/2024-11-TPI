@@ -55,11 +55,6 @@ const Hero: React.FC = () => {
                     transition={{ duration: 2, repeat: Infinity, ease: 'ease-in-out' }}
                 >
                     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 200" width="80" height="80">
-                        <rect x="30" y="150" width="140" height="10" fill="#8b4513" />
-                        <circle cx="100" cy="80" r="10" fill="peachpuff" />
-                        <line x1="100" y1="90" x2="100" y2="120" stroke="black" strokeWidth="2" />
-                        <line x1="100" y1="95" x2="85" y2="110" stroke="black" strokeWidth="2" />
-                        <line x1="100" y1="95" x2="115" y2="110" stroke="black" strokeWidth="2" />
                         <line x1="100" y1="120" x2="85" y2="135" stroke="black" strokeWidth="2" />
                         <line x1="100" y1="120" x2="115" y2="135" stroke="black" strokeWidth="2" />
                     </svg>
@@ -67,6 +62,7 @@ const Hero: React.FC = () => {
                     <p className="text-xl bg-gradient-to-r from-gray-800 via-blue-400 to-red-700 bg-clip-text text-transparent tracking-wider font-semibold">
                         Desplázame
                     </p>
+
                 </motion.div>
             </div>
         </section>

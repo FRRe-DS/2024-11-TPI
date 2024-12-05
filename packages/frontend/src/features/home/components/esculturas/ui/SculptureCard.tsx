@@ -25,9 +25,9 @@ const SculptureCard: React.FC<SculptureCardProps> = ({ nombre, descripcion, fech
             )}
 
             {/* Contenido */}
-            <div className="p-6 space-y-4">
+            <div className="p-6 space-y-4 bg-gradient-to-tr from-blue-100 via-indigo-100 to-red-100">
                 {/* Título */}
-                <h2 className="text-xl font-semibold text-gray-800 truncate">{nombre}</h2>
+                <h2 className="text-xl font-semibold text-gray-800 truncate ">{nombre}</h2>
 
                 {/* Información adicional */}
                 <div className="text-sm text-gray-600 space-y-1">
