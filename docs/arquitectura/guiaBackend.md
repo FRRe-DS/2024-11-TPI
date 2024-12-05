@@ -24,5 +24,11 @@
 ### **7. `utils/`**
 - Funciones genéricas que pueden ser utilizadas en varias partes del proyecto (por ejemplo, generar JWT o QR).
 
-### **8. `index.js`**
+### **8. `scripts/`**
+- Contiene scripts personalizados que pueden automatizar procesos repetitivos.
+  
+### **9. `tasks/`**
+- Incluye tareas programadas o procesos recurrentes que se ejecutan en segundo plano.
+ 
+### **10. `index.js`**
 - Punto de entrada donde se configura el servidor, se cargan las rutas y se inicia la aplicación.
