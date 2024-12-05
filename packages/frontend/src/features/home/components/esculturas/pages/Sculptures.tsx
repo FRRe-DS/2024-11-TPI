@@ -1,17 +1,43 @@
-import React from 'react';
+import React, { useState, useEffect } from "react";
+import 'swiper/css';
+import 'swiper/css/pagination';
+import 'swiper/css/navigation';
+import SculptureList from "../components/SculptureList.tsx";
 
-import SculptureList from "../components/SculptureList.tsx"; // Asegúrate de crear este componente
+interface IndexProps {}
 
-const Sculptures: React.FC = () => {
-    return (
-        <div className="absolute inset-0 overflow-hidden flex flex-col min-h-screen">
-            {/* Contenedor con barra de desplazamiento horizontal */}
-            <div
-                className="flex-1 overflow-x-auto"> {/* Aquí se aplica overflow-x-auto para el desplazamiento horizontal */}
-                <SculptureList/>
-            </div>
-        </div>
+function SculptureListMobile() {
+    return null;
+}
+
+const Index: React.FC<IndexProps> = () => {
+    // Estado para verificar si estamos en mobile
+    const [isMobile, setIsMobile] = useState<boolean>(false);
+
+    // Actualiza el estado de isMobile en función del tamaño de la ventana
+    useEffect(() => {
+        const handleResize = () => {
+            setIsMobile(window.innerWidth <= 768); // Cambiar a 768px para tamaños md
+        };
+
+        // Inicializar el estado correctamente en el primer renderizado
+        handleResize();
+
+        // Agregar un event listener para el redimensionamiento de la ventana
+        window.addEventListener("resize", handleResize);
+
+        // Limpiar el event listener cuando el componente se desmonte
+        return () => {
+            window.removeEventListener("resize", handleResize);
+        };
+    }, []); // El hook solo se ejecuta una vez al montar el componente
+
+    // Renderiza el componente adecuado dependiendo del tamaño de la ventana
+    return isMobile ? (
+        <SculptureListMobile />
+    ) : (
+        <SculptureList />
     );
 };
 
-export default Sculptures;
+export default Index;
