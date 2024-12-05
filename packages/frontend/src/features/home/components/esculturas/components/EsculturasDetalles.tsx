@@ -18,7 +18,6 @@ interface Escultura {
 const EsculturasDetalles: React.FC = () => {
     // Obtener los parámetros de la URL
     const { esculturaId } = useParams<{ esculturaId: string }>();
-    console.log(esculturaId)
 
     const [escultura, setEscultura] = useState<Escultura | null>(null);
     const [loading, setLoading] = useState<boolean>(true);
@@ -30,9 +29,7 @@ const EsculturasDetalles: React.FC = () => {
         // Función para obtener la información de la escultura usando el esculturaId
         const fetchEscultura = async () => {
             try {
-                console.log('Hace esto')
                 const data = await getEsculturaporId(esculturaId);  // Asumiendo que tienes una función para obtener la info de la escultura
-                console.log(data.escultura)
                 setSelectedImage(data.escultura.imagenes[0]);
                 setEscultura(data.escultura);
             } catch (err) {
