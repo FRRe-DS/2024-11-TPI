@@ -5,13 +5,13 @@ import "swiper/css/pagination";
 
 import Hero from "./components/Hero/Hero.tsx";
 import EventosHome from "./components/eventos/pages/eventos.home.tsx";
-import SculptureListHome from "./components/esculturas/pages/SculptureListHome.tsx";
 import Maps from "./components/Maps/pages/Maps.tsx";
 import { Pagination } from "swiper/modules";
 import Navigation from "../../layout/Navbar/Navigation.tsx";
 import { INavbarLink } from "../../layout/Navbar/components/interfaces/INavigationLink.ts";
 import SculptorListHome from "./components/escultores/pages/SculptorListHome.tsx";
 import Ranking from "./components/ranking/Ranking.tsx";
+import EsculturasIndex from "./components/esculturas/pages/Esculturas.index.tsx";
 
 // Definimos los enlaces de la barra de navegación
 const navbarLinks: INavbarLink[] = [
@@ -86,7 +86,7 @@ const Home: React.FC = () => {
 
                 {/* Sculpture List Slide */}
                 <SwiperSlide className="w-full h-full bg-gradient-to-b from-blue-300 to-blue-500 flex items-center justify-center">
-                    <SculptureListHome />
+                    <EsculturasIndex/>
                 </SwiperSlide>
 
                 {/* Sculptor List Slide */}
