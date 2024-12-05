@@ -1,12 +1,17 @@
-import autoprefixer from 'autoprefixer';
 import tailwindcss from 'tailwindcss';
+import autoprefixer from 'autoprefixer';
+import daisyui from 'daisyui';
+import forms from '@tailwindcss/forms';
+import typography from '@tailwindcss/typography';
+import aspectRatio from '@tailwindcss/aspect-ratio';
+import scrollbarHide from 'tailwind-scrollbar-hide';
+
 /** @type {import('tailwindcss').Config} */
 export default {
-  // Activar el modo oscuro utilizando clases (útil para usarlo con un botón que cambie el tema)
   darkMode: 'class', // o 'media' si prefieres basarte en la preferencia del sistema
   content: [
     "./src/**/*.{js,ts,jsx,tsx}",
-    "./public/index.html",  // Esto incluirá todos los archivos dentro de src que terminen en js, ts, jsx, o tsx
+    "./public/index.html",
   ],
   theme: {
     extend: {
@@ -128,19 +133,18 @@ export default {
           "50%": { transform: "translate(30px, -20px) scale(1.1)" },
         },
         gradient: {
-          '0%': { color: '#e64a19' }, // Naranja oscuro
-          '20%': { color: '#f57c00' }, // Naranja fuerte
-          '40%': { color: '#fbc02d' }, // Amarillo intenso
-          '60%': { color: '#388e3c' }, // Verde fuerte
-          '80%': { color: '#1976d2' }, // Azul intenso
-          '100%': { color: '#7b1fa2' }, // Morado intenso
+          '0%': { color: '#e64a19' },
+          '20%': { color: '#f57c00' },
+          '40%': { color: '#fbc02d' },
+          '60%': { color: '#388e3c' },
+          '80%': { color: '#1976d2' },
+          '100%': { color: '#7b1fa2' },
         },
       },
     },
-    // Configurar daisyUI para que funcione con temas y personalización
     daisyui: {
       themes: [
-          {
+        {
           light: {
             primary: "#006FEE",
             secondary: "#7828C8",
@@ -167,12 +171,13 @@ export default {
       ],
     },
     plugins: [
-      autoprefixer(),
       tailwindcss(),
-      require("daisyui"),
-      require("@tailwindcss/forms"),
-      require("@tailwindcss/typography"),
-      require("@tailwindcss/aspect-ratio"),
-      require("tailwind-scrollbar-hide"),
+      autoprefixer(),
+      daisyui,
+      forms,
+      typography,
+      aspectRatio,
+      scrollbarHide,
     ],
-  },}
+  },
+};
