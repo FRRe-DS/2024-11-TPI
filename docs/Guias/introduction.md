@@ -31,7 +31,7 @@ El backend utiliza tecnologías eficientes para procesar solicitudes, gestionar 
 - **Control de Versiones:** Implementado con **Git** para un seguimiento eficiente del desarrollo.
 
 ### **API**
-El backend expone una API RESTful para interactuar con el sistema, cuya documentación está disponible en [Documentación de API](doc_api).
+El backend expone una API RESTful para interactuar con el sistema, cuya documentación está disponible en [Documentación de API](doc_api.md).
 
 Para más detalles, consulta [Tecnologías](../arquitectura/Tecnologias.md) .
 Para más detalles sobre el TPI, consulta [Trabajo Práctico Final - Año 2024](tpi.md) .
