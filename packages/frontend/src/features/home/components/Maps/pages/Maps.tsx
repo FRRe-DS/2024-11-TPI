@@ -16,7 +16,7 @@ const Maps: React.FC = () => {
                 loading="lazy"  // Carga perezosa para mejorar el rendimiento
             ></iframe>
             <footer
-                className="fixed bottom-0 left-0 w-full bg-cover bg-center text-white"
+                className="fixed bottom-0 left-0 md:w-full bg-cover bg-center text-white"
                 style={{
                     backgroundImage: `url('https://plus.unsplash.com/premium_photo-1719864933065-6639a2d32e56?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D')`,
                 }}
