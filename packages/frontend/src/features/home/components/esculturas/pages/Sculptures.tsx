@@ -3,12 +3,10 @@ import 'swiper/css';
 import 'swiper/css/pagination';
 import 'swiper/css/navigation';
 import SculptureList from "../components/SculptureList.tsx";
+import SculptureListMobile from "../components/EsculturaListMobile.tsx";
+ // Importado correctamente
 
 interface IndexProps {}
-
-function SculptureListMobile() {
-    return null;
-}
 
 const Index: React.FC<IndexProps> = () => {
     // Estado para verificar si estamos en mobile

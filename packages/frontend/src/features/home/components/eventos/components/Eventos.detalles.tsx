@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useParams} from 'react-router-dom';
 import { getEventoById } from '../../../../../services/EventService.ts';
-import SculptureListMobile from "../../esculturas/components/EsculturaListMobile.tsx";
+import EsculturasMovileEventos from "./EsculturasMovileEventos.tsx";
 
 
 interface Evento {
@@ -109,7 +109,7 @@ const EventosDetalles: React.FC = () => {
 
                 {/* Lista de esculturas relacionadas */}
                 <div className="relative w-full h-full overflow-hidden p-10 rounded-xl place-items-center">
-                    <SculptureListMobile eventoId={evento.id}/>
+                    <EsculturasMovileEventos eventoId={evento.id}/>
                 </div>
 
             </div>

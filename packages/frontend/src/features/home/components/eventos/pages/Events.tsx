@@ -1,7 +1,6 @@
 import React from 'react';
 
 import EventList from "../components/EventList.tsx";
-import {Link} from "react-router-dom";
 
 const Events: React.FC = () => {
     return (
