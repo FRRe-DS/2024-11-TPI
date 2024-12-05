@@ -40,7 +40,7 @@ const SculptureListHomeMobile: React.FC<SculptureListHomeProps> = ({ eventoId })
                 backgroundPosition: "center",
             }}
         >
-            <div className="absolute inset-0 bg-black opacity-40"></div>
+            <div className="absolute inset-0 bg-black flex flex-col items-center opacity-40"></div>
             <div className="relative z-10 flex flex-col items-center pt-10 px-4 w-full h-full overflow-hidden">
                 <div className="flex items-center space-x-4 mb-8">
                     <h2 className="text-3xl sm:text-4xl font-bold text-white text-center drop-shadow-lg">
@@ -60,7 +60,7 @@ const SculptureListHomeMobile: React.FC<SculptureListHomeProps> = ({ eventoId })
                     pagination={{ clickable: true }}
                     loop
                     autoHeight={true}  // Ensure this property is enabled
-                    className="relative w-full flex-grow rounded-3xl overflow-hidden"
+                    className="relative w-full flex flex-col items-center flex-grow rounded-3xl overflow-hidden"
                 >
                     {esculturas.map((escultura, index) => (
                         <SwiperSlide key={index}>
