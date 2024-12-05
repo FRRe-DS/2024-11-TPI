@@ -61,7 +61,7 @@ const EventosDetalles: React.FC = () => {
 
                 {/* Detalles del evento */}
                 <div
-                    className="max-w-6xl mx-auto bg-gradient-to-br from-purple-600 via-indigo-500 to-blue-500 shadow-xl rounded-xl overflow-hidden transform hover:scale-105 transition-transform duration-300 ease-in-out text-white"
+                    className="max-w-6xl mx-auto place-items-center bg-gradient-to-br from-purple-600 via-indigo-500 to-blue-500 shadow-xl rounded-xl overflow-hidden transform hover:scale-105 transition-transform duration-300 ease-in-out text-white "
                 >
                     {/* Imagen del evento */}
                     <div className="relative">
@@ -71,13 +71,13 @@ const EventosDetalles: React.FC = () => {
                             className="w-full h-96 object-cover"
                         />
                         <div
-                            className="absolute inset-0 bg-black bg-opacity-50 flex items-center justify-center text-4xl font-bold text-white">
+                            className="absolute inset-0 bg-black bg-opacity-50 flex text-center items-center text-4xl font-bold text-white">
                             {evento.nombre}
                         </div>
                     </div>
 
                     {/* Información */}
-                    <div className="p-10">
+                    <div className="p-10 flex flex-col place-items-center">
                         <h1 className="text-5xl font-extrabold text-white drop-shadow-md text-center">
                             {evento.nombre}
                         </h1>
@@ -107,10 +107,10 @@ const EventosDetalles: React.FC = () => {
 
 
                 {/* Lista de esculturas relacionadas */}
-                <div className="relative w-full h-full overflow-hidden p-10 rounded-xl">
+                <div className="relative w-full h-full overflow-hidden p-10 rounded-xl place-items-center">
                     <SculptureList eventoId={evento.id}/>
                 </div>
-                <div className="absolute bottom-10 left-1/2 transform -translate-x-1/2 z-20 w-full flex justify-center">
+                <div className="relative p-1 left-1/2 transform -translate-x-1/2 z-20 w-full flex justify-center">
                     <Link
                         to="/"
                         className="flex items-center justify-center aspect-[6/1] cursor-pointer rounded-md border-2 border-gray-800 bg-gradient-to-r from-purple-500 via-pink-500 to-red-500 text-white p-4 text-md font-bold shadow-2xl transition-transform duration-300 ease-in-out hover:scale-110 hover:bg-gradient-to-br hover:from-yellow-500 hover:to-red-500"
