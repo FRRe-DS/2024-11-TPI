@@ -78,6 +78,18 @@ const VotingPage: React.FC = () => {
                         <strong>Autor:</strong> {escultura.escultor.usuario.nombre}
                     </p>
 
+                    {/* Plano de la escultura */}
+                    <div className="mb-6">
+                        <h2 className="text-2xl font-bold text-center mb-4">Plano de la Escultura</h2>
+                        <div className="flex justify-center">
+                            <img
+                                src={escultura.plano}
+                                alt={`Plano de ${escultura.nombre}`}
+                                className="w-full max-w-lg rounded-lg shadow-lg"
+                            />
+                        </div>
+                    </div>
+
                     <div className="mt-6">
                         <h2 className="text-2xl font-bold mb-4 text-center">Vista previa</h2>
                         {selectedImage && (
