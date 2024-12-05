@@ -24,7 +24,7 @@ export default defineConfig({
         },
     },
     build: {
-        outDir: 'dist', // Directorio de salida para producción
+        outDir: 'build', // Cambiado de 'build' a 'build'
         sourcemap: true,
     },
 });
