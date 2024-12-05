@@ -7,6 +7,8 @@ import {ValidarQr} from "../../services/QrService.ts"; // Asumimos que tienes un
 
 interface Escultura {
     imagenFinal: any;
+    plano: any;
+    imagenes: Array<any>;
     escultor: any;
     id: string;
     nombre: string;
@@ -14,6 +16,7 @@ interface Escultura {
     autor: string;
     puntuacion: number; // Agregar el campo puntuacion a la escultura
 }
+
 
 const VotingPage: React.FC = () => {
     // Obtener los parámetros de la URL

@@ -23,9 +23,7 @@ const EsculturasDetalles: React.FC = () => {
     const [escultura, setEscultura] = useState<Escultura | null>(null);
     const [loading, setLoading] = useState<boolean>(true);
     const [error, setError] = useState<string>('');
-    const [selectedImage, setSelectedImage] = useState(
-        "https://flowbite.s3.amazonaws.com/docs/gallery/featured/image.jpg"
-    );
+    const [selectedImage, setSelectedImage] = useState();
 
 
     useEffect(() => {
@@ -35,6 +33,7 @@ const EsculturasDetalles: React.FC = () => {
                 console.log('Hace esto')
                 const data = await getEsculturaporId(esculturaId);  // Asumiendo que tienes una función para obtener la info de la escultura
                 console.log(data.escultura)
+                setSelectedImage(data.escultura.imagenes[0]);
                 setEscultura(data.escultura);
             } catch (err) {
                 setError('No se pudo obtener la información de la escultura.');
